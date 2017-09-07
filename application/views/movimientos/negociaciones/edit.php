@@ -203,7 +203,7 @@
 					                        <div class="form-search pull-right" data-tabla="gvProductos" style="padding: 10px;display:none;" >
 					                            <input type="text" class="search-query form-control" placeholder="Buscar" />
 					                        </div>
-					                        <table class="table table-bordered table-condensed table-hover table-striped" id="gvProductos" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="true">
+					                        <table class="table table-bordered table-condensed table-striped" id="gvProductos" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="false">
 					                            <thead>
 					                                <tr>
 					                                	<!--<th class="hide" data-tipo="string" data-campo="idnegociacion" data-alineacion="centro" style="text-align: center">Código negociacion</th>-->

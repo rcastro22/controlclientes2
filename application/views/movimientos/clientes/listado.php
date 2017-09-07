@@ -41,7 +41,7 @@
 						<span class="input-group-addon">Buscar</span>
                 		<input type="text" class="search-query form-control" placeholder="Ingrese su búsqueda" />
         			</div>	
-						<table class="table table-striped table-bordered table-hover tabla" data-orden="true" data-filtro="true" data-fuente="dtLlenar" id="gvBuscar">
+						<table class="table table-striped table-bordered table-hover tabla" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="true" id="gvBuscar">
 						<thead>
 		    				<tr>
 	              				<th data-tipo="string" data-campo="idcliente" data-alineacion="izquierda" style="text-align:center">CLIENTE</th>
@@ -50,9 +50,9 @@
 	              				<th data-tipo="string" data-campo="dpi" data-alineacion="izquierda" style="text-align:center">DPI</th>
 	              				<th data-tipo="string" data-campo="dirresidencia" data-alineacion="izquierda" style="text-align:center">DIRECCÓN</th>
 	              				<th data-tipo="string" data-campo="telefono" data-alineacion="izquierda" style="text-align:center">TELÉFONO</th>
-	              				<th data-boton="Ver" data-alineacion="centro" style="text-align:center">NEGOCIACIÓN</th>	     
-	              				<th data-boton="Modificar" data-alineacion="centro" style="text-align:center"></th>
-	              				<th data-boton="Eliminar" data-alineacion="centro" style="text-align:center"></th>
+	              				<th data-tipo="icono" data-formato="list-alt" data-alineacion="centro" style="text-align:center">NEGOCIACIÓN</th>	     
+	              				<!--<th data-boton="editar" data-alineacion="centro" style="text-align:center"></th>-->
+	              				<th data-boton="borrar" data-alineacion="centro" style="text-align:center"></th>
 	         				</tr>
 		 				</thead>
 	    				<tbody>

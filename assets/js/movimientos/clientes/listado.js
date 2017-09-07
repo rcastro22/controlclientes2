@@ -87,24 +87,26 @@ function llenarTablaLocal(Nombre, data)
 
 
 
-$(document).on('click','#gvBuscar>tbody>tr>td>button',function()
+$(document).on('click','#gvBuscar>tbody>tr>td',function()
 													{
-														var idcliente = $(this).parent().siblings(":eq(0)").text();
-														var operacion = $(this).text();
-														if (operacion=='Modificar')
+														tipo = $(this).children().attr("class");
+														//alert(tipo);
+														var idcliente = $(this).siblings(":eq(0)").text();
+														if(tipo != "btn btn-default" && tipo != "glyphicon glyphicon-trash")
 														{
+														
 															window.location=base_url+"movimientos/cliente/edit/"+idcliente;	
+														}	
+														if(tipo == "glyphicon glyphicon-list-alt")
+														{
+															window.location=base_url+"movimientos/negociacion/listado/"+idcliente;
 														}
-														if (operacion=='Eliminar')
-														{	
-														    clienteEliminar=idcliente;
+														if(tipo == "glyphicon glyphicon-trash")
+														{
+															clienteEliminar=idcliente;
 															$('#myModal').modal('toggle');
 														}
-														if (operacion=='Ver')
-														{
-															window.location=base_url+"movimientos/negociacion/listado/"+idcliente;	
-														}
-														//alert("hola"+carrera);
+														
 													});
 
 $(document).on('click','#botonEliminar',function()

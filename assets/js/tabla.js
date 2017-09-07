@@ -691,8 +691,8 @@ function GenerarFilas(Tabla, Datos)
                             a.attr("href", "#" + Tabla + "_borrar");
                             a.attr("data-toggle", "modal");
 
-                            a.append(i);
-                            td.append(a);
+                            //a.append(i);
+                            td.append(i);
 
                             break;
                         default:
