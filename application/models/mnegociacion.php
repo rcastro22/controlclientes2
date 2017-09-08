@@ -32,11 +32,11 @@ class mnegociacion extends CI_Model {
 							join inmueble b on a.[idinmueble] = b.[idinmueble]
 							and a.[idproyecto] = b.[idproyecto]
 							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
-							where a.idcliente = ".$idcliente);
+							where $idcliente == -1 or a.idcliente = $idcliente");
 		return $query->result();
 	}
 
-	public function getNegociacionesProyectoCliente($idcliente,$idproyecto)
+	public function getNegociacionesProyectoCliente($idcliente=-1,$idproyecto=-1)
 	{		
 		
 		$query = $this->db->query("select a.idnegociacion,
@@ -67,7 +67,7 @@ class mnegociacion extends CI_Model {
 							join inmueble b on a.[idinmueble] = b.[idinmueble]
 							and a.[idproyecto] = b.[idproyecto]
 							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
-							where a.idcliente = ".$idcliente. " and a.idproyecto = ".$idproyecto);
+							where (($idcliente = -1 and $idproyecto = -1) or (a.idcliente = ".$idcliente. " and a.idproyecto = ".$idproyecto."))");
 		return $query->result();
 	}
 

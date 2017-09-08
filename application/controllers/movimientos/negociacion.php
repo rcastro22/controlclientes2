@@ -20,7 +20,7 @@ class negociacion extends MY_Controller
 	public function listado($idcliente=-1)
 	{
 		$this->view_data['page_title']=  'Negociaciones';
-		$this->view_data['activo']=  'clientes';
+		$this->view_data['activo']=  'negociaciones';
 		$this->view_data['idcliente']= $idcliente;
 		$this->load_partials();
 		$this->load->view('movimientos/negociaciones/listado',$this->view_data);
