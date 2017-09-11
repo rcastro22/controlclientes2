@@ -30,7 +30,7 @@ class negociacion extends MY_Controller
     {
     	$method = $this->input->server('REQUEST_METHOD');
     	$this->view_data['page_title']=  'Creación de negociación';
-    	$this->view_data['activo']=  'clientes';
+    	$this->view_data['activo']=  'negociaciones';
     	$this->view_data['idcliente']= $idcliente;
 		$this->load_partials();
 		switch ($method) 
@@ -305,7 +305,7 @@ class negociacion extends MY_Controller
     {
     	$method = $this->input->server('REQUEST_METHOD');
     	$this->view_data['page_title']=  'Modificación de negociación';
-    	$this->view_data['activo']=  'clientes';
+    	$this->view_data['activo']=  'negociaciones';
 		$this->load_partials();
 		switch ($method) 
 		{

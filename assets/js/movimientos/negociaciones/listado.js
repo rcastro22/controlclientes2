@@ -175,10 +175,10 @@ $(document).ready(function()
 {
 	base_url=$('base').attr('href');
 
-	if($('#ddcliente').length > 0)
-		cargarClientes();
-	if($('#proyectos').length > 0)
-		cargarProyectos();
+	//if($('#ddcliente').length > 0)
+	//	cargarClientes();
+	//if($('#proyectos').length > 0)
+	//	cargarProyectos();
 
 	$("#gvBuscar").tabla(base_url+'movimientos/negociacion/getNegociacion/'+$('#hcliente').val());
 	
