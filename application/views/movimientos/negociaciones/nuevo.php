@@ -43,9 +43,78 @@
 									<div class="form-group">
 										<input type="hidden" name="hcliente" id="hcliente" value="<?php echo ($idcliente != -1 ? $idcliente : $datosnegociacion->idcliente); ?>" />
 										<label class="control-label" for="name"> Cliente: </label>
-										<select class="form-control" readonly name="cliente" id="cliente"></select>										
+										<select class="form-control" name="cliente" id="cliente"></select>										
 									</div>
 								</div>								
+							</div>
+
+							<div class="row">
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label" for="name"> Nit: </label>
+										<input type="text" class="form-control" name="nit" id="nit" value="" />
+									</div>
+								</div>
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label" for="name"> Fecha de nacimiento: </label>
+										<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" />
+									</div>
+								</div>	
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label" for="name"> Edad: </label>
+										<input type="text" class="form-control" name="edad" id="edad" value="" />
+									</div>
+								</div>					
+								<div class="col-lg-3">
+									<div class="form-group">
+										<label class="control-label" for="name"> DPI: </label>
+										<input type="text" class="form-control" name="dpi" id="dpi" value="" />
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label" for="name"> Estado civil: </label>
+										<input type="text" class="form-control" name="estadocivil" id="estadocivil" value="" />
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label" for="name"> Profesión: </label>
+										<input type="text" class="form-control" name="profesion" id="profesion" value="" />
+									</div>
+								</div>	
+								<div class="col-lg-4">
+									<div class="form-group">
+										<label class="control-label" for="name"> Correo Electrónico: </label>
+										<input type="text" class="form-control" name="email" id="email" value="" />
+									</div>
+								</div>					
+							</div>
+
+							<div class="row">
+								<div class="col-lg-2">
+									<div class="form-group">
+										<label class="control-label" for="name"> Teléfono: </label>
+										<input type="text" class="form-control" name="telefono" id="telefono" value="" />
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="form-group">
+										<label class="control-label" for="name"> Celular: </label>
+										<input type="text" class="form-control" name="celular" id="celular" value="" />
+									</div>
+								</div>	
+								<div class="col-lg-8">
+									<div class="form-group">
+										<label class="control-label" for="name"> Dirección: </label>
+										<input type="text" class="form-control" name="direccion" id="direccion" value="" />
+									</div>
+								</div>					
 							</div>
 							
 							<div class="row">

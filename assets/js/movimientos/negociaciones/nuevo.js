@@ -42,9 +42,13 @@ function cargarClientes()
 		)
 		.done(function(data)
 		{
+			var $option ='';
+			$option =$('<option>');
+			$option.val(0);
+			$option.html('Seleccione Cliente');
+			$('#cliente').append($option);
 			$.each(data,function(i,linea)
-			{
-				var $option ='';
+			{	
 
 				if (linea.idcliente == $('#hcliente').val())
 				{
@@ -193,6 +197,38 @@ function cargarInmueble()
 		});
 }
 
+function cargarDatosCliente() {
+	$.get(
+			base_url + 'catalogos/inmueble/getInmuebleDisponible/'+$('#hproyecto').val()		
+		)
+		.done(function(data)
+		{
+			var $option ='';
+			$option =$('<option>');
+			$option.val(0);
+			$option.html('Seleccione Inmueble');
+			$('#inmueble').append($option);
+			$.each(data,function(i,linea)
+			{
+				if (linea.idinmueble == $('#hinmueble').val())
+				{
+					$option =$('<option selected>');
+				}
+				else
+				{
+					$option =$('<option>');
+				}
+				$option.val(linea.idinmueble);
+				$option.html(linea.idinmueble);
+				$('#inmueble').append($option);
+			})
+		})
+		.fail(function(data)
+		{
+			console.log('error inmueble!!!');
+		});
+}
+
 function cargarAsesor()
 {
 	$.get(
@@ -257,6 +293,11 @@ $(document).on('change','#proyectos',function(){
 	//$('#inmuebles').empty();
 	cargarInmueble();
 	traerTipoCambio();
+});
+
+
+$(document).on('change','#cliente',function(){
+	cargarDatosCliente();
 });
 
 $(document).on('change','#inmueble',function(){
