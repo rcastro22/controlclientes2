@@ -9,4 +9,4 @@
 <script src="<?php echo base_url().'assets/js/bootstrap.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/js/select2.js';?>"></script>
 <script src="<?php echo base_url().'assets/js/datepicker3.js';?>"></script>
-<script src="<?php echo base_url().'assets/js/bootstrap-datepicker.js';?>"></script>
+<script src="<?php echo base_url().'assets/js/bootstrap-datetimepicker.js';?>"></script>

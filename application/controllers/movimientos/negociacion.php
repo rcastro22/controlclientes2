@@ -83,7 +83,18 @@ class negociacion extends MY_Controller
 				// falta validaciones para combos
 				$this->form_validation->set_rules('proyectos','Proyectos');
 
-			
+				if($this->input->post('cliente') == '0') {
+					$this->form_validation->set_rules('nit','Nit','required');
+					$this->form_validation->set_rules('fecnacimiento','Fecha de nacimiento','required');
+					$this->form_validation->set_rules('dpi','DPI','required');
+					$this->form_validation->set_rules('estadocivil','Estado civil','required');
+					$this->form_validation->set_rules('profesion','Profesion','required');
+					
+					$this->form_validation->set_rules('telefono','Telefono','required');
+					
+					$this->form_validation->set_rules('direccion','Direccion','required');
+				} 
+
 				/*$this->input->post('especifiquejuridico');
 				$this->input->post('nombramientojuridico');*/
 				if($this->input->post('clientejuridico')=="2")

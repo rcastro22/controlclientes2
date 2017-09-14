@@ -41,7 +41,7 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<input type="hidden" name="hcliente" id="hcliente" value="<?php echo ($idcliente != -1 ? $idcliente : $datosnegociacion->idcliente); ?>" />
+										<input type="text" name="hcliente" id="hcliente" value="<?php echo ($idcliente != -1 ? $idcliente : $datosnegociacion->idcliente); ?>" />
 										<label class="control-label" for="name"> Cliente: </label>
 										<select class="form-control" name="cliente" id="cliente"></select>										
 									</div>
@@ -50,69 +50,84 @@
 
 							<div class="row">
 								<div class="col-lg-3">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('nit')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Nit: </label>
 										<input type="text" class="form-control" name="nit" id="nit" value="" />
+										<?php echo form_error('nit','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>
 								<div class="col-lg-3">
-									<div class="form-group">
-										<label class="control-label" for="name"> Fecha de nacimiento: </label>
-										<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" />
+									<div class="form-group <?php if(form_error('fecnacimiento')) echo 'has-error'; ?>">
+										<label class="control-label" for="name"> Fecha de nacimiento: </label>ç
+										<div class='input-group date' id='dpFecha'>
+											<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" />
+											<span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+										<?php echo form_error('fecnacimiento','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>	
 								<div class="col-lg-3">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('edad')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Edad: </label>
 										<input type="text" class="form-control" name="edad" id="edad" value="" />
+										<?php echo form_error('edad','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>					
 								<div class="col-lg-3">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('dpi')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> DPI: </label>
 										<input type="text" class="form-control" name="dpi" id="dpi" value="" />
+										<?php echo form_error('dpi','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>
 							</div>
 
 							<div class="row">
 								<div class="col-lg-4">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('estadocivil')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Estado civil: </label>
 										<input type="text" class="form-control" name="estadocivil" id="estadocivil" value="" />
+										<?php echo form_error('estadocivil','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>
 								<div class="col-lg-4">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('profesion')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Profesión: </label>
 										<input type="text" class="form-control" name="profesion" id="profesion" value="" />
+										<?php echo form_error('profesion','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>	
 								<div class="col-lg-4">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('correo')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Correo Electrónico: </label>
-										<input type="text" class="form-control" name="email" id="email" value="" />
+										<input type="text" class="form-control" name="correo" id="correo" value="" />
+										<?php echo form_error('correo','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>					
 							</div>
 
 							<div class="row">
 								<div class="col-lg-2">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('telefono')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Teléfono: </label>
 										<input type="text" class="form-control" name="telefono" id="telefono" value="" />
+										<?php echo form_error('telefono','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>
 								<div class="col-lg-2">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('celular')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Celular: </label>
 										<input type="text" class="form-control" name="celular" id="celular" value="" />
+										<?php echo form_error('celular','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>	
 								<div class="col-lg-8">
-									<div class="form-group">
+									<div class="form-group <?php if(form_error('direccion')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Dirección: </label>
 										<input type="text" class="form-control" name="direccion" id="direccion" value="" />
+										<?php echo form_error('direccion','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>					
 							</div>
@@ -222,7 +237,7 @@
 				                        <div class="form-search pull-right" data-tabla="gvProductos" style="padding: 10px;display:none;" >
 				                            <input type="text" class="search-query form-control" placeholder="Buscar" />
 				                        </div>
-				                        <table class="table table-bordered table-condensed table-hover table-striped" id="gvProductos" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="true">
+				                        <table class="table table-bordered table-condensed table-hover table-striped" id="gvProductos" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="false">
 				                            <thead>
 				                                <tr>
 				                                	<!--<th class="hide" data-tipo="string" data-campo="idnegociacion" data-alineacion="centro" style="text-align: center">Código negociacion</th>-->
@@ -479,6 +494,7 @@
 	<?php echo $footer;?>
 	<script>
 		$('input[name=proyectos]').focus();
+		$('#dpFecha').datetimepicker({format:'yyyy-mm-dd'});
 		$('#fechaprimerpago').datepicker({'format':'yyyy-mm-dd'});
 		$('#fechareserva').datepicker({'format':'yyyy-mm-dd'});
 	</script>

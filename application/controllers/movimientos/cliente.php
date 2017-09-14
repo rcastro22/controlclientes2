@@ -346,6 +346,14 @@ class cliente extends MY_Controller
 		$this->output->set_output(json_encode($cliente));
 	}
 
+	public function getClienteId($idcliente=-1)
+	{
+		$this->load->model('mcliente');
+		$cliente = $this->mcliente->getClienteId($idcliente);	
+		$this->output->set_content_type('application/json');
+		$this->output->set_output(json_encode($cliente));
+	}
+
 	public function getClientePorProyecto($idproyecto=-1)
 	{
 		$this->load->model('mcliente');

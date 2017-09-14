@@ -8,7 +8,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row hidden">
 		<div class="col-lg-10 col-lg-offset-1" >
 			<div class="panel panel-default">
 		  	<!-- Default panel contents -->

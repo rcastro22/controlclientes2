@@ -199,32 +199,60 @@ function cargarInmueble()
 
 function cargarDatosCliente() {
 	$.get(
-			base_url + 'catalogos/inmueble/getInmuebleDisponible/'+$('#hproyecto').val()		
+			base_url + 'movimientos/cliente/getClienteId/'+$('#hcliente').val()		
 		)
 		.done(function(data)
 		{
-			var $option ='';
-			$option =$('<option>');
-			$option.val(0);
-			$option.html('Seleccione Inmueble');
-			$('#inmueble').append($option);
-			$.each(data,function(i,linea)
-			{
-				if (linea.idinmueble == $('#hinmueble').val())
-				{
-					$option =$('<option selected>');
-				}
-				else
-				{
-					$option =$('<option>');
-				}
-				$option.val(linea.idinmueble);
-				$option.html(linea.idinmueble);
-				$('#inmueble').append($option);
-			})
+			if($('#hcliente').val() != '0') {
+				$('#nit').val(data.nit);
+				$('#fecnacimiento').val(data.fecnacimiento);
+				$('#edad').val(data.edad);
+				$('#dpi').val(data.dpi);
+				$('#estadocivil').val(data.estadocivil);
+				$('#profesion').val(data.profesion);
+				$('#correo').val(data.correo);
+				$('#telefono').val(data.telefono);
+				$('#celular').val(data.celular);
+				$('#direccion').val(data.dirresidencia);
+
+				$('#nit').attr('readonly','true');
+				$('#fecnacimiento').attr('readonly','true');
+				$('#edad').attr('readonly','true');
+				$('#dpi').attr('readonly','true');
+				$('#estadocivil').attr('readonly','true');
+				$('#profesion').attr('readonly','true');
+				$('#correo').attr('readonly','true');
+				$('#telefono').attr('readonly','true');
+				$('#celular').attr('readonly','true');
+				$('#direccion').attr('readonly','true');
+			}
+			else {
+				$('#nit').val('');
+				$('#fecnacimiento').val('');
+				$('#edad').val('');
+				$('#dpi').val('');
+				$('#estadocivil').val('');
+				$('#profesion').val('');
+				$('#correo').val('');
+				$('#telefono').val('');
+				$('#celular').val('');
+				$('#direccion').val('');
+
+				$('#nit').removeAttr('readonly');
+				$('#fecnacimiento').removeAttr('readonly');
+				$('#edad').removeAttr('readonly');
+				$('#dpi').removeAttr('readonly');
+				$('#estadocivil').removeAttr('readonly');
+				$('#profesion').removeAttr('readonly');
+				$('#correo').removeAttr('readonly');
+				$('#telefono').removeAttr('readonly');
+				$('#celular').removeAttr('readonly');
+				$('#direccion').removeAttr('readonly');
+			}
 		})
 		.fail(function(data)
 		{
+			
 			console.log('error inmueble!!!');
 		});
 }
@@ -297,7 +325,12 @@ $(document).on('change','#proyectos',function(){
 
 
 $(document).on('change','#cliente',function(){
-	cargarDatosCliente();
+	$('#hcliente').val($('#cliente').val());
+	//if($('#hcliente').val() != '0')
+		cargarDatosCliente();
+	/*else {
+		
+	}*/
 });
 
 $(document).on('change','#inmueble',function(){
@@ -433,6 +466,9 @@ $(document).ready(function()
 	base_url = $('base').attr('href')//;
 
 	//traerTipoCambio();
+
+	if($('#hcliente').val().length > 0)
+		cargarDatosCliente(); 
 
 
 	if($('#proyectos').length > 0)
@@ -639,6 +675,36 @@ $(document).on('click','#monedacontrato',function()
 	}
 	
 });
+
+$(".glyphicon-calendar").hover(function () {
+            $(this).popover('show');
+        },
+           function () {
+               $(this).popover('hide');
+           }
+          );
+
+$("#dpFecha").on('dp.change', function () {
+            calcularEdad($("#dpFecha > input").val());
+        });
+
+/*$(document).on('change','#fecnacimiento',function(){
+	alert('llego');
+	calcularEdad($("#fecnacimiento").val());
+});*/
+
+function calcularEdad(fecha) {
+    var hoy = new Date();
+    var cumpleanos = new Date(fecha);
+    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    var m = hoy.getMonth() - cumpleanos.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+        edad--;
+    }
+
+    $("#edad").val(edad);
+}
 
 
 		
