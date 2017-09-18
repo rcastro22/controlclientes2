@@ -217,7 +217,7 @@ function cargarDatosCliente() {
 
 				$('#nit').attr('readonly','true');
 				$('#fecnacimiento').attr('readonly','true');
-				$('#edad').attr('readonly','true');
+				//$('#edad').attr('readonly','true');
 				$('#dpi').attr('readonly','true');
 				$('#estadocivil').attr('readonly','true');
 				$('#profesion').attr('readonly','true');
@@ -240,7 +240,7 @@ function cargarDatosCliente() {
 
 				$('#nit').removeAttr('readonly');
 				$('#fecnacimiento').removeAttr('readonly');
-				$('#edad').removeAttr('readonly');
+				//$('#edad').removeAttr('readonly');
 				$('#dpi').removeAttr('readonly');
 				$('#estadocivil').removeAttr('readonly');
 				$('#profesion').removeAttr('readonly');

@@ -323,12 +323,13 @@ function llenarTablaAsync(Nombre, MetodoWeb, Parametros, Async){
         success: function (msg)
         {
             var Fuente = $("#" + Nombre).attr("data-fuente");
+            var Buscar = $('div.form-search > input.search-query').val();
 
             window[Fuente] = msg;
 
             // Filtrar, ordenar, calcular y generar
 
-            var Datos = FiltrarFilas("", Fuente);
+            var Datos = FiltrarFilas(Buscar, Fuente);
 
             OrdenarFilas(Datos, null, null, true);
             CalcularPaginas(Nombre, Datos);

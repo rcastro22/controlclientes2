@@ -134,7 +134,7 @@ $(document).on('click','#gvBuscar>tbody>tr>td>button',function()
 														var idnegociacion = $(this).parent().siblings(":eq(0)").text();
 														var operacion = $(this).text();
 														var estado = $(this).parent().siblings(":eq(8)").text();
-														if(estado != 'AC')
+														if(estado == 'RS')
 														{
 															alert('El estado de la negociación no es valido para esta operación')
 														}
@@ -181,5 +181,6 @@ $(document).ready(function()
 	//	cargarProyectos();
 
 	$("#gvBuscar").tabla(base_url+'movimientos/negociacion/getNegociacion/'+$('#hcliente').val());
+
 	
 });

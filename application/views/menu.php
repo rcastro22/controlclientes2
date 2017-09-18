@@ -8,7 +8,8 @@
 			  <div class="panel-body" style="text-align:center;">
 			  	
 				<div class="row">
-					<a  href="<?php echo base_url().'catalogos/menucat';?>"  class="btn btn-default btn-md" role="button">
+					<a  href="<?php echo base_url().'catalogos/menucat';?>"  class="btn btn-default btn-md" role="button"
+						style="<?php if($datosusuario->tipousuario != '1' && $datosusuario->tipousuario != '0') echo 'display:none'; ?>">
 					  <i class="glyphicon glyphicon-list"></i>
 					  <span>&nbsp;&nbsp;&nbsp;Catálogos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 					</a>
@@ -16,7 +17,8 @@
 					  <i class="glyphicon glyphicon-transfer"></i>
 					  <span>&nbsp;Movimientos&nbsp;&nbsp;</span>
 					</a>
-					<a  href="<?php echo base_url().'reportes/menurep';?>" class="btn btn-default btn-md" role="button">
+					<a  href="<?php echo base_url().'reportes/menurep';?>" class="btn btn-default btn-md" role="button"
+						style="<?php if($datosusuario->tipousuario != '1' && $datosusuario->tipousuario != '0') echo 'display:none'; ?>">
 					  <i class="glyphicon glyphicon-tags"></i>
 					  <span>&nbsp;&nbsp;&nbsp;&nbsp;Reportes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 					</a>

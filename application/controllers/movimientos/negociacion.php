@@ -12,7 +12,11 @@ class negociacion extends MY_Controller
 		}
 		else
 		{
+			$this->load->model('musuarioadmin');
+			$datosusuario = $this->musuarioadmin->getUsuarioLogin($this->session->userdata('user_id'));
+
 			$this->view_data['usuario']= $this->session->userdata('user_id');
+			$this->view_data['datosusuario'] = $datosusuario;
 		}
 
 	}
@@ -221,6 +225,11 @@ class negociacion extends MY_Controller
 						$err = "El monto de reserva no puede ser mayor al monto de enganche";
 					}
 
+					if($this->input->post('edad') < 18)	
+					{
+						$err = "La edad del cliente debe ser mayor a 18 años";
+					}
+
 					if($err=="")
 					{
 						// Inserta la negociacion
@@ -247,7 +256,7 @@ class negociacion extends MY_Controller
 							   'facturabanco' =>$this->input->post('banco'),
 							   'monedacontrato'=>$this->input->post('monedacontrato'),
 							   'tipocambioneg'=>$this->input->post('tipocambioneg'),
-							   'status'=>'AC',
+							   'status'=>'CR',
 							   //Auditoria
 							   'CreadoPor'=>$this->session->userdata('user_id'),
 							   'FechaCreado'=>date("Y-m-d H:i:s"),
@@ -587,7 +596,7 @@ class negociacion extends MY_Controller
     {
     	$method = $this->input->server('REQUEST_METHOD');
     	$this->view_data['page_title']=  'Realizar pago';
-    	$this->view_data['activo']=  'clientes';
+    	$this->view_data['activo']=  'negociaciones';
 		$this->load_partials();
 		$this->load->model('mnegociacion');
 		$datosnegociacion = $this->mnegociacion->getNegociacionId($idnegociacion);
@@ -611,7 +620,7 @@ class negociacion extends MY_Controller
         else
         {
         	$this->view_data['page_title']=  'Negociaciones';
-    		$this->view_data['activo']= 'clientes';
+    		$this->view_data['activo']= 'negociaciones';
 			$this->load_partials();
         	$this->view_data['mensaje']="Error: No se pudo eliminar el registro: ".$err;
             $this->view_data['tipoAlerta']="alert-danger";
@@ -775,7 +784,7 @@ class negociacion extends MY_Controller
 	{
     	$method = $this->input->server('REQUEST_METHOD');
 		$this->view_data['page_title']=  'Otros Dueños';
-		$this->view_data['activo']=  'clientes';
+		$this->view_data['activo']=  'negociaciones';
 		$this->view_data['idnegociacion']= $idnegociacion;
 		$this->load_partials();
 		switch ($method) 

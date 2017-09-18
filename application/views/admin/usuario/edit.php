@@ -35,19 +35,36 @@
 									<input class="form-control" type="text" name="apellido" id="apellido" value="<?php echo $datosusuario->apellido; ?>" maxlength="30">
 									<?php echo form_error('apellido','<div class="help-block" >','</div>'); ?>
 								</div>
-								<div class="checkbox">
+								
+								<label class="control-label" for="name"> Tipo de usuario: </label>
+								<div>
+
+									<label class="radio-inline">
+									 	<input type="radio" name="tipusuario" id="inlineRadio1" value="0" checked="true"> Usuario
+									</label>
+									<label class="radio-inline">
+									  	<input type="radio" name="tipusuario" id="inlineRadio2" value="2"> Ventas
+									</label>
+									<label class="radio-inline">
+									  	<input type="radio" name="tipusuario" id="inlineRadio3" value="1"> Administrador
+									</label>
+								</div>
+
+								<input class="form-control" type="hidden" name="tusuario" id="tusuario" value="<?php echo $datosusuario->tipousuario; ?>" maxlength="30">
+
+								<!--<div class="checkbox">
 								    <label>
-										<input class="form-control" type="hidden" name="tusuario" id="tusuario" value="<?php echo $datosusuario->tipousuario; ?>" maxlength="30">
+										
 										<input id="tipousuario" type="checkbox"> Usuario Administrador
 								    </label>
-								</div>
+								</div>-->
 								
 								<!--<div class="form-group <?php if(form_error('clave')) echo 'has-error'; ?>">
 									<label class="control-label" for="name"> Contraseña: </label>
 									<input class="form-control" type="password" name="clave" id="clave" value="<?php echo $datosusuario->clave; ?>" maxlength="30">
 									<?php echo form_error('clave','<div class="help-block" >','</div>'); ?>
 								</div>-->
-								
+								<br/>
 								<div style="text-align:center">
 									<button class="btn btn-lg btn-negro">Modificar</button>
 								</div>
@@ -64,19 +81,12 @@
 	
 	<?php echo $footer;?>
 	<script>
-		if($('#tusuario').val() == "0"){
-			document.getElementById('tipousuario').checked = false;
-		}
-		else if($('#tusuario').val() == "1"){
-			document.getElementById('tipousuario').checked = true;
-		}
+		$('input[value=' + $('#tusuario').val() + ']').attr('checked','true');
 
 		$('input[name=nombre]').focus();
 
-		$('#tipousuario').on('change',function(){
-			if(this.checked == false)
-				$('#tusuario').val("0");
-			else if(this.checked == true)
-				$('#tusuario').val("1");
+		$('input[name=tipusuario]').on('change',function() {
+			$('#tusuario').val($(this).val());
 		})
+
 	</script>

@@ -28,8 +28,12 @@ class menumov extends MY_Controller
 	//public function index($page=1)
 	public function index()
 	{
+		$this->load->model('musuarioadmin');
+		$datosusuario = $this->musuarioadmin->getUsuarioLogin($this->session->userdata('user_id'));
+
 		$this->view_data['page_title']=  'Menu de Movimientos';
 		$this->view_data['activo']=  'inicio';
+		$this->view_data['datosusuario'] = $datosusuario;
 		$this->load_partials();
 		$this->load->view('movimientos/menumov',$this->view_data);
 	}

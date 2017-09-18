@@ -40,12 +40,29 @@
 									<input class="form-control" type="password" name="clave" id="clave" value="<?php echo set_value('clave'); ?>" maxlength="30">
 									<?php echo form_error('clave','<div class="help-block" >','</div>'); ?>
 								</div>
-								<div class="checkbox">
+
+								<label class="control-label" for="name"> Tipo de usuario: </label>
+								<div>
+
+									<label class="radio-inline">
+									 	<input type="radio" name="tipusuario" id="inlineRadio1" value="0" checked="true"> Usuario
+									</label>
+									<label class="radio-inline">
+									  	<input type="radio" name="tipusuario" id="inlineRadio2" value="2"> Ventas
+									</label>
+									<label class="radio-inline">
+									  	<input type="radio" name="tipusuario" id="inlineRadio3" value="1"> Administrador
+									</label>
+								</div>
+
+								<input class="form-control" type="hidden" name="tusuario" id="tusuario" value="<?php echo set_value('tipousuario'); ?>" maxlength="30">
+
+								<!--<div class="checkbox">
 								    <label>
-										<input class="form-control" type="hidden" name="tusuario" id="tusuario" value="<?php echo set_value('tipousuario'); ?>" maxlength="30">
+										
 										<input id="tipousuario" type="checkbox"> Usuario Administrador
 								    </label>
-								</div>
+								</div>-->
 								
 								<div style="text-align:center">
 									<button class="btn btn-lg btn-negro">Guardar</button>
@@ -65,10 +82,14 @@
 	<script>
 		$('input[name=descripcion]').focus();
 
-		$('#tipousuario').on('change',function(){
+		$('input[name=tipusuario]').on('change',function() {
+			$('#tusuario').val($(this).val());
+		})
+
+		/*$('#tipousuario').on('change',function(){
 			if(this.checked == false)
 				$('#tusuario').val("0");
 			else if(this.checked == true)
 				$('#tusuario').val("1");
-		})
+		})*/
 	</script>

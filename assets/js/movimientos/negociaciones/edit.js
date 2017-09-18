@@ -43,10 +43,13 @@ function cargarClientes()
 		)
 		.done(function(data)
 		{
+			var $option ='';
+			$option =$('<option>');
+			$option.val(0);
+			$option.html('Seleccione Cliente');
+			$('#cliente').append($option);
 			$.each(data,function(i,linea)
 			{
-				var $option ='';
-
 				if (linea.idcliente == $('#hcliente').val())
 				{
 					$option =$('<option selected>');

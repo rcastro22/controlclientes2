@@ -41,7 +41,7 @@
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
-										<input type="text" name="hcliente" id="hcliente" value="<?php echo ($idcliente != -1 ? $idcliente : $datosnegociacion->idcliente); ?>" />
+										<input type="hidden" name="hcliente" id="hcliente" value="<?php echo ($idcliente != -1 ? $idcliente : $datosnegociacion->idcliente); ?>" />
 										<label class="control-label" for="name"> Cliente: </label>
 										<select class="form-control" name="cliente" id="cliente"></select>										
 									</div>
@@ -56,9 +56,9 @@
 										<?php echo form_error('nit','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>
-								<div class="col-lg-3">
+								<div class="col-lg-4">
 									<div class="form-group <?php if(form_error('fecnacimiento')) echo 'has-error'; ?>">
-										<label class="control-label" for="name"> Fecha de nacimiento: </label>ç
+										<label class="control-label" for="name"> Fecha de nacimiento: </label>
 										<div class='input-group date' id='dpFecha'>
 											<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" />
 											<span class="input-group-addon">
@@ -68,17 +68,17 @@
 										<?php echo form_error('fecnacimiento','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>	
-								<div class="col-lg-3">
+								<div class="col-lg-2">
 									<div class="form-group <?php if(form_error('edad')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> Edad: </label>
-										<input type="text" class="form-control" name="edad" id="edad" value="" />
+										<input type="text" readonly class="form-control" name="edad" id="edad" value="" />
 										<?php echo form_error('edad','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>					
 								<div class="col-lg-3">
 									<div class="form-group <?php if(form_error('dpi')) echo 'has-error'; ?>">
 										<label class="control-label" for="name"> DPI: </label>
-										<input type="text" class="form-control" name="dpi" id="dpi" value="" />
+										<input type="text" class="form-control" name="dpi" id="dpi" value="" maxlength="13" />
 										<?php echo form_error('dpi','<div class="help-block" >','</div>'); ?>
 									</div>
 								</div>
@@ -494,7 +494,7 @@
 	<?php echo $footer;?>
 	<script>
 		$('input[name=proyectos]').focus();
-		$('#dpFecha').datetimepicker({format:'yyyy-mm-dd'});
+		$('#dpFecha').datetimepicker({'format':'YYYY-MM-DD'});
 		$('#fechaprimerpago').datepicker({'format':'yyyy-mm-dd'});
 		$('#fechareserva').datepicker({'format':'yyyy-mm-dd'});
 	</script>

@@ -66,12 +66,17 @@
 	              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="enganche" data-alineacion="derecha" style="text-align:center">ENGANCHE</th>
 	              				<th data-tipo="string" data-campo="banco" data-alineacion="derecha" style="text-align:center">BANCO</th>
 	              				<th data-tipo="string" data-campo="status" data-alineacion="izquierda" style="text-align:center">ESTADO</th>
-	              				<!--<th data-boton="Ver" data-alineacion="centro" style="text-align:center">NEGOCIACIÓN</th>-->	     
-	              				<th data-boton="Modificar" data-alineacion="centro" style="text-align:center"></th>
+	              				<!--<th data-boton="Ver" data-alineacion="centro" style="text-align:center">NEGOCIACIÓN</th>-->	   
+
+
+								<?php if($datosusuario->tipousuario != '2') echo '
+								<th data-boton="Modificar" data-alineacion="centro" style="text-align:center"></th>
 	              				<th data-boton="Cuotas" data-alineacion="centro" style="text-align:center"></th>
 	              				<th data-boton="Pagar" class-boton="btn-primary" data-alineacion="centro" style="text-align:center"></th>
 	              				<th data-boton="Rescindir" data-alineacion="centro" style="text-align:center"></th>
 	              				<th data-boton="Detalle pagos" data-alineacion="centro" style="text-align:center"></th>
+								'; ?>  
+	              				
 	         				</tr>
 		 				</thead>
 	    				<tbody>
@@ -81,9 +86,9 @@
 				<div style="text-align:center">
 					<div class="pagination">
 						<ul class="pagination pagination-centered" data-tabla="gvBuscar" data-cantidad="10" data-grupo="8"></ul>
-						</div>
 					</div>
 				</div>
+			</div>
 			<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" >
 		</div>
 	</div>

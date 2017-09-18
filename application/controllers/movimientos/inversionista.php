@@ -12,7 +12,11 @@ class inversionista extends MY_Controller
 		}
 		else
 		{
+			$this->load->model('musuarioadmin');
+			$datosusuario = $this->musuarioadmin->getUsuarioLogin($this->session->userdata('user_id'));
+
 			$this->view_data['usuario']= $this->session->userdata('user_id');
+			$this->view_data['datosusuario'] = $datosusuario;
 		}
 
 	}

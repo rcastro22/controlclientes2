@@ -12,7 +12,11 @@ class pagos extends MY_Controller
 		}
 		else
 		{
+			$this->load->model('musuarioadmin');
+			$datosusuario = $this->musuarioadmin->getUsuarioLogin($this->session->userdata('user_id'));
+
 			$this->view_data['usuario']= $this->session->userdata('user_id');
+			$this->view_data['datosusuario'] = $datosusuario;
 		}
 
 	}
@@ -24,7 +28,7 @@ class pagos extends MY_Controller
 		$this->view_data['datosnegociacion']=$datosnegociacion;
 
 		$this->view_data['page_title']=  'Pagos';
-		$this->view_data['activo']=  'clientes';
+		$this->view_data['activo']=  'negociaciones';
 		$this->view_data['idnegociacion']= $idnegociacion;
 		$this->load_partials();
 		$this->load->view('movimientos/pagos/listado',$this->view_data);
@@ -123,7 +127,7 @@ class pagos extends MY_Controller
 			$this->view_data['datosnegociacion']=$datosnegociacion;
 
 			$this->view_data['page_title']=  'Pagos';
-			$this->view_data['activo']=  'clientes';
+			$this->view_data['activo']=  'negociaciones';
 			$this->view_data['idnegociacion']= $idnegociacion;
 			$this->load_partials();
 			

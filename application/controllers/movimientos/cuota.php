@@ -12,7 +12,11 @@ class cuota extends MY_Controller
 		}
 		else
 		{
+			$this->load->model('musuarioadmin');
+			$datosusuario = $this->musuarioadmin->getUsuarioLogin($this->session->userdata('user_id'));
+
 			$this->view_data['usuario']= $this->session->userdata('user_id');
+			$this->view_data['datosusuario'] = $datosusuario;
 		}
 
 	}
@@ -28,7 +32,7 @@ class cuota extends MY_Controller
     	$monto = $datosdetfactura->monto;*/
 
 		$this->view_data['page_title']=  'Cuotas';
-		$this->view_data['activo']=  'clientes';
+		$this->view_data['activo']=  'negociaciones';
 		$this->view_data['idnegociacion']= $idnegociacion;
 		$this->view_data['montototal']= $monto;
 		$this->load_partials();
@@ -39,7 +43,7 @@ class cuota extends MY_Controller
     {
     	$method = $this->input->server('REQUEST_METHOD');
     	$this->view_data['page_title']=  'Creación de cuota';
-    	$this->view_data['activo']=  'clientes';
+    	$this->view_data['activo']=  'negociaciones';
     	$this->view_data['idnegociacion']= $idnegociacion;
 		$this->load_partials();
 		switch ($method) 
@@ -147,7 +151,7 @@ class cuota extends MY_Controller
     {
     	$method = $this->input->server('REQUEST_METHOD');
     	$this->view_data['page_title']=  'Modificación de cuota';
-    	$this->view_data['activo']=  'clientes';
+    	$this->view_data['activo']=  'negociaciones';
     	$this->view_data['idnegociacion'] =$idnegociacion;
     	$this->view_data['nopagos'] = $nopago;
 		$this->load_partials();

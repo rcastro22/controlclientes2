@@ -101,12 +101,16 @@ class mnegociacion extends CI_Model {
 							a.facturabanco,
 							a.monedacontrato,
 							a.tipocambioneg,
-							a.status
+							case a.status
+				                when 'CR' then 'Creada'
+				                when 'AP' then 'Aprobada'
+				                when 'RS' then 'Resindida'
+				            end status
 							from negociacion a
 							join inmueble b on a.[idinmueble] = b.[idinmueble]
 							and a.[idproyecto] = b.[idproyecto]
 							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
-							where a.idnegociacion = ".$idnegociacion);
+							where a.idnegociacion = $idnegociacion");
 		return $query->row();
 	}
 
