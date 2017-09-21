@@ -629,10 +629,47 @@ class negociacion extends MY_Controller
 	}
 	
 	//public function index($page=1)
-	public function getNegociacion($idcliente=-1)
+	public function getNegociacion($idcliente=-1,$status="123")
 	{
+		$arr1 = str_split($status);
+		$statusParm = "";
+		foreach ($arr1 as $val) {
+			switch ($val) {
+				case '1':
+					if(strlen($statusParm) == 0)
+						$statusParm .= "'CR'";
+					else
+						$statusParm .= ",'CR'";
+					break;
+
+				case '2':
+					if(strlen($statusParm) == 0)
+						$statusParm .= "'AP'";
+					else
+						$statusParm .= ",'AP'";
+					break;
+
+				case '3':
+					if(strlen($statusParm) == 0)
+						$statusParm .= "'RS'";
+					else
+						$statusParm .= ",'RS'";
+					break;
+				
+				case '0':
+					if(strlen($statusParm) == 0)
+						$statusParm .= "''";
+					else
+						$statusParm .= ",''";
+					break;
+			}
+		}
+
+		if(strlen($statusParm) == 0)
+			$statusParm = "'CR','AP','RS'";
+
 		$this->load->model('mnegociacion');
-		$negociacion = $this->mnegociacion->getNegociaciones($idcliente);	
+		$negociacion = $this->mnegociacion->getNegociaciones($idcliente,$statusParm);	
 		$this->output->set_content_type('application/json');
 		$this->output->set_output(json_encode($negociacion));
 	}

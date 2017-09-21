@@ -2,7 +2,7 @@
 
 class mnegociacion extends CI_Model {
 
-	public function getNegociaciones($idcliente)
+	public function getNegociaciones($idcliente,$status="'CR','AP','RS'")
 	{		
 		$query = $this->db->query("select a.idnegociacion,
 							a.idcliente,
@@ -32,7 +32,8 @@ class mnegociacion extends CI_Model {
 							join inmueble b on a.[idinmueble] = b.[idinmueble]
 							and a.[idproyecto] = b.[idproyecto]
 							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
-							where $idcliente == -1 or a.idcliente = $idcliente");
+							where a.status in ($status)
+							and $idcliente == -1 or a.idcliente = $idcliente");
 		return $query->result();
 	}
 
@@ -67,7 +68,8 @@ class mnegociacion extends CI_Model {
 							join inmueble b on a.[idinmueble] = b.[idinmueble]
 							and a.[idproyecto] = b.[idproyecto]
 							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
-							where (($idcliente = -1 and $idproyecto = -1) or (a.idcliente = ".$idcliente. " and a.idproyecto = ".$idproyecto."))");
+							where a.status in ('RS') ");
+							//and (($idcliente = -1 and $idproyecto = -1) or (a.idcliente = $idcliente and a.idproyecto = $idproyecto))");
 		return $query->result();
 	}
 

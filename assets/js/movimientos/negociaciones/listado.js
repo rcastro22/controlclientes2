@@ -182,5 +182,18 @@ $(document).ready(function()
 
 	$("#gvBuscar").tabla(base_url+'movimientos/negociacion/getNegociacion/'+$('#hcliente').val());
 
+
+	$('input[type=checkbox]').on('change',function(){
+		var opciones = "0";
+
+		$('input[type=checkbox]:checked').each(
+		    function() {
+		        opciones += $(this).val();
+		    }
+		);
+
+		$("#gvBuscar").tabla(base_url+"movimientos/negociacion/getNegociacion/-1/"+opciones);
+	});
+
 	
 });

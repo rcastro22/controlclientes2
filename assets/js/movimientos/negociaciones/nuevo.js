@@ -677,16 +677,16 @@ $(document).on('click','#monedacontrato',function()
 });
 
 $(".glyphicon-calendar").hover(function () {
-            $(this).popover('show');
-        },
-           function () {
-               $(this).popover('hide');
-           }
-          );
+    $(this).popover('show');
+},
+   function () {
+       $(this).popover('hide');
+   }
+  );
 
 $("#dpFecha").on('dp.change', function () {
-            calcularEdad($("#dpFecha > input").val());
-        });
+    calcularEdad($("#dpFecha > input").val());
+});
 
 /*$(document).on('change','#fecnacimiento',function(){
 	alert('llego');

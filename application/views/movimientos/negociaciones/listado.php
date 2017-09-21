@@ -50,6 +50,18 @@
 		  			<a href="<?php echo base_url().'movimientos/negociacion/nuevo/'.$idcliente;?>" class="btn btn-negro pull-right" style="padding-top: 0; padding-bottom: 0; vertical-align: middle;">Nueva negociación</a>
 		  		</div>
 	  			<div class="panel-body" style="overflow-x: auto">
+	  				<div class="form-control">
+		  				<label class="checkbox-inline">
+							<input type="checkbox" id="CR" value="1"> Creados
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="AP" value="2"> Aprobados
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="RS" value="3"> Resindidos
+						</label>
+					</div>
+					<br/>
 					<div class="form-search pull-right input-group" data-tabla="gvBuscar">
 						<span class="input-group-addon">Buscar</span>
                 		<input type="text" class="search-query form-control" placeholder="Ingrese su búsqueda" />
@@ -116,6 +128,10 @@
 <script src="<?php echo base_url().'assets/js/movimientos/negociaciones/listado.js';?>"></script> 
 
 <?php echo $footer;?>
+
+<script>
+	$('input[type=checkbox]').attr('checked','true');
+</script>
 
 
 			

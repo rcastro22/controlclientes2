@@ -7,7 +7,10 @@
 
 <script src="<?php echo base_url().'assets/js/jquery-2.0.3.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/js/bootstrap.js'; ?>"></script>
-<script src="<?php echo base_url().'assets/js/moment.js';?>"></script>
+<script src="<?php echo base_url().'assets/js/moment.min.js';?>"></script>
+<script src="<?php echo base_url().'assets/js/es.js';?>"></script>
 <script src="<?php echo base_url().'assets/js/select2.js';?>"></script>
 <script src="<?php echo base_url().'assets/js/bootstrap-datetimepicker.js';?>"></script>
+<script src="<?php echo base_url().'assets/js/fullcalendar.min.js';?>"></script>
+<script src="<?php echo base_url().'assets/js/es.js';?>"></script>
 <script src="<?php echo base_url().'assets/js/datepicker3.js';?>"></script>
