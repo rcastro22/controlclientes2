@@ -88,6 +88,8 @@ class negociacion extends MY_Controller
 				$this->form_validation->set_rules('proyectos','Proyectos');
 
 				if($this->input->post('cliente') == '0') {
+					$this->form_validation->set_rules('nombre','Nombres','required');
+					$this->form_validation->set_rules('apellido','Apellidos','required');
 					$this->form_validation->set_rules('nit','Nit','required');
 					$this->form_validation->set_rules('fecnacimiento','Fecha de nacimiento','required');
 					$this->form_validation->set_rules('dpi','DPI','required');
@@ -97,6 +99,12 @@ class negociacion extends MY_Controller
 					$this->form_validation->set_rules('telefono','Telefono','required');
 					
 					$this->form_validation->set_rules('direccion','Direccion','required');
+
+					$this->form_validation->set_rules('empresa','Empresa','required');
+					$this->form_validation->set_rules('tiempolabor','Tiempo de laborar','required');
+					$this->form_validation->set_rules('dirtrabajo','Dirección de trabajo','required');
+					$this->form_validation->set_rules('puesto','Puesto','required');
+					$this->form_validation->set_rules('ingresos','Ingresos mensuales','required');
 				} 
 
 				/*$this->input->post('especifiquejuridico');
@@ -636,31 +644,23 @@ class negociacion extends MY_Controller
 		foreach ($arr1 as $val) {
 			switch ($val) {
 				case '1':
-					if(strlen($statusParm) == 0)
-						$statusParm .= "'CR'";
-					else
-						$statusParm .= ",'CR'";
+					if(strlen($statusParm) == 0)	$statusParm .= "'CR'";
+					else 	$statusParm .= ",'CR'";
 					break;
 
 				case '2':
-					if(strlen($statusParm) == 0)
-						$statusParm .= "'AP'";
-					else
-						$statusParm .= ",'AP'";
+					if(strlen($statusParm) == 0) 	$statusParm .= "'AP'";
+					else 	$statusParm .= ",'AP'";
 					break;
 
 				case '3':
-					if(strlen($statusParm) == 0)
-						$statusParm .= "'RS'";
-					else
-						$statusParm .= ",'RS'";
+					if(strlen($statusParm) == 0) 	$statusParm .= "'RS'";
+					else 	$statusParm .= ",'RS'";
 					break;
 				
 				case '0':
-					if(strlen($statusParm) == 0)
-						$statusParm .= "''";
-					else
-						$statusParm .= ",''";
+					if(strlen($statusParm) == 0) 	$statusParm .= "''";
+					else 	$statusParm .= ",''";
 					break;
 			}
 		}

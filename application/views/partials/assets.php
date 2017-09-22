@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/controlclientes.css'; ?>">
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/round-about.css'; ?>">
 <link rel="stylesheet" href="<?php echo base_url().'assets/css/datepicker.css'; ?>">
+<link rel="stylesheet" href="<?php echo base_url().'assets/css/select2.css'; ?>">
 
 <script src="<?php echo base_url().'assets/js/jquery-2.0.3.js'; ?>"></script>
 <script src="<?php echo base_url().'assets/js/bootstrap.js'; ?>"></script>

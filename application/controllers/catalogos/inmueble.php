@@ -300,10 +300,10 @@ class inmueble extends MY_Controller
 		$this->output->set_output(json_encode($inmueble));
 	}
 
-	public function getInmuebleId($idinmueble=-1)
+	public function getInmuebleId($idinmueble=-1,$idproyecto=-1)
 	{
 		$this->load->model('minmueble');
-		$inmueble = $this->minmueble->getInmuebleIdResult($idinmueble);	
+		$inmueble = $this->minmueble->getInmuebleIdResult($idinmueble,$idproyecto);	
 		$this->output->set_content_type('application/json');
 		$this->output->set_output(json_encode($inmueble));
 	}

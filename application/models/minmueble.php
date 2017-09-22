@@ -57,7 +57,9 @@ class minmueble extends CI_Model {
 		$query = $this->db->query("select a.idinmueble,
 						   a.idproyecto,
 						   a.idtipoinmueble,
+						   b.nombre nombreTipoInmueble,
 						   a.idmodelo,
+						   c.nombre nombreModelo,
 						   a.tamano,
 						   a.preciometro2,
 						   a.dormitorios,
@@ -66,13 +68,15 @@ class minmueble extends CI_Model {
 						   a.folio,
 						   a.libro
 						from inmueble a
+						join tipoinmueble b on b.idtipoinmueble = a.idtipoinmueble
+						join modelo c on c.idmodelo = a.idmodelo
 						where not exists (
 						select c.idinmueble from negociacion b, detallenegociacion c
-						where b.status = 'AC'
+						where b.status in ('CR','AP')
             			and b.[idnegociacion] = c.[idnegociacion]
 						and b.[idproyecto] = a.[idproyecto]
 						and c.[idinmueble] = a.[idinmueble])
-						and a.idproyecto=".$idporyecto);
+						and a.idproyecto=$idporyecto");
 		//$query=$this->db->get();
 		return $query->result();
 	}
@@ -97,8 +101,9 @@ class minmueble extends CI_Model {
 		return $query->row();
 	}
 
-	public function getInmuebleIdResult($idinmueble)
+	public function getInmuebleIdResult($idinmueble,$idproyecto)
 	{		
+
 		$query = $this->db->query("select
 								      a.idinmueble,
 								  	   a.idproyecto,
@@ -118,7 +123,8 @@ class minmueble extends CI_Model {
 								join proyecto b on a.idproyecto = b.idproyecto
 								join tipoinmueble c on c.idtipoinmueble = a.idtipoinmueble
 								join modelo d on d.idmodelo = a.idmodelo
-								where a.idinmueble = ".$idinmueble);
+								where a.idinmueble = '$idinmueble'
+								and a.idproyecto = $idproyecto");
 		return $query->result();
 	}
 
@@ -173,7 +179,7 @@ class minmueble extends CI_Model {
 	{		
 		$query = $this->db->query("select c.idinmueble, b.idproyecto, b.idnegociacion 
 						from negociacion b, detallenegociacion c
-						where b.status = 'AC'
+						where b.status in ('CR','AP')
             			and b.[idnegociacion] = c.[idnegociacion]
 						and c.[idinmueble] =".$idinmueble." and b.[idproyecto] =".$idproyecto);
 		return $query->row();
