@@ -191,8 +191,15 @@ $(document).ready(function()
 		        opciones += $(this).val();
 		    }
 		);
+		console.log($('#hcliente').val());
 
-		$("#gvBuscar").tabla(base_url+"movimientos/negociacion/getNegociacion/-1/"+opciones);
+		if($('#hcliente').val() != "")
+			$idcliente = $('#hcliente').val();
+		else
+			$idcliente = -1;
+		//$idcliente = ($('#hcliente').val() != "" : $('#hcliente').val() ? -1); 
+
+		$("#gvBuscar").tabla(base_url+"movimientos/negociacion/getNegociacion/"+$idcliente+"/"+opciones);
 	});
 
 	

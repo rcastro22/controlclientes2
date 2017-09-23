@@ -671,7 +671,6 @@ $(document).on("click", "#gvProductos > tbody > tr > td > .glyphicon-trash", fun
 {	
 	//var varidnegociacion = obtenerValorCol(this, "idnegociacion");
     var varCodInmueble = obtenerValorCol(this, "idinmueble");
-    alert(varCodInmueble);
     //var varDescripcionFormapago= obtenerValorCol(this, "formapago");
 	//var varNodocumento= obtenerValorCol(this, "nodocumento");
     var varMonto = obtenerValorCol(this,"monto");

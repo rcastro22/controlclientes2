@@ -33,7 +33,7 @@ class mnegociacion extends CI_Model {
 							and a.[idproyecto] = b.[idproyecto]
 							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
 							where a.status in ($status)
-							and $idcliente == -1 or a.idcliente = $idcliente");
+							and ($idcliente == -1 or a.idcliente = $idcliente)");
 		return $query->result();
 	}
 

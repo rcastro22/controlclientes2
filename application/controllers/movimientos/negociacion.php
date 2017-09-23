@@ -43,6 +43,23 @@ class negociacion extends MY_Controller
 				$datosnegociacion = new stdClass();
 				$this->view_data['datosnegociacion']=$datosnegociacion;
 
+				$datosnegociacion->nombre=$this->input->post('nombre');
+				$datosnegociacion->apellido=$this->input->post('apellido');
+				$datosnegociacion->fecnacimiento=$this->input->post('fecnacimiento');
+				$datosnegociacion->dpi=$this->input->post('dpi');
+				$datosnegociacion->estadocivil=$this->input->post('estadocivil');
+				$datosnegociacion->profesion=$this->input->post('profesion');
+				$datosnegociacion->correo=$this->input->post('correo');
+				$datosnegociacion->telefono=$this->input->post('telefono');
+				$datosnegociacion->celular=$this->input->post('celular');
+				$datosnegociacion->direccion=$this->input->post('direccion');
+				$datosnegociacion->empresa=$this->input->post('empresa');
+				$datosnegociacion->tiempolabor=$this->input->post('tiempolabor');
+				$datosnegociacion->dirtrabajo=$this->input->post('dirtrabajo');
+				$datosnegociacion->puesto=$this->input->post('puesto');
+				$datosnegociacion->ingresos=$this->input->post('ingresos');
+				$datosnegociacion->otrosingresos=$this->input->post('otrosingresos');
+
 				$datosnegociacion->idproyecto=$this->input->post('proyectos');
 				$datosnegociacion->idcliente=$this->input->post('cliente');
 
@@ -135,6 +152,23 @@ class negociacion extends MY_Controller
 				{
 					$datosnegociacion = new stdClass();	
 
+					$datosnegociacion->nombre=$this->input->post('nombre');
+					$datosnegociacion->apellido=$this->input->post('apellido');
+					$datosnegociacion->fecnacimiento=$this->input->post('fecnacimiento');
+					$datosnegociacion->dpi=$this->input->post('dpi');
+					$datosnegociacion->estadocivil=$this->input->post('estadocivil');
+					$datosnegociacion->profesion=$this->input->post('profesion');
+					$datosnegociacion->correo=$this->input->post('correo');
+					$datosnegociacion->telefono=$this->input->post('telefono');
+					$datosnegociacion->celular=$this->input->post('celular');
+					$datosnegociacion->direccion=$this->input->post('direccion');
+					$datosnegociacion->empresa=$this->input->post('empresa');
+					$datosnegociacion->tiempolabor=$this->input->post('tiempolabor');
+					$datosnegociacion->dirtrabajo=$this->input->post('dirtrabajo');
+					$datosnegociacion->puesto=$this->input->post('puesto');
+					$datosnegociacion->ingresos=$this->input->post('ingresos');
+					$datosnegociacion->otrosingresos=$this->input->post('otrosingresos');
+
 					$datosnegociacion->idproyecto=$this->input->post('proyectos');
 					$datosnegociacion->idcliente=$this->input->post('cliente');
 
@@ -166,8 +200,6 @@ class negociacion extends MY_Controller
 
 					$datosnegociacion->monedacontrato=$this->input->post('monedacontrato');
       				$datosnegociacion->tipocambioneg=$this->input->post('tipocambioneg');
-
-
 
 										
 					$datosnegociacion->tablai=str_replace(array("\""), "'", $this->input->post('tablainmuebles'));
@@ -236,6 +268,17 @@ class negociacion extends MY_Controller
 					if($this->input->post('edad') < 18)	
 					{
 						$err = "La edad del cliente debe ser mayor a 18 años";
+					}
+
+					if($err=="") {
+						if($this->input->post('cliente') == '0') {
+							$this->load->model('mcliente');
+							$datosclientenit = $this->mcliente->getClienteIdByNit($this->input->post('nit'));
+
+							if(isset($datosclientenit->nit) && $datosclientenit->nit != "") {
+								$err = "El número de NIT ya existe en un cliente guardado";
+							} 	
+						}
 					}
 
 					if($err=="")

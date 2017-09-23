@@ -65,6 +65,37 @@ class mcliente extends CI_Model {
 		return $query->row();
 	}
 
+	public function getClienteIdByNit($nit)
+	{		
+
+		$this->db->select("a.idcliente,
+							a.nombre,
+							a.apellido,
+							a.idtipoidentificacion,
+							a.dpi,
+							a.fecnacimiento,
+							a.profesion,
+							a.nacionalidad,
+							a.estadocivil,
+							a.dirresidencia,
+							a.telefono,
+							a.celular,
+							a.nit,
+							a.email as correo,
+							a.lugartrabajo,
+							a.dirtrabajo,
+							a.tiempolabor,
+							a.ingresos,
+							a.puesto,
+							a.otrosingresos,
+							a.concepto");
+		$this->db->from("cliente a");
+		$this->db->where('a.nit',$nit);
+		$this->db->order_by("a.nombre,a.apellido","asc,asc"); 
+		$query=$this->db->get();
+		return $query->row();
+	}
+
 	public function grabar($data,&$err)
 	{
 		$this->db->insert("cliente",$data);	
