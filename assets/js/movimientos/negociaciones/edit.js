@@ -38,6 +38,8 @@ function cargarProyecto()
 
 function cargarClientes()
 {
+	var datosj = new Array();
+
 	$.get(
 			base_url + 'movimientos/cliente/getCliente'		
 		)
@@ -62,6 +64,20 @@ function cargarClientes()
 				$option.html(linea.nombre);
 				$('#cliente').append($option);
 			})
+
+			console.log(data);
+			datos = data;
+            for (i = 0; i < datos.length; i++)
+            {
+                datosj[i] = { id: datos[i].idcliente, text: datos[i].nombre + ' ' + datos[i].apellido };
+            }
+            $("#cboCliente").select2({
+            	placeholder: "Seleccione cliente",
+                allowClear: true,
+                data: datosj,
+                width: '100%'
+            });
+
 		})
 		.fail(function(data)
 		{

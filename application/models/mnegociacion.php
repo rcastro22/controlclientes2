@@ -11,7 +11,7 @@ class mnegociacion extends CI_Model {
 							a.especifiquejuridico,
 							a.nombramientojuridico,
 							a.idinmueble,
-							c.nombre nombreinmueble,
+							--c.nombre nombreinmueble,
 							a.idasesor,
 							a.fecha,
 							a.precioventa,
@@ -29,9 +29,9 @@ class mnegociacion extends CI_Model {
 							a.tipocambioneg,
 							a.status
 							from negociacion a
-							join inmueble b on a.[idinmueble] = b.[idinmueble]
-							and a.[idproyecto] = b.[idproyecto]
-							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
+							--join inmueble b on a.[idinmueble] = b.[idinmueble]
+							--and a.[idproyecto] = b.[idproyecto]
+							--join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
 							where a.status in ($status)
 							and ($idcliente == -1 or a.idcliente = $idcliente)");
 		return $query->result();
@@ -83,11 +83,11 @@ class mnegociacion extends CI_Model {
 							a.especifiquejuridico,
 							a.nombramientojuridico,
 							a.idinmueble,
-							b.idmodelo,
-							b.tamano,
-							b.dormitorios,
-							c.nombre nombreinmueble,
-							c.idtipoinmueble,
+							--b.idmodelo,
+							--b.tamano,
+							--b.dormitorios,
+							--c.nombre nombreinmueble,
+							--c.idtipoinmueble,
 							a.idasesor,
 							a.fecha,
 							a.precioventa,
@@ -109,9 +109,9 @@ class mnegociacion extends CI_Model {
 				                when 'RS' then 'Resindida'
 				            end status
 							from negociacion a
-							join inmueble b on a.[idinmueble] = b.[idinmueble]
-							and a.[idproyecto] = b.[idproyecto]
-							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
+							--join inmueble b on a.[idinmueble] = b.[idinmueble]
+							--and a.[idproyecto] = b.[idproyecto]
+							--join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
 							where a.idnegociacion = $idnegociacion");
 		return $query->row();
 	}

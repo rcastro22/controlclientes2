@@ -67,9 +67,16 @@ class mcliente extends CI_Model {
 
 	public function getClienteIdByNit($nit)
 	{		
+		$query=$this->db->query("select a.nit 
+									from cliente a 
+									where replace(replace(a.nit,'-',''),' ','') = replace(replace($nit,'-',''),' ','')");
+		return $query->row();
+	}
 
-		$this->db->select("a.idcliente,
-							a.nombre,
+	public function getClienteTemporal($idnegociacion)
+	{		
+
+		$this->db->select("a.nombre,
 							a.apellido,
 							a.idtipoidentificacion,
 							a.dpi,
@@ -89,8 +96,8 @@ class mcliente extends CI_Model {
 							a.puesto,
 							a.otrosingresos,
 							a.concepto");
-		$this->db->from("cliente a");
-		$this->db->where('a.nit',$nit);
+		$this->db->from("clientetemporal a");
+		$this->db->where('a.idnegociacion',$idnegociacion);
 		$this->db->order_by("a.nombre,a.apellido","asc,asc"); 
 		$query=$this->db->get();
 		return $query->row();
@@ -99,6 +106,21 @@ class mcliente extends CI_Model {
 	public function grabar($data,&$err)
 	{
 		$this->db->insert("cliente",$data);	
+		$data['error'] = $this->db->_error_message();
+		$err=$data['error'];
+		if ($err=="")
+		{
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
+	}
+
+	public function grabartemp($data,&$err)
+	{
+		$this->db->insert("clientetemporal",$data);	
 		$data['error'] = $this->db->_error_message();
 		$err=$data['error'];
 		if ($err=="")

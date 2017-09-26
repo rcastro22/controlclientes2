@@ -142,6 +142,7 @@ $(document).on('click','#gvBuscar>tbody>tr>td>button',function()
 														{
 															if (operacion=='Modificar')
 															{
+
 																window.location=base_url+"movimientos/negociacion/edit/"+idnegociacion;	
 															}
 															if (operacion=='Rescindir')
@@ -180,27 +181,33 @@ $(document).ready(function()
 	//if($('#proyectos').length > 0)
 	//	cargarProyectos();
 
-	$("#gvBuscar").tabla(base_url+'movimientos/negociacion/getNegociacion/'+$('#hcliente').val());
+	//$("#gvBuscar").tabla(base_url+'movimientos/negociacion/getNegociacion/'+$('#hcliente').val());
 
-
-	$('input[type=checkbox]').on('change',function(){
-		var opciones = "0";
-
-		$('input[type=checkbox]:checked').each(
-		    function() {
-		        opciones += $(this).val();
-		    }
-		);
-		console.log($('#hcliente').val());
-
-		if($('#hcliente').val() != "")
-			$idcliente = $('#hcliente').val();
-		else
-			$idcliente = -1;
-		//$idcliente = ($('#hcliente').val() != "" : $('#hcliente').val() ? -1); 
-
-		$("#gvBuscar").tabla(base_url+"movimientos/negociacion/getNegociacion/"+$idcliente+"/"+opciones);
-	});
-
-	
+	filtrartabla();
 });
+
+
+
+$('input[type=checkbox]').on('change',function(){
+	filtrartabla();
+});
+
+
+
+function filtrartabla() {
+	var opciones = "0";
+
+	$('input[type=checkbox]:checked').each(
+	    function() {
+	        opciones += $(this).val();
+	    }
+	);
+
+	if($('#hcliente').val() != "")
+		$idcliente = $('#hcliente').val();
+	else
+		$idcliente = -1;
+	//$idcliente = ($('#hcliente').val() != "" : $('#hcliente').val() ? -1); 
+
+	$("#gvBuscar").tabla(base_url+"movimientos/negociacion/getNegociacion/"+$idcliente+"/"+opciones);
+} 

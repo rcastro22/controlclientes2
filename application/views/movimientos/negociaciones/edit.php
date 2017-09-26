@@ -26,53 +26,89 @@
 
 								<input type="hidden" name="tablainmuebles" id="tablainmuebles" value="<?php echo $datosnegociacion->tablai; ?>" />
 
-								<div class="row">
-									<div class="col-lg-4">
-										<div class="form-group <?php if(form_error('idnegociacion')) echo 'has-error'; ?>">
-											<label class="control-label" for="name"> Negociacion: </label>
-											<input class="form-control" readonly type="text" name="idnegociacion" id="idnegociacion" value="<?php echo $datosnegociacion->idnegociacion; ?>" maxlength="30">
-											<?php echo form_error('idnegociacion','<div class="help-block" >','</div>'); ?>
-										</div>
-									</div>
-									<!--<div class="col-lg-4">
-										<div class="form-group <?php if(form_error('reserva')) echo 'has-error'; ?>">
-											<label class="control-label" for="name"> Reserva: </label>
-											<input class="form-control" type="text" name="reserva" id="reserva" value="<?php echo $datosnegociacion->reserva; ?>" maxlength="10">
-											<?php echo form_error('reserva','<div class="help-block" >','</div>'); ?>
-										</div>
-									</div>-->
-									<div class="col-lg-4">
-										<div class="form-group <?php if(form_error('status')) echo 'has-error'; ?>">
-											<label class="control-label" for="name"> Status: </label>
-											<input class="form-control" readonly type="text" name="status" id="status" value="<?php echo $datosnegociacion->status; ?>" maxlength="10">
-											<?php echo form_error('status','<div class="help-block" >','</div>'); ?>
-										</div>
-									</div>
-								</div>
-							
+
 								<div class="row">
 									<div class="col-lg-4">
 										<div class="form-group">
 											<input type="hidden" name="hproyecto" id="hproyecto" value="<?php echo $datosnegociacion->idproyecto; ?>" />
 											<label class="control-label" for="name"> Proyecto: </label>
-											<select class="form-control" readonly name="proyectos" id="proyectos"></select>										
+											<select class="form-control" disabled="true" name="proyectos" id="proyectos"></select>											
+										</div>
+									</div>	
+									<div class="col-lg-4">
+										<div class="form-group <?php if(form_error('idnegociacion')) echo 'has-error'; ?>">
+											<label class="control-label" for="name"> Negociacion: </label>
+											<input class="form-control" disabled="true" type="text" name="idnegociacion" id="idnegociacion" value="<?php echo $datosnegociacion->idnegociacion; ?>" maxlength="30">
+											<?php echo form_error('idnegociacion','<div class="help-block" >','</div>'); ?>
 										</div>
 									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<input type="hidden" name="hcliente" id="hcliente" value="<?php echo $datosnegociacion->idcliente; ?>" />
-											<label class="control-label" for="name"> Cliente: </label>
-											<select class="form-control" readonly name="cliente" id="cliente"></select>										
+									<div class="col-lg-4">
+										<div class="form-group <?php if(form_error('status')) echo 'has-error'; ?>">
+											<label class="control-label" for="name"> Status: </label>
+											<input class="form-control" disabled="true" type="text" name="status" id="status" value="<?php echo $datosnegociacion->status; ?>" maxlength="10">
+											<?php echo form_error('status','<div class="help-block" >','</div>'); ?>
 										</div>
-									</div>		
-									<div class="col-lg-2">
-										<div class="form-group">
-											<input type="hidden" name="hcliente" id="hcliente" value="<?php echo $datosnegociacion->idcliente; ?>" />
-											<label class="control-label"c for="name"> Otros dueños: </label>
-											<input type="button" class="form-control btn btn-sm btn-negro" name="otrosduenos" id="otrosduenos" value="Otros dueños..."/>									
-										</div>
-									</div>									
+									</div>
 								</div>
+							
+
+								<div class="panel-group" id="accordion">
+									<div class="panel panel-info">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Datos Generales del comprador</a>
+											</h4>
+										</div>
+										<div id="collapse1" class="panel-collapse in" >
+											<div class="panel-body">
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="form-group">
+															<input type="hidden" name="hcliente" id="hcliente" value="<?php echo $datosnegociacion->idcliente; ?>" />
+															<label class="control-label" for="name"> Cliente: </label>
+															<select class="form-control" readonly name="cliente" id="cliente"></select>
+															<input type="hidden" name="cboCliente" id="cboCliente" >
+														</div>
+													</div>		
+													<div class="col-lg-2">
+														<div class="form-group">
+															<input type="hidden" name="hcliente" id="hcliente" value="<?php echo $datosnegociacion->idcliente; ?>" />
+															<label class="control-label"c for="name"> Otros dueños: </label>
+															<input type="button" class="form-control btn btn-sm btn-negro" name="otrosduenos" id="otrosduenos" value="Otros dueños..."/>									
+														</div>
+													</div>									
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-info">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Datos Laborales del comprador</a>
+											</h4>
+										</div>
+										<div id="collapse2" class="panel-collapse in">
+											<div class="panel-body">
+
+											</div>
+										</div>
+									</div>
+									<div class="panel panel-info">
+										<div class="panel-heading">
+											<h4 class="panel-title">
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Condiciones de la negociación</a>
+											</h4>
+										</div>
+										<div id="collapse3" class="panel-collapse in">
+											<div class="panel-body">
+
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								
 
 								<div class="row">
 									<div class="col-lg-4">
@@ -125,25 +161,25 @@
 											<label class="control-label" for="name"> Inmueble: </label>
 											<select class="form-control" readonly name="inmueble" id="inmueble"></select>										
 										</div>
-									</div>-->
+									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<input type="hidden" name="htipoinmueble" id="htipoinmueble" value="<?php echo $datosnegociacion->idtipoinmueble; ?>" />
 											<label class="control-label hidden" for="name"> Tipo inmueble: </label>
 											<select class="form-control hidden" readonly name="tiposinmueble" id="tiposinmueble"></select>										
 										</div>
-									</div>						
+									</div>-->					
 								</div>
 
 								<div class="row">
-									<div class="col-lg-4">
+									<!--<div class="col-lg-4">
 										<div class="form-group">
 											<input type="hidden" name="hmodelo" id="hmodelo" value="<?php echo $datosnegociacion->idmodelo; ?>" />
 											<label class="control-label hidden" for="name"> Modelo: </label>
 											<select class="form-control hidden" readonly name="modelo" id="modelo"></select>										
 										</div>
 									</div>
-									<!--
+									
 									<div class="col-lg-4">
 										<div class="form-group <?php if(form_error('tamano')) echo 'has-error'; ?>">
 											<label class="control-label" for="name"> Tamaño: </label>
@@ -500,6 +536,7 @@
 	<?php echo $footer;?>
 	<script>
 		//$('input[name=enganche]').focus();
+		$('#dpFecha').datetimepicker({'format':'YYYY-MM-DD'});
 		$('#fechaprimerpago').datepicker({'format':'yyyy-mm-dd'});
 		$('#fechareserva').datepicker({'format':'yyyy-mm-dd'});
 	</script>

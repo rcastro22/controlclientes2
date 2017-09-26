@@ -342,6 +342,40 @@ class negociacion extends MY_Controller
 								$fecha = strtotime('+1 month',$fecha);
 							}
 
+							// Inserta cliente temporal
+							if($this->input->post('cliente') == '0') {
+								$this->load->model('mcliente');
+								$inserto2=$this->mcliente->grabartemp(array(
+										'idnegociacion'=>$datosnegociacionMax->maximo,
+										'nombre'=>$this->input->post('nombre'),
+										'apellido'=>$this->input->post('apellido'),
+										//'idtipoidentificacion'=>$this->input->post('tipoidentificaciones'),
+										'idtipoidentificacion'=>1,
+										'dpi'=>$this->input->post('dpi'),
+										'fecnacimiento'=>date('Y-m-d',strtotime($this->input->post('fecnacimiento'))),
+										'profesion'=>$this->input->post('profesion'),
+										//'nacionalidad'=>$this->input->post('nacionalidad'),
+										'estadocivil'=>$this->input->post('estadocivil'),
+										'dirresidencia'=>$this->input->post('direccion'),
+										'telefono'=>$this->input->post('telefono'),
+										'celular'=>$this->input->post('celular'),
+										'nit'=>$this->input->post('nit'),
+										'email'=>$this->input->post('correo'),
+										'lugartrabajo'=>$this->input->post('empresa'),
+										'dirtrabajo'=>$this->input->post('dirtrabajo'),
+										'tiempolabor'=>$this->input->post('tiempolabor'),
+										'ingresos'=>$this->input->post('ingresos'),
+										'puesto'=>$this->input->post('puesto'),
+										'otrosingresos'=>$this->input->post('otrosingresos'),
+										//'concepto'=>$this->input->post('concepto'),
+										//Auditoria
+										'CreadoPor'=>$this->session->userdata('user_id'),
+										'FechaCreado'=>date("Y-m-d H:i:s"),
+										'ModificadoPor'=>$this->session->userdata('user_id'),
+										'FechaModificado'=>date("Y-m-d H:i:s")
+								),$err);
+							}	
+
 							$arreglo = json_decode($this->input->post('tablainmuebles'));
 							//$arreglo = $_POST['arreglo'];
 					    	$this->load->model('mdetallenegociacion');
@@ -388,6 +422,11 @@ class negociacion extends MY_Controller
 				$datosnegociacion->tablaotros="";
 			    $datosnegociacion->total_tablai=$datosnegociacion->precioventa;
         		$this->view_data['datosnegociacion']=$datosnegociacion;
+        		if($datosnegociacion->idcliente == 0) {
+        			$this->load->model('mcliente');
+        			$datoscliente = $this->mcliente->getClienteTemporal($idnegociacion);
+        			$this->view_data['datoscliente']=$datoscliente;
+        		} 	
         		if($msgError != "") {
         			$this->view_data['mensaje']=$msgError;
 	               	$this->view_data['tipoAlerta']=$tipoAlerta;

@@ -157,6 +157,7 @@
 													</div>
 												</div>					
 											</div>
+											<br/><br/><br/>
 										</div>
 									</div>
 								</div>
@@ -516,6 +517,18 @@
 														<label class="control-label" for="name"> Tipo Cambio Contrato *: </label>
 														<input class="form-control" readonly="true" type="text" name="tipocambioneg" id="tipocambioneg" value="<?php echo set_value('tipocambioneg'); ?>" maxlength="50">
 														<?php echo form_error('tipocambioneg','<div class="help-block" >','</div>'); ?>
+													</div>
+												</div>
+												<div class="col-lg-4">
+													<div class="form-group <?php if(form_error('formapago')) echo 'has-error'; ?>">
+														<label class="control-label" for="name"> Forma de pago: </label>
+														<input class="form-control" readonly="true" type="hidden" name="formapago" id="formapago" value="<?php echo set_value('formapago'); ?>" maxlength="50">
+														<select class="form-control">
+														  <option value="FHA">FHA</option>
+														  <option value="contado">Contado</option>
+														  <option value="creditobank">Credito bancario</option>
+														</select>
+														<?php echo form_error('formapago','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>
 											</div>
