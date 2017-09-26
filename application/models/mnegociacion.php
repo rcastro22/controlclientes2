@@ -11,6 +11,38 @@ class mnegociacion extends CI_Model {
 							a.especifiquejuridico,
 							a.nombramientojuridico,
 							a.idinmueble,
+							a.idasesor,
+							a.fecha,
+							a.precioventa,
+							a.reserva,
+							a.reciboreserva,
+							a.fechareserva,
+							a.enganche,
+							a.saldoenganche,
+							a.financiamientobanco,
+							a.nocuotas,
+							a.cuotamensual,
+							a.comision,
+							a.facturabanco,
+							a.monedacontrato,
+							a.tipocambioneg,
+							a.status
+							from negociacion a
+							where a.status in ($status)
+							and ($idcliente == -1 or a.idcliente = $idcliente)");
+		return $query->result();
+	}
+
+	public function getNegociacionesProyectoCliente($idcliente=-1,$idproyecto=-1)
+	{		
+		
+		$query = $this->db->query("select a.idnegociacion,
+							a.idcliente,
+							a.idproyecto,
+							a.clientejuridico,
+							a.especifiquejuridico,
+							a.nombramientojuridico,
+							a.idinmueble,
 							--c.nombre nombreinmueble,
 							a.idasesor,
 							a.fecha,
@@ -32,42 +64,6 @@ class mnegociacion extends CI_Model {
 							--join inmueble b on a.[idinmueble] = b.[idinmueble]
 							--and a.[idproyecto] = b.[idproyecto]
 							--join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
-							where a.status in ($status)
-							and ($idcliente == -1 or a.idcliente = $idcliente)");
-		return $query->result();
-	}
-
-	public function getNegociacionesProyectoCliente($idcliente=-1,$idproyecto=-1)
-	{		
-		
-		$query = $this->db->query("select a.idnegociacion,
-							a.idcliente,
-							a.idproyecto,
-							a.clientejuridico,
-							a.especifiquejuridico,
-							a.nombramientojuridico,
-							a.idinmueble,
-							c.nombre nombreinmueble,
-							a.idasesor,
-							a.fecha,
-							a.precioventa,
-							a.reserva,
-							a.reciboreserva,
-							a.fechareserva,
-							a.enganche,
-							a.saldoenganche,
-							a.financiamientobanco,
-							a.nocuotas,
-							a.cuotamensual,
-							a.comision,
-							a.facturabanco,
-							a.monedacontrato,
-							a.tipocambioneg,
-							a.status
-							from negociacion a
-							join inmueble b on a.[idinmueble] = b.[idinmueble]
-							and a.[idproyecto] = b.[idproyecto]
-							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
 							where a.status in ('RS') ");
 							//and (($idcliente = -1 and $idproyecto = -1) or (a.idcliente = $idcliente and a.idproyecto = $idproyecto))");
 		return $query->result();
@@ -83,11 +79,6 @@ class mnegociacion extends CI_Model {
 							a.especifiquejuridico,
 							a.nombramientojuridico,
 							a.idinmueble,
-							--b.idmodelo,
-							--b.tamano,
-							--b.dormitorios,
-							--c.nombre nombreinmueble,
-							--c.idtipoinmueble,
 							a.idasesor,
 							a.fecha,
 							a.precioventa,
@@ -109,9 +100,6 @@ class mnegociacion extends CI_Model {
 				                when 'RS' then 'Resindida'
 				            end status
 							from negociacion a
-							--join inmueble b on a.[idinmueble] = b.[idinmueble]
-							--and a.[idproyecto] = b.[idproyecto]
-							--join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
 							where a.idnegociacion = $idnegociacion");
 		return $query->row();
 	}
@@ -208,7 +196,7 @@ class mnegociacion extends CI_Model {
 							a.especifiquejuridico,
 							a.nombramientojuridico,
 							a.idinmueble,
-							c.nombre nombreinmueble,
+							--c.nombre nombreinmueble,
 							a.idasesor,
 							a.fecha,
 							a.precioventa,
@@ -224,9 +212,9 @@ class mnegociacion extends CI_Model {
 							a.tipocambioneg,
 							a.status
 							from negociacion a
-							join inmueble b on a.[idinmueble] = b.[idinmueble]
-							and a.[idproyecto] = b.[idproyecto]
-							join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
+							--join inmueble b on a.[idinmueble] = b.[idinmueble]
+							--and a.[idproyecto] = b.[idproyecto]
+							--join tipoinmueble c on c.[idtipoinmueble] = b.[idtipoinmueble]
 							where a.idcliente = ".$idcliente. " and a.idproyecto = ".$idproyecto." 
 		                    and a.status<>'RS'");
 		return $query->result();

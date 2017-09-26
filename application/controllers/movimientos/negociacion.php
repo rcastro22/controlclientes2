@@ -287,7 +287,7 @@ class negociacion extends MY_Controller
 						$this->load->model('mnegociacion');
 						$inserto=$this->mnegociacion->grabar(array(
 							   'idproyecto'=>$this->input->post('proyectos'),
-							   'idcliente'=>$this->input->post('cliente'),
+							   'idcliente'=>$this->input->post('hcliente'),
 							   'clientejuridico'=>$this->input->post('clientejuridico'),
 							   'especifiquejuridico'=>$this->input->post('especifiquejuridico'),
 							   'nombramientojuridico'=>$this->input->post('nombramientojuridico'),
@@ -421,12 +421,32 @@ class negociacion extends MY_Controller
 				$datosnegociacion->tablai="";
 				$datosnegociacion->tablaotros="";
 			    $datosnegociacion->total_tablai=$datosnegociacion->precioventa;
-        		$this->view_data['datosnegociacion']=$datosnegociacion;
-        		if($datosnegociacion->idcliente == 0) {
-        			$this->load->model('mcliente');
+			    $this->load->model('mcliente');
+			    if($datosnegociacion->idcliente == 0) {
         			$datoscliente = $this->mcliente->getClienteTemporal($idnegociacion);
-        			$this->view_data['datoscliente']=$datoscliente;
-        		} 	
+        		}
+        		else {
+        			$datoscliente = $this->mcliente->getClienteId($datosnegociacion->idcliente);
+        		}
+        		$datosnegociacion->nit = $datoscliente->nit;
+    			$datosnegociacion->nombre = $datoscliente->nombre;
+    			$datosnegociacion->apellido = $datoscliente->apellido;
+    			$datosnegociacion->fecnacimiento = $datoscliente->fecnacimiento;
+    			$datosnegociacion->dpi = $datoscliente->dpi;
+    			$datosnegociacion->estadocivil = $datoscliente->estadocivil;
+    			$datosnegociacion->profesion = $datoscliente->profesion;
+    			$datosnegociacion->correo = $datoscliente->correo;
+    			$datosnegociacion->telefono = $datoscliente->telefono;
+    			$datosnegociacion->celular = $datoscliente->celular;
+    			$datosnegociacion->direccion = $datoscliente->dirresidencia;
+    			$datosnegociacion->empresa = $datoscliente->lugartrabajo;
+    			$datosnegociacion->tiempolabor = $datoscliente->tiempolabor;
+    			$datosnegociacion->dirtrabajo = $datoscliente->dirtrabajo;
+    			$datosnegociacion->puesto = $datoscliente->puesto;
+    			$datosnegociacion->ingresos = $datoscliente->ingresos;
+    			$datosnegociacion->otrosingresos = $datoscliente->otrosingresos;
+
+        		$this->view_data['datosnegociacion']=$datosnegociacion; 	
         		if($msgError != "") {
         			$this->view_data['mensaje']=$msgError;
 	               	$this->view_data['tipoAlerta']=$tipoAlerta;
@@ -570,6 +590,7 @@ class negociacion extends MY_Controller
 						$err="";
 						$siactualizo=$this->mnegociacion->modificar($this->input->post('idnegociacion'),
 							    array(
+							    	'idcliente'=>$this->input->post('cboCliente'),
 							    	'clientejuridico'=>$this->input->post('clientejuridico'),
 							   		'especifiquejuridico'=>$this->input->post('especifiquejuridico'),
 							   		'nombramientojuridico'=>$this->input->post('nombramientojuridico'),
@@ -604,61 +625,9 @@ class negociacion extends MY_Controller
 					    	if($sielimino)
 								$inserto=$this->mdetallenegociacion->grabar($arreglo,$this->input->post('idnegociacion'),$err);
 
-	                    	// Si el numero de cuotas es mayor a los pagos efectuados
-	                    	/*if($this->input->post('nocuotas') > $pagosefectuados)
-	                    	{
-	                    		//$fecha = $this->input->post('fechaprimerpago');
-	                    		//print_r($fecha);
-	                    		//exit;
+							// 09-03-2015, Actualiza los datos del cliente
+	                    	
 
-	                    		if($pagosefectuados == 0){
-	                    			$fecha = strtotime($this->input->post('fechaprimerpago'));
-	                    		}
-	                    		else{
-	                    			$fecha = strtotime($this->input->post('fechaprimerpago'));
-	                    			for ($y=1; $y <= $pagosefectuados; $y++) { 
-	                    				$fecha = strtotime('+1 month',$fecha);
-	                    			}
-	                    			$fecha = strtotime('+1 month',$fecha);
-	                    		}
-								//$datosdetallepago = $this->mdetallepago->getSaldo($this->input->post('idnegociacion'));
-								$datosdetallepago = $this->mdetallepago->getMontoCalculadoPagado($this->input->post('idnegociacion'));
-								$saldo = $this->input->post('saldoenganche') - $datosdetallepago->pagado;
-
-								$nuevacuotamensual = $saldo / ($this->input->post('nocuotas') - $pagosefectuados);
-
-								$this->mdetallepago->borrar($this->input->post('idnegociacion'),$pagosefectuados+1,$err);
-								$montoacumulado = 0;
-								
-								for($x=$pagosefectuados+1;$x<=$this->input->post('nocuotas');$x++)
-								{
-
-									if($x == $this->input->post('nocuotas')){
-										$nuevacuotamensual = $saldo - $montoacumulado;
-									}
-									else{
-										$montoacumulado += round($nuevacuotamensual,2);
-									}
-
-									$this->load->model('mdetallepago');
-									$inserto2=$this->mdetallepago->grabar(array(
-										   'idnegociacion'=>$this->input->post('idnegociacion'),
-										   'nopago'=>$x,
-										   'fechalimitepago'=>date('Y-m-d',$fecha),
-										   'pagocalculado'=>round($nuevacuotamensual,2),
-										   'pagoefectuado'=>0,
-										   'moracalculada'=>0,
-										   'morapagada'=>0,
-										   //Auditoria
-										   'CreadoPor'=>$this->session->userdata('user_id'),
-										   'FechaCreado'=>date("Y-m-d H:i:s"),
-										   'ModificadoPor'=>$this->session->userdata('user_id'),
-										   'FechaModificado'=>date("Y-m-d H:i:s")
-										   ),$err);
-
-									$fecha = strtotime('+1 month',$fecha);
-								}
-							}*/
 	                    	redirect('movimientos/negociacion/listado/'.$this->input->post('cliente'));
 	                    }
 	                    else
@@ -705,7 +674,7 @@ class negociacion extends MY_Controller
         {
         	$this->load->model('mnegociacion');
 			$datosnegociacion = $this->mnegociacion->getNegociacionId($idnegociacion);
-        	redirect('movimientos/negociacion/listado/'.$datosnegociacion->idcliente);
+        	redirect('movimientos/negociacion/listado/');
         }
         else
         {

@@ -10,6 +10,14 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-10 col-lg-offset-1" >
+			<ul class="nav nav-tabs">
+				<li role="presentation"><a href="<?php echo base_url().'movimientos/negociacion/edit/'.$idnegociacion;?>">General</a></li>
+				<li role="presentation"><a href="<?php echo base_url().'movimientos/listacomprobacion/listado/'.$idnegociacion;?>">CheckList</a></li>
+				<li role="presentation"><a href="<?php echo base_url().'movimientos/cuota/listado/'.$idnegociacion;?>">Cuotas</a></li>
+				<li role="presentation" class="active"><a href="<?php echo base_url().'movimientos/pagos/listado/'.$idnegociacion;?>">Detlle de pagos</a></li>
+				<li role="presentation"><a href="<?php echo base_url().'movimientos/negociacion/pago/'.$idnegociacion;?>">Pagar</a></li>
+			</ul>
+			<br/>
 			<div class="panel panel-default">
 		  	<!-- Default panel contents -->
 		  		<div class="panel-heading panel-heading-extras" > Datos cliente  </div>

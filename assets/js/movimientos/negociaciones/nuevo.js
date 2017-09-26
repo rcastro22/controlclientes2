@@ -61,7 +61,7 @@ function cargarClientes()
 					$option =$('<option>');
 				}
 				$option.val(linea.idcliente);
-				$option.html(linea.nombre+ ' '+linea.apellido);
+				$option.html(linea.idcliente+' - '+linea.nombre+ ' '+linea.apellido);
 				$('#cliente').append($option);
 			})
 
@@ -69,7 +69,7 @@ function cargarClientes()
 			datos = data;
             for (i = 0; i < datos.length; i++)
             {
-                datosj[i] = { id: datos[i].idcliente, text: datos[i].nombre + ' ' + datos[i].apellido };
+                datosj[i] = { id: datos[i].idcliente, text: datos[i].idcliente + ' - ' + datos[i].nombre + ' ' + datos[i].apellido };
             }
             $("#cboCliente").select2({
             	placeholder: "Seleccione cliente",
