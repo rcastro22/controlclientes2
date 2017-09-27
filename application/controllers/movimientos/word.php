@@ -1330,10 +1330,16 @@ class word extends MY_Controller
 
 	public function edad($fecha){
 	    $fecha = str_replace("/","-",$fecha);
-	    $fecha = date('Y/m/d',strtotime($fecha));
+
+	    list($Y,$m,$d) = explode("-",$fecha);
+    	return( date("md") < $m.$d ? date("Y")-$Y-1 : date("Y")-$Y );
+	    
+	    /*$fecha = date('Y/m/d',strtotime($fecha));
 	    $hoy = date('Y/m/d');
+	    		echo $hoy - $fecha;
+		exit();
 	    $edad = $hoy - $fecha;
-	    return $edad;
+	    return $edad;*/
 	}
 
 	public function conversionMonto($moneda,$monto,$tipocambio,$textomoneda) {
