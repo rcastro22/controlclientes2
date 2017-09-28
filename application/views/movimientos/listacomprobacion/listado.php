@@ -45,7 +45,11 @@
 							</div>										
 					</div>
 
-					<div class="row">
+					<div class="row" id="lista">
+						
+					</div>
+
+					<!--<div class="row">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-4">
 						      <div class="checkbox">
@@ -215,7 +219,12 @@
 				                </div>
 							</div>
 						  </div>
+					</div>-->
+
+					<div style="text-align:center">
+						<button class="btn btn-lg btn-negro" id="guardar">Guardar</button>
 					</div>
+
 				</div>
 				
 			<input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>" >
@@ -242,7 +251,7 @@
 	</div><!-- /.modal -->
 </div>
 <script src="<?php echo base_url().'assets/js/tabla.js';?>"></script> 
-<script src="<?php echo base_url().'assets/js/movimientos/pagos/listado.js';?>"></script> 
+<script src="<?php echo base_url().'assets/js/movimientos/listacomprobacion/listado.js';?>"></script> 
 <script type="text/javascript">
 	$('.date').datetimepicker({'format':'YYYY-MM-DD'});
 </script>

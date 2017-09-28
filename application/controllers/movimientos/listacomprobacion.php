@@ -34,115 +34,38 @@ class listacomprobacion extends MY_Controller
 		$this->load->view('movimientos/listacomprobacion/listado',$this->view_data);
 	}
 
-	public function anular($idnegociacion=-1,$idcorrelativo=-1)
+	public function getListado($idnegociacion)
 	{
-		// Obtiene la ultima cuota cancelada
-		$this->load->model('mdetallepago');
-		$datosdetallepago = $this->mdetallepago->getCantidadPagosEfectuadosAn($idnegociacion);
-		$pagosefectuados = $datosdetallepago->pagosefectuados;
-
-		// Obtiene el registro del pago anulado
-		$this->load->model('mpago');
-		$datospago = $this->mpago->getPagoId($idnegociacion,$idcorrelativo);
-		$totalpago = $datospago->monto;
-
-		if($pagosefectuados > 0)
-		{
-			do
-			{
-				$montocalc = 0;
-
-				$this->load->model('mdetallepago');
-				$datosdetallepago = $this->mdetallepago->getDetalleNoPago($idnegociacion,$pagosefectuados);
-
-				if($datosdetallepago->pagoefectuado > $totalpago){
-					$montocalc = $totalpago;
-				}
-				else{
-					$montocalc = $datosdetallepago->pagoefectuado;
-				}
-
-				// actualiza
-
-				$siactualizo=$this->mdetallepago->modificar($idnegociacion,$pagosefectuados,
-										    array(
-											   'pagoefectuado'=>$datosdetallepago->pagoefectuado - $montocalc,
-											   // Auditoria
-											   'ModificadoPor'=>$this->session->userdata('user_id'),
-											   'FechaModificado'=>date("Y-m-d H:i:s")
-										        ),$err);
-
-				if($siactualizo){
-					$totalpago = $totalpago - $montocalc;
-				}
-
-				if($totalpago > 0 && $datosdetallepago->morapagada > 0)
-				{
-					$montocalc = 0;
-
-					if($datosdetallepago->morapagada > $totalpago){
-						$montocalc = $totalpago;
-					}
-					else{
-						$montocalc = $datosdetallepago->morapagada;
-					}
-
-					// actualiza
-					$siactualizo=$this->mdetallepago->modificar($idnegociacion,$pagosefectuados,
-										    array(
-											   'morapagada'=>$datosdetallepago->morapagada - $montocalc,
-											   // Auditoria
-											   'ModificadoPor'=>$this->session->userdata('user_id'),
-											   'FechaModificado'=>date("Y-m-d H:i:s")
-										        ),$err);
-
-					if($siactualizo){
-						$totalpago = $totalpago - $montocalc;
-					}
-				}
-
-				$pagosefectuados = $pagosefectuados -1;
-			}while ($totalpago > 0);
-
-			$this->load->model('mnegociacion');
-			$datosnegociacion=$this->mnegociacion->getNegociacionId($idnegociacion);
-
-			$siactualizo=$this->mpago->modificar($idnegociacion,$idcorrelativo,
-									array(
-										'status'=>'AN',
-										// Auditoria
-									   'ModificadoPor'=>$this->session->userdata('user_id'),
-									   'FechaModificado'=>date("Y-m-d H:i:s")
-										),$err);
-
-			if($siactualizo){
-				redirect('movimientos/negociacion/listado/'.$datosnegociacion->idcliente);
-			}
-		}
-		else
-		{
-			$err="";
-			$this->load->model('mnegociacion');
-			$datosnegociacion = $this->mnegociacion->getNegociacionId($idnegociacion);
-			$this->view_data['datosnegociacion']=$datosnegociacion;
-
-			$this->view_data['page_title']=  'Pagos';
-			$this->view_data['activo']=  'negociaciones';
-			$this->view_data['idnegociacion']= $idnegociacion;
-			$this->load_partials();
-			
-			$this->view_data['mensaje']="Error: No se pudo anular el registro ".$err;
-        	$this->view_data['tipoAlerta']="alert-danger";
-        	$this->load->view('movimientos/pagos/listado',$this->view_data);
-		}
+		$this->load->model('mlistacomprobacion');
+		$clientes = $this->mlistacomprobacion->getLista($idnegociacion);	
+		$this->output->set_content_type('application/json');
+		$this->output->set_output(json_encode($clientes));
 	}
 
-	public function getPagos($idnegociacion=-1)
-	{
-		$this->load->model('mpago');
-		$pago = $this->mpago->getPagos($idnegociacion);	
-		$this->output->set_content_type('application/json');
-		$this->output->set_output(json_encode($pago));
+
+	public function grabarDocumentos()
+    {	
+
+    	$idnegociacion=$_POST['idnegociacion'];
+
+
+        $this->load->model('mdocumentos_negociacion');
+        $sielimino=$this->mdocumentos_negociacion->borrar(array('idnegociacion'=>$idnegociacion),$err);
+		if ($sielimino)
+        {
+        	if(isset($_POST['arreglo'])) {
+        		$arreglo = $_POST['arreglo'];
+	        	$inserto=$this->mdocumentos_negociacion->grabar($arreglo,$err);
+	        	if (!$inserto)
+	        	{
+	        		echo $err;
+	        	}
+	        }
+        }
+    	else
+    	{
+    		echo $err;
+    	}
 	}
 	
 }
