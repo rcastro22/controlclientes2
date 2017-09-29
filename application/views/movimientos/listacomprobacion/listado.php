@@ -45,11 +45,30 @@
 							</div>										
 					</div>
 
+					<div class="row">
+						<div class="form-group">
+						    <div class="col-sm-offset-3 col-sm-4">
+
+						        <p class="text-center">
+						          <strong>Documento</strong>
+						        </p>
+
+						    </div>
+						    <div class="col-sm-2">
+						    	<p class="text-center">
+									<strong>Fecha de entrega</strong>
+								</p>
+							</div>
+						  </div>
+					</div>
+					
 					<div class="row" id="lista">
+						
 						
 					</div>
 
-					<!--<div class="row">
+					<!--
+					<div class="row">
 						<div class="form-group">
 						    <div class="col-sm-offset-2 col-sm-4">
 						      <div class="checkbox">
@@ -68,159 +87,9 @@
 							</div>
 						  </div>
 					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Proyección de fraccionamiento de enganche y financiamiento bancario, firmado por el vendedor y el cliente
-						        </label>
-						      </div>
-						    </div>
-						  <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha2'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Plano de arquitectura de los inmuebles
-						        </label>
-						      </div>
-						    </div>
-						    <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha3'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Copia de DPI
-						        </label>
-						      </div>
-						    </div>
-						    <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha4'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Copia de Carné de NIT y RTU
-						        </label>
-						      </div>
-						    </div>
-						    <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha5'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Copia de cheque de reserva
-						        </label>
-						      </div>
-						    </div>
-						    <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha6'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Indicar si es cliente FHA, crédito directo o al contado
-						        </label>
-						      </div>
-						    </div>
-						    <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha7'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Acuerdos, descuentos o puntos extras acordados
-						        </label>
-						      </div>
-						    </div>
-						    <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha8'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>
-					<div class="row">
-						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
-						      <div class="checkbox">
-						        <label>
-						          <input type="checkbox"> Listado de upgrades solicitados por el cliente, firmado por él y vendedor
-						        </label>
-						      </div>
-						    </div>
-						    <div class="col-sm-2">
-								<div class='input-group date' id='dpFecha9'>
-									<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="" >
-									<span class="input-group-addon">
-				                        <span class="glyphicon glyphicon-calendar"></span>
-				                    </span>
-				                </div>
-							</div>
-						  </div>
-					</div>-->
+					-->
 
+					<br/>
 					<div style="text-align:center">
 						<button class="btn btn-lg btn-negro" id="guardar">Guardar</button>
 					</div>

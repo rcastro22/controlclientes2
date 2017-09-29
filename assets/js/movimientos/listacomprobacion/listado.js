@@ -32,7 +32,7 @@ function cargarListado($idnegociacion = 158) {
 
 				divRow.addClass("row");
 				divForm.addClass("form-group");
-				divCol.addClass("col-sm-offset-2 col-sm-4");
+				divCol.addClass("col-sm-offset-3 col-sm-4");
 				divCheck.addClass("checkbox");
 				
 				input.attr("type", "checkbox");

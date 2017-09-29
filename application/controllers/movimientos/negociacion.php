@@ -448,7 +448,7 @@ class negociacion extends MY_Controller
 
         		$this->view_data['datosnegociacion']=$datosnegociacion; 	
         		if($msgError != "") {
-        			$this->view_data['mensaje']=$msgError;
+        			$this->view_data['mensaje']=str_replace("_"," ",$msgError);
 	               	$this->view_data['tipoAlerta']=$tipoAlerta;
 	            }
 				$this->load->view('movimientos/negociaciones/edit',$this->view_data);
@@ -1046,5 +1046,85 @@ class negociacion extends MY_Controller
 		
 	}
 
+
+	public function aprobarNegociacion($idnegociacion=-1)
+ 	{
+ 		
+ 		$this->load->model('mdocumentos_negociacion');
+		$documentospendientes=$this->mdocumentos_negociacion->obtenerDocsPendientes($idnegociacion);
+
+		$err="";
+		$codigoCliente = 0;
+		if($documentospendientes->docpendientes > 0) {
+			redirect('movimientos/negociacion/edit/'.$idnegociacion.'/Debe_completar_la_documentacion/alert-danger');
+		}
+		else if($documentospendientes->docpendientes == 0) {
+			$this->load->model('mnegociacion');
+			$datosnegociacion = $this->mnegociacion->getNegociacionId($idnegociacion);
+
+			// si el cliente es temporal
+		    $this->load->model('mcliente');
+		    if($datosnegociacion->idcliente == 0) {
+    			$datoscliente = $this->mcliente->getClienteTemporal($idnegociacion);
+
+    			$inserto=$this->mcliente->grabar(array(
+						   'nombre'=>$datoscliente->nombre,
+						   'apellido'=>$datoscliente->apellido,
+						   'idtipoidentificacion'=>$datoscliente->idtipoidentificacion,
+						   'dpi'=>$datoscliente->dpi,
+						   'fecnacimiento'=>$datoscliente->fecnacimiento,
+						   'profesion'=>$datoscliente->profesion,
+						   'nacionalidad'=>$datoscliente->nacionalidad,
+						   'estadocivil'=>$datoscliente->estadocivil,
+						   'dirresidencia'=>$datoscliente->dirresidencia,
+						   'telefono'=>$datoscliente->telefono,
+						   'celular'=>$datoscliente->celular,
+						   'nit'=>$datoscliente->nit,
+						   'email'=>$datoscliente->correo,
+						   'lugartrabajo'=>$datoscliente->lugartrabajo,
+						   'dirtrabajo'=>$datoscliente->dirtrabajo,
+						   'tiempolabor'=>$datoscliente->tiempolabor,
+						   'ingresos'=>$datoscliente->ingresos,
+						   'puesto'=>$datoscliente->puesto,
+						   'otrosingresos'=>$datoscliente->otrosingresos,
+						   'concepto'=>$datoscliente->concepto,
+						   //Auditoria
+						   'CreadoPor'=>$this->session->userdata('user_id'),
+						   'FechaCreado'=>date("Y-m-d H:i:s"),
+						   'ModificadoPor'=>$this->session->userdata('user_id'),
+						   'FechaModificado'=>date("Y-m-d H:i:s")
+						   ),$err2);
+    			if($inserto) {
+    				$ultimoCliente = $this->mcliente->getUltimoCliente();
+    				$codigoCliente = $ultimoCliente->idcliente;
+    			}
+    			else {
+
+    				$err = $err2;
+    			}
+    		}
+    		$siactualizo = false;
+    		if($err == "" && $codigoCliente != 0)
+    		{
+    		// actualiza el status
+			$siactualizo=$this->mnegociacion->modificar($idnegociacion,
+				    array(
+				    	'status'=>'AP',
+				    	'idcliente'=>$codigoCliente,
+					   	// Auditoria
+					   	'ModificadoPor'=>$this->session->userdata('user_id'),
+					   	'FechaModificado'=>date("Y-m-d H:i:s")
+				        ),$err);
+			}
+			if($siactualizo) {
+				redirect('movimientos/negociacion/edit/'.$idnegociacion.'/APROBADA/alert-success');
+			} 
+			else {
+				redirect('movimientos/negociacion/edit/'.$idnegociacion.'/'.str_replace(' ', '_', $err).'/alert-danger');
+			}
+
+       	}	
+  
+	}
 
 }

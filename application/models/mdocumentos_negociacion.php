@@ -2,6 +2,16 @@
 
 class mdocumentos_negociacion extends CI_Model {
 
+	public function obtenerDocsPendientes($idnegociacion)
+	{		
+		$query = $this->db->query("select (count(a.iddocumento) - count(b.entregadoc)) docpendientes
+									from listacomprobacion a
+									left outer join documentos_negociacion b
+									on a.iddocumento = b.iddocumento 
+									and b.idnegociacion = $idnegociacion");
+		return $query->row();
+	}
+
 	public function grabar($data,&$err)
 	{
 		//$this->db->insert("documentos_negociacion",$data);	

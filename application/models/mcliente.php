@@ -103,6 +103,13 @@ class mcliente extends CI_Model {
 		return $query->row();
 	}
 
+	public function getUltimoCliente()
+	{		
+		$query = $this->db->query("select max(a.idcliente) idcliente 
+									from cliente a;");
+		return $query->row();
+	}
+
 	public function grabar($data,&$err)
 	{
 		$this->db->insert("cliente",$data);	

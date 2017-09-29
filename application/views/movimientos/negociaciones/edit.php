@@ -653,7 +653,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-	        <a href="#" class="btn btn-primary" >Aprobar</a>
+	        <a href="<?php echo base_url().'movimientos/negociacion/aprobarNegociacion/'.$datosnegociacion->idnegociacion;?>" class="btn btn-primary" >Aprobar</a>
 	        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
 	      </div>
 	    </div>
