@@ -69,7 +69,7 @@ class mcliente extends CI_Model {
 	{		
 		$query=$this->db->query("select a.nit 
 									from cliente a 
-									where replace(replace(a.nit,'-',''),' ','') = replace(replace($nit,'-',''),' ','')");
+									where replace(replace(a.nit,'-',''),' ','') = replace(replace('$nit','-',''),' ','')");
 		return $query->row();
 	}
 

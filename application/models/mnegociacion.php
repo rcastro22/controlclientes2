@@ -6,6 +6,7 @@ class mnegociacion extends CI_Model {
 	{		
 		$query = $this->db->query("select a.idnegociacion,
 							a.idcliente,
+							b.nombre || ' ' || b.apellido cliente,
 							a.idproyecto,
 							a.clientejuridico,
 							a.especifiquejuridico,
@@ -28,6 +29,8 @@ class mnegociacion extends CI_Model {
 							a.tipocambioneg,
 							a.status
 							from negociacion a
+							left outer join cliente b
+             				on a.idcliente = b.idcliente
 							where a.status in ($status)
 							and ($idcliente == -1 or a.idcliente = $idcliente)");
 		return $query->result();
@@ -98,7 +101,12 @@ class mnegociacion extends CI_Model {
 				                when 'CR' then 'Creada'
 				                when 'AP' then 'Aprobada'
 				                when 'RS' then 'Resindida'
-				            end status
+				            end status,
+				            a.formapago,
+				            a.plazocredito,
+				            a.tipofinanciamiento,
+				            a.entidadautorizada,
+				            a.tasainteres
 							from negociacion a
 							where a.idnegociacion = $idnegociacion");
 		return $query->row();

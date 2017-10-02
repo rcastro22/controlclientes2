@@ -532,6 +532,37 @@
 													</div>
 												</div>
 											</div>
+
+											<div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="form-group <?php if(form_error('plazocredito')) echo 'has-error'; ?>">
+                                                        <label class="control-label" for="name"> plazo del credito: </label>
+                                                        <input class="form-control" type="text" name="plazocredito" id="plazocredito" value="<?php echo set_value('plazocredito'); ?>" maxlength="30">
+                                                        <?php echo form_error('plazocredito','<div class="help-block" >','</div>'); ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="form-group <?php if(form_error('tipofinanciamiento')) echo 'has-error'; ?>">
+                                                        <label class="control-label" for="name"> Tipo de financiamiento: </label>
+                                                        <input class="form-control" type="text" name="tipofinanciamiento" id="tipofinanciamiento" value="<?php echo set_value('tipofinanciamiento'); ?>" maxlength="10">
+                                                        <?php echo form_error('tipofinanciamiento','<div class="help-block" >','</div>'); ?>                                        
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="form-group <?php if(form_error('entidadautorizada')) echo 'has-error'; ?>">
+                                                        <label class="control-label" for="name"> Entidad autorizada: </label>
+                                                        <input class="form-control" type="text" name="entidadautorizada" id="entidadautorizada" value="<?php echo set_value('entidadautorizada'); ?>" maxlength="10">
+                                                        <?php echo form_error('entidadautorizada','<div class="help-block" >','</div>'); ?>                                     
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="form-group <?php if(form_error('tasainteres')) echo 'has-error'; ?>">
+                                                        <label class="control-label" for="name"> Tasa de interes: </label>
+                                                        <input class="form-control" type="text" name="tasainteres" id="tasainteres" value="<?php echo set_value('tasainteres'); ?>" maxlength="10">
+                                                        <?php echo form_error('tasainteres','<div class="help-block" >','</div>'); ?>                                       
+                                                    </div>
+                                                </div>
+                                            </div>
 										</div>
 									</div>
 								</div>

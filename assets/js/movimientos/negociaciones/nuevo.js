@@ -275,45 +275,6 @@ function cargarDatosCliente() {
 				$('#ingresos').attr('readonly','true');
 				$('#otrosingresos').attr('readonly','true');
 			}
-			else {
-				$('#nombre').val('');
-				$('#apellido').val('');
-				$('#nit').val('');
-				$('#fecnacimiento').val('');
-				$('#edad').val('');
-				$('#dpi').val('');
-				$('#estadocivil').val('');
-				$('#profesion').val('');
-				$('#correo').val('');
-				$('#telefono').val('');
-				$('#celular').val('');
-				$('#direccion').val('');
-				$('#empresa').val('');
-				$('#tiempolabor').val('');
-				$('#dirtrabajo').val('');
-				$('#puesto').val('');
-				$('#ingresos').val('');
-				$('#otrosingresos').val('');
-
-				$('#nombre').removeAttr('readonly');
-				$('#apellido').removeAttr('readonly');
-				$('#nit').removeAttr('readonly');
-				$('#fecnacimiento').removeAttr('readonly');
-				//$('#edad').removeAttr('readonly');
-				$('#dpi').removeAttr('readonly');
-				$('#estadocivil').removeAttr('readonly');
-				$('#profesion').removeAttr('readonly');
-				$('#correo').removeAttr('readonly');
-				$('#telefono').removeAttr('readonly');
-				$('#celular').removeAttr('readonly');
-				$('#direccion').removeAttr('readonly');
-				$('#empresa').removeAttr('readonly');
-				$('#tiempolabor').removeAttr('readonly');
-				$('#dirtrabajo').removeAttr('readonly');
-				$('#puesto').removeAttr('readonly');
-				$('#ingresos').removeAttr('readonly');
-				$('#otrosingresos').removeAttr('readonly');
-			}
 		})
 		.fail(function(data)
 		{
@@ -399,8 +360,48 @@ $(document).on('change','#cliente',function(){
 });
 
 $("#cboCliente").on("change",function(){
-	$('#hcliente').val($('#cboCliente').val());
+	$('#hcliente').val($('#cboCliente').val()); 
 	cargarDatosCliente();
+
+	if($('#hcliente').val() == '0' || $('#hcliente').val() == '') {
+        /*$('#nombre').val('');
+        $('#apellido').val('');
+        $('#nit').val('');
+        $('#fecnacimiento').val('');
+        $('#edad').val('');
+        $('#dpi').val('');
+        $('#estadocivil').val('');
+        $('#profesion').val('');
+        $('#correo').val('');
+        $('#telefono').val('');
+        $('#celular').val('');
+        $('#direccion').val('');
+        $('#empresa').val('');
+        $('#tiempolabor').val('');
+        $('#dirtrabajo').val('');
+        $('#puesto').val('');
+        $('#ingresos').val('');
+        $('#otrosingresos').val('');*/
+
+        $('#nombre').removeAttr('readonly');
+        $('#apellido').removeAttr('readonly');
+        $('#nit').removeAttr('readonly');
+        $('#fecnacimiento').removeAttr('readonly');
+        //$('#edad').removeAttr('readonly');
+        $('#dpi').removeAttr('readonly');
+        $('#estadocivil').removeAttr('readonly');
+        $('#profesion').removeAttr('readonly');
+        $('#correo').removeAttr('readonly');
+        $('#telefono').removeAttr('readonly');
+        $('#celular').removeAttr('readonly');
+        $('#direccion').removeAttr('readonly');
+        $('#empresa').removeAttr('readonly');
+        $('#tiempolabor').removeAttr('readonly');
+        $('#dirtrabajo').removeAttr('readonly');
+        $('#puesto').removeAttr('readonly');
+        $('#ingresos').removeAttr('readonly');
+        $('#otrosingresos').removeAttr('readonly');
+    }
 });
 
 /* 21-09-2017, RC, Comentado porque ya no se usa

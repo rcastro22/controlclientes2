@@ -13,18 +13,18 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="<?php echo base_url().'movimientos/negociacion/edit/'.$datosnegociacion->idnegociacion;?>">General</a></li>
 					<li role="presentation"><a href="<?php echo base_url().'movimientos/listacomprobacion/listado/'.$datosnegociacion->idnegociacion;?>">CheckList</a></li>
-					<li role="presentation"><a href="<?php echo base_url().'movimientos/cuota/listado/'.$datosnegociacion->idnegociacion;?>">Cuotas</a></li>
-					<li role="presentation"><a href="<?php echo base_url().'movimientos/pagos/listado/'.$datosnegociacion->idnegociacion;?>">Detlle de pagos</a></li>
-					<li role="presentation"><a href="<?php echo base_url().'movimientos/negociacion/pago/'.$datosnegociacion->idnegociacion;?>">Pagar</a></li>
+					<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/cuota/listado/'.$datosnegociacion->idnegociacion;?>">Cuotas</a></li>
+					<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/pagos/listado/'.$datosnegociacion->idnegociacion;?>">Detlle de pagos</a></li>
+					<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/negociacion/pago/'.$datosnegociacion->idnegociacion;?>">Pagar</a></li>
 					<li role="presentation" class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 						  Funciones <span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
 							<li role="presentation"><a href="#" data-toggle="modal" data-target="#modalContratos">Contratos</a></li>
-							<li role="presentation"><a href="#" data-toggle="modal" data-target="#modalEmail">Enviar recordatorio</a></li>
-							<li role="separator" class="divider <?php if($datosnegociacion->status != 'Creada') echo 'hidden'; ?>"></li>
-							<li role="presentation" class="<?php if($datosnegociacion->status != 'Creada') echo 'hidden'; ?>"><a href="#"  data-toggle="modal" data-target="#modalAprobar">Aprobar</a></li>						  
+							<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="#" data-toggle="modal" data-target="#modalEmail">Enviar recordatorio</a></li>
+							<li role="separator" class="divider <?php if($datosnegociacion->status != 'Creada' || $datosusuario->tipousuario == '2') echo 'hidden'; ?>"></li>
+							<li role="presentation" class="<?php if($datosnegociacion->status != 'Creada' || $datosusuario->tipousuario == '2') echo 'hidden'; ?>"><a href="#"  data-toggle="modal" data-target="#modalAprobar">Aprobar</a></li>						  
 						</ul>
 					</li>
 				</ul>
@@ -542,7 +542,49 @@
 															<?php echo form_error('tipocambioneg','<div class="help-block" >','</div>'); ?>
 														</div>
 													</div>
+													<div class="col-lg-4">
+                                                        <div class="form-group <?php if(form_error('formapago')) echo 'has-error'; ?>">
+                                                            <label class="control-label" for="name"> Forma de pago: </label>
+                                                            <input class="form-control" readonly="true" type="hidden" name="formapago" id="formapago" value="<?php echo $datosnegociacion->formapago; ?>" maxlength="50">
+                                                            <select class="form-control">
+                                                              <option value="FHA">FHA</option>
+                                                              <option value="contado">Contado</option>
+                                                              <option value="creditobank">Credito bancario</option>
+                                                            </select>
+                                                            <?php echo form_error('formapago','<div class="help-block" >','</div>'); ?>
+                                                        </div>
+                                                    </div>
 												</div>
+												<div class="row">
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group <?php if(form_error('plazocredito')) echo 'has-error'; ?>">
+                                                            <label class="control-label" for="name"> plazo del credito: </label>
+                                                            <input class="form-control" type="text" name="plazocredito" id="plazocredito" value="<?php echo $datosnegociacion->plazocredito; ?>" maxlength="30">
+                                                            <?php echo form_error('plazocredito','<div class="help-block" >','</div>'); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group <?php if(form_error('tipofinanciamiento')) echo 'has-error'; ?>">
+                                                            <label class="control-label" for="name"> Tipo de financiamiento: </label>
+                                                            <input class="form-control" type="text" name="tipofinanciamiento" id="tipofinanciamiento" value="<?php echo $datosnegociacion->tipofinanciamiento; ?>" maxlength="10">
+                                                            <?php echo form_error('tipofinanciamiento','<div class="help-block" >','</div>'); ?>                                        
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group <?php if(form_error('entidadautorizada')) echo 'has-error'; ?>">
+                                                            <label class="control-label" for="name"> Entidad autorizada: </label>
+                                                            <input class="form-control" type="text" name="entidadautorizada" id="entidadautorizada" value="<?php echo $datosnegociacion->entidadautorizada; ?>" maxlength="10">
+                                                            <?php echo form_error('entidadautorizada','<div class="help-block" >','</div>'); ?>                                     
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group <?php if(form_error('tasainteres')) echo 'has-error'; ?>">
+                                                            <label class="control-label" for="name"> Tasa de interes: </label>
+                                                            <input class="form-control" type="text" name="tasainteres" id="tasainteres" value="<?php echo $datosnegociacion->tasainteres; ?>" maxlength="10">
+                                                            <?php echo form_error('tasainteres','<div class="help-block" >','</div>'); ?>                                       
+                                                        </div>
+                                                    </div>
+                                                </div>
 											</div>
 										</div>
 									</div>

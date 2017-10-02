@@ -18,14 +18,20 @@ class negociacion extends MY_Controller
 			$this->view_data['usuario']= $this->session->userdata('user_id');
 			$this->view_data['datosusuario'] = $datosusuario;
 		}
-
+			session_start();
 	}
 
 	public function listado($idcliente=-1)
 	{
+		
 		$this->view_data['page_title']=  'Negociaciones';
 		$this->view_data['activo']=  'negociaciones';
 		$this->view_data['idcliente']= $idcliente;
+		if(isset($_SESSION['Idnegociacionnueva']) && $_SESSION['Idnegociacionnueva'] != "") {
+			$this->view_data['mensaje']= $_SESSION['Idnegociacionnueva'];
+			$this->view_data['tipoAlerta']= "alert-success";
+			$_SESSION['Idnegociacionnueva'] = "";
+		}
 		$this->load_partials();
 		$this->load->view('movimientos/negociaciones/listado',$this->view_data);
 	}
@@ -89,6 +95,12 @@ class negociacion extends MY_Controller
 
 				$datosnegociacion->monedacontrato=$this->input->post('monedacontrato');
 				$datosnegociacion->tipocambioneg=$this->input->post('tipocambioneg');
+
+				$datosnegociacion->formapago=$this->input->post('formapago');
+                $datosnegociacion->plazocredito=$this->input->post('plazocredito');
+                $datosnegociacion->tipofinanciamiento=$this->input->post('tipofinanciamiento');
+                $datosnegociacion->entidadautorizada=$this->input->post('entidadautorizada');
+                $datosnegociacion->tasainteres=$this->input->post('tasainteres');
 
 				$datosnegociacion->tablai=str_replace(array("\""), "'", $this->input->post('tablainmuebles'));
 				$datosnegociacion->tablaotros=str_replace(array("\""), "'", $this->input->post('tablaotros'));
@@ -201,6 +213,12 @@ class negociacion extends MY_Controller
 					$datosnegociacion->monedacontrato=$this->input->post('monedacontrato');
       				$datosnegociacion->tipocambioneg=$this->input->post('tipocambioneg');
 
+      				$datosnegociacion->formapago=$this->input->post('formapago');
+                    $datosnegociacion->plazocredito=$this->input->post('plazocredito');
+                    $datosnegociacion->tipofinanciamiento=$this->input->post('tipofinanciamiento');
+                    $datosnegociacion->entidadautorizada=$this->input->post('entidadautorizada');
+                    $datosnegociacion->tasainteres=$this->input->post('tasainteres');
+
 										
 					$datosnegociacion->tablai=str_replace(array("\""), "'", $this->input->post('tablainmuebles'));
 					$datosnegociacion->tablaotros=str_replace(array("\""), "'", $this->input->post('tablaotros'));
@@ -214,6 +232,23 @@ class negociacion extends MY_Controller
 				else 	// SI la validacion fue correcta
 				{					
 					$datosnegociacion = new stdClass();	
+
+					$datosnegociacion->nombre=$this->input->post('nombre');
+                    $datosnegociacion->apellido=$this->input->post('apellido');
+                    $datosnegociacion->fecnacimiento=$this->input->post('fecnacimiento');
+                    $datosnegociacion->dpi=$this->input->post('dpi');
+                    $datosnegociacion->estadocivil=$this->input->post('estadocivil');
+                    $datosnegociacion->profesion=$this->input->post('profesion');
+                    $datosnegociacion->correo=$this->input->post('correo');
+                    $datosnegociacion->telefono=$this->input->post('telefono');
+                    $datosnegociacion->celular=$this->input->post('celular');
+                    $datosnegociacion->direccion=$this->input->post('direccion');
+                    $datosnegociacion->empresa=$this->input->post('empresa');
+                    $datosnegociacion->tiempolabor=$this->input->post('tiempolabor');
+                    $datosnegociacion->dirtrabajo=$this->input->post('dirtrabajo');
+                    $datosnegociacion->puesto=$this->input->post('puesto');
+                    $datosnegociacion->ingresos=$this->input->post('ingresos');
+                    $datosnegociacion->otrosingresos=$this->input->post('otrosingresos');
 
 					$datosnegociacion->idproyecto=$this->input->post('proyectos');
 					$datosnegociacion->idcliente=$this->input->post('cliente');
@@ -245,6 +280,12 @@ class negociacion extends MY_Controller
 					$datosnegociacion->monedacontrato=$this->input->post('monedacontrato');
 					$datosnegociacion->tipocambioneg=$this->input->post('tipocambioneg');
 
+					$datosnegociacion->formapago=$this->input->post('formapago');
+                    $datosnegociacion->plazocredito=$this->input->post('plazocredito');
+                    $datosnegociacion->tipofinanciamiento=$this->input->post('tipofinanciamiento');
+                    $datosnegociacion->entidadautorizada=$this->input->post('entidadautorizada');
+                    $datosnegociacion->tasainteres=$this->input->post('tasainteres');
+
 
 					$datosnegociacion->tablai=str_replace(array("\""), "'", $this->input->post('tablainmuebles'));
 					$datosnegociacion->tablaotros=str_replace(array("\""), "'", $this->input->post('tablaotros'));
@@ -271,8 +312,8 @@ class negociacion extends MY_Controller
 					}
 
 					if($err=="") {
-						if($this->input->post('cliente') == '0') {
-							$this->load->model('mcliente');
+						if($this->input->post('hcliente') == '0') {
+							$this->load->model('mcliente');							
 							$datosclientenit = $this->mcliente->getClienteIdByNit($this->input->post('nit'));
 
 							if(isset($datosclientenit->nit) && $datosclientenit->nit != "") {
@@ -308,6 +349,11 @@ class negociacion extends MY_Controller
 							   'monedacontrato'=>$this->input->post('monedacontrato'),
 							   'tipocambioneg'=>$this->input->post('tipocambioneg'),
 							   'status'=>'CR',
+							   'formapago'=>$this->input->post('formapago'),
+                               'plazocredito'=>$this->input->post('plazocredito'),
+                               'tipofinanciamiento'=>$this->input->post('tipofinanciamiento'),
+                               'entidadautorizada'=>$this->input->post('entidadautorizada'),
+                               'tasainteres'=>$this->input->post('tasainteres'),
 							   //Auditoria
 							   'CreadoPor'=>$this->session->userdata('user_id'),
 							   'FechaCreado'=>date("Y-m-d H:i:s"),
@@ -382,8 +428,8 @@ class negociacion extends MY_Controller
 							$inserto=$this->mdetallenegociacion->grabar($arreglo,$datosnegociacionMax->maximo,$err);
 							//echo $arreglo;
 							//exit();
-
-							redirect('movimientos/negociacion/listado/'.$this->input->post('cliente'));
+							$_SESSION['Idnegociacionnueva'] = "Se ha creado la negociacion No. ".$datosnegociacionMax->maximo;
+							redirect('movimientos/negociacion/listado/-1');
 						}
 						else
 	                    {
@@ -627,8 +673,8 @@ class negociacion extends MY_Controller
 
 							// 09-03-2015, Actualiza los datos del cliente
 	                    	
-
-	                    	redirect('movimientos/negociacion/listado/'.$this->input->post('cliente'));
+							
+	                    	redirect('movimientos/negociacion/listado/-1');
 	                    }
 	                    else
 	                    {
@@ -1102,6 +1148,9 @@ class negociacion extends MY_Controller
 
     				$err = $err2;
     			}
+    		}
+    		else {
+    			$codigoCliente = $datosnegociacion->idcliente;
     		}
     		$siactualizo = false;
     		if($err == "" && $codigoCliente != 0)
