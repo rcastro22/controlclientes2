@@ -1310,8 +1310,8 @@ class word extends MY_Controller
 
 
 			////////////////  FORMA DE PAGO  //////////////////
-			$formapago = $this->mword->getFormaPagoNegociacion($idnegociacion);
-			$document->setValue("FormaPago",utf8_decode($formapago->descripcion));
+			//$formapago = $this->mword->getFormaPagoNegociacion($idnegociacion);
+			//$document->setValue("FormaPago",utf8_decode($formapago->descripcion));
 
 
 			// Guarda y cierra el documento
@@ -1428,7 +1428,7 @@ class word extends MY_Controller
 
         if($wdecimal == true){
         	
-        	$decimalNumber = floor($separate[1]);
+        	$decimalNumber = floor($separate[0]);
         	if($decimalNumber != 0) {
         		$Num2Text = $Num2Text." punto ".$this->toText($separate[1]);
         	}
