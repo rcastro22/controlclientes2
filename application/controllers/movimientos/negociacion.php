@@ -124,8 +124,10 @@ class negociacion extends MY_Controller
 					$this->form_validation->set_rules('dpi','DPI','required');
 					$this->form_validation->set_rules('estadocivil','Estado civil','required');
 					$this->form_validation->set_rules('profesion','Profesion','required');
+					$this->form_validation->set_rules('correo','Correo','required');
 					
 					$this->form_validation->set_rules('telefono','Telefono','required');
+					$this->form_validation->set_rules('celular','Celular','required');
 					
 					$this->form_validation->set_rules('direccion','Direccion','required');
 
@@ -133,7 +135,7 @@ class negociacion extends MY_Controller
 					$this->form_validation->set_rules('tiempolabor','Tiempo de laborar','required');
 					$this->form_validation->set_rules('dirtrabajo','Dirección de trabajo','required');
 					$this->form_validation->set_rules('puesto','Puesto','required');
-					$this->form_validation->set_rules('ingresos','Ingresos mensuales','required');
+					$this->form_validation->set_rules('ingresos','Ingresos mensuales');
 				} 
 
 				/*$this->input->post('especifiquejuridico');
