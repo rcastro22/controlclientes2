@@ -525,6 +525,90 @@ class mreporte extends CI_Model
         return $query->result();
   }
   
+  public function negPorCliente($idproyecto=-1)
+  {
+    $txtQuery="select 
+            a.[idnegociacion]
+            ,a.[idcliente]
+            ,case a.idcliente
+              when 0 then h.nombre
+              else b.nombre
+            end nombre
+            ,case a.idcliente
+              when 0 then h.apellido
+              else b.apellido
+            end apellido
+            ,case a.idcliente
+              when 0 then h.celular
+              else b.celular
+            end celular
+            ,case a.idcliente
+              when 0 then h.nit
+              else b.nit
+            end nit
+            ,case a.idcliente
+              when 0 then h.dpi
+              else b.dpi
+            end dpi
+            ,a.[idproyecto]
+            ,c.[nombre] nomproyecto
+            ,a.[idasesor]
+            ,d.[nombre] || ' ' || d.[apellido] nomasesor
+            ,a.[fecha] fecprimerpago
+            ,a.[precioventa]
+            ,a.[reserva]
+            ,a.[reciboreserva]
+            ,a.[fechareserva]
+            ,a.[enganche]
+            ,a.[saldoenganche]
+            ,a.[financiamientobanco]
+            ,a.[nocuotas]
+            ,a.[cuotamensual]
+            ,a.[comision]
+            ,a.[banco]
+            ,a.[facturabanco]
+            ,a.[status]
+            ,case a.[clientejuridico]
+              when 2 then 'SI'
+              else 'NO'
+            end clientejuridico
+            ,a.[especifiquejuridico]
+            ,a.[nombramientojuridico]
+            ,case a.[monedacontrato]
+              when 1 then 'Dólares ($)'
+              when 2 then 'Quetzales (Q)'
+              else 'Dólares ($)'
+            end monedacontrato
+            ,a.[tipocambioneg]
+            ,a.[formapago]
+            ,a.[plazocredito]
+            ,a.[tipofinanciamiento]
+            ,a.[entidadautorizada]
+            ,e.[idinmueble]
+            ,e.[valor]       
+            ,f.[idtipoinmueble]
+            ,f.[idmodelo]       
+            ,g.[nombre] nomtipoinmueble
+          from 
+            negociacion a 
+            left outer join cliente b on a.idcliente=b.idcliente
+            left outer join clientetemporal h on a.idnegociacion = h.idnegociacion
+            join proyecto c on a.idproyecto = c.idproyecto
+            left join asesor d on a.idasesor = d.idasesor
+            join detallenegociacion e on a.idnegociacion=e.[idnegociacion]
+            join inmueble f on e.[idinmueble]=f.idinmueble and a.[idproyecto]=f.idproyecto
+            join tipoinmueble g on f.[idtipoinmueble]=g.idtipoinmueble
+          where 
+            a.[status] in ('CR','AP')
+            and a.idproyecto = $idproyecto
+          order by 
+            a.[idproyecto]
+            ,a.idcliente
+            ,a.idnegociacion";
+
+    $query= $this->db->query($txtQuery);
+    return $query->result();
+  }
 
 }
 

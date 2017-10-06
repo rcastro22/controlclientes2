@@ -58,6 +58,8 @@
                 <li class="<?php echo $activo=='estadocuenta'?'active':''; ?>"><a href="<?php echo base_url().'reportes/estadocuentainv/repEstadoCuentaInv';?>">Estado de cuenta inversionistas</a></li>
               </ul>
             </li>
+
+            <li class="<?php echo $activo=='negporcliente'?'active':''; ?>"><a href="<?php echo base_url().'reportes/negporcliente/repNegPorCliente';?>">Negociaciones de clientes</a></li>
       
           </ul>
         
