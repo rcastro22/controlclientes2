@@ -347,7 +347,35 @@ $(document).on('change','#proyectos',function(){
 	//$('#inmuebles').empty();
 	cargarInmueble();
 	traerTipoCambio();
+
 });
+
+function validaMonedaContrato() {
+
+	var allElems = $('input[name=monedacontrato]');
+	for (i = 0; i < allElems.length; i++) {
+		if($('#hproyecto').val() == '5') {
+			if(allElems[i].value == '2') {
+				allElems[i].checked = true;
+
+				$("#tipocambioneg").prop('readonly',false);
+				$("#tipocambioneg").val($("#txtTipoCambio").val());
+			} 
+			if(allElems[i].value == '1') {
+				allElems[i].disabled = true;
+			}
+		} 
+		else {
+			if(allElems[i].value == '1') {
+				allElems[i].checked = true;
+				allElems[i].disabled = false;
+
+				$("#tipocambioneg").prop('readonly',true);
+ 				$("#tipocambioneg").val("");
+			}
+		}
+	}
+}
 
 
 $(document).on('change','#cliente',function(){
@@ -536,6 +564,7 @@ function traerTipoCambio()
 				}
 			})
 			 
+			validaMonedaContrato();
 		})
 		.fail(function(data)
 		{

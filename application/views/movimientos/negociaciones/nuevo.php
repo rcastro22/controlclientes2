@@ -488,8 +488,8 @@
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('monedacontrato')) echo 'has-error'; ?>">
 														<label class="control-label" for="name"> Tipo moneda para contrato: </label>
-														<div class="form-control">
-														<input  type="radio"  name="monedacontrato" id="monedacontrato" value="1" 
+														<div class="form-control" id="divMonedacontrato">
+														<input  type="radio" name="monedacontrato" id="monedacontrato" value="1"
 														<?php  
 
 																	if($datosnegociacion->monedacontrato=="1")
