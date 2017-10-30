@@ -51,18 +51,25 @@
 		  			<a href="<?php echo base_url().'movimientos/negociacion/nuevo/'.$idcliente;?>" class="btn btn-negro pull-right" style="padding-top: 0; padding-bottom: 0; vertical-align: middle;">Nueva negociación</a>
 		  		</div>
 	  			<div class="panel-body" style="overflow-x: auto">
-	  				<div class="form-control">
-		  				<label class="checkbox-inline">
-							<input type="checkbox" id="CR" value="1"> Creados
-						</label>
-						<?php if($datosusuario->tipousuario != '2') echo '
-						<label class="checkbox-inline">
-							<input type="checkbox" id="AP" value="2"> Aprobados
-						</label>
-						<label class="checkbox-inline">
-							<input type="checkbox" id="RS" value="3"> Resindidos
-						</label>
-						'; ?>  
+	  				<div class="row">
+	  					
+	  						<div class="col-lg-1 col-xs-4 ">
+				  				<label class="checkbox-inline">
+									<input type="checkbox" id="CR" value="1"> Creados
+								</label>
+							</div>
+							<?php if($datosusuario->tipousuario != '2') echo '
+							<div class="col-lg-1 col-xs-4">
+							<label class="checkbox-inline">
+								<input type="checkbox" id="AP" value="2"> Aprobados
+							</label>
+							</div>
+							<div class="col-lg-1 col-xs-4">
+							<label class="checkbox-inline">
+								<input type="checkbox" id="RS" value="3"> Resindidos
+							</label>
+							</div>
+							'; ?> 
 					</div>
 					<br/>
 					<div class="form-search pull-right input-group" data-tabla="gvBuscar">

@@ -2,31 +2,31 @@
 <html lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title><?php echo $page_title; ?></title>
     <!--esto es para que pueda obtener los js. la ruta inicial-->
     <base href='<?php echo base_url();?>' />
     <?php echo $assets;?>
 	</head>
 	<body style="padding-top:70px;">
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
       <!-- Collect the nav links, forms, and other content fo r toggling -->
-
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-        <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <p style="float: left;padding: 15px 15px;font-size: 18px;line-height: 20px;color:white;">
-          MOVIMIENTOS
-        </p>
-      </div>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-ex1-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <p style="float: left;padding: 15px 15px;font-size: 18px;line-height: 20px;color:white;">
+            MOVIMIENTOS
+          </p>
+        </div>
 
 
      <!-- <div class="container">-->
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <div class="collapse navbar-collapse" id="navbar-ex1-collapse">
           <a class="navbar-brand" style="padding-top: 4px; padding-bottom: 0; vertical-align: middle;">
           <img src="<?php echo base_url() . 'assets/img/logosur.jpg'; ?>" alt="Logo"
             style="height: 50px;" class="pull-left visible-lg visible-md"/>
@@ -54,6 +54,5 @@
             </li>
           </ul>
         </div><!-- /.navbar-collapse -->
-      <!--</div>-->
+      </div>
     </nav>
-

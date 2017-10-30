@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 		<!-- esta linea fue agregada para que lo pueda obtener el jquery de galileo.js-->
 		<!--<base href='<?php echo base_url();?>' />-->
 
