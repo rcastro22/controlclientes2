@@ -112,7 +112,9 @@ class mnegociacion extends CI_Model {
 				            a.plazocredito,
 				            a.tipofinanciamiento,
 				            a.entidadautorizada,
-				            a.tasainteres
+				            a.tasainteres,
+				            a.montodescuento,
+				            a.descripciondescuento
 							from negociacion a
 							where a.idnegociacion = $idnegociacion");
 		return $query->row();

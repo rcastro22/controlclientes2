@@ -663,12 +663,22 @@ $(document).on('click','#btnAgregar',function()
 				$('#txtTotalDecimal').val("0");	
 			}
 			varTotal = parseFloat($('#txtTotalDecimal').val())+parseFloat(varMonto);
+			if($('#montodescuento').val() != 0) {
+				varTotalDescuento = varTotal - parseFloat($('#montodescuento').val());
+				if(varTotalDescuento < 0) {
+			    	varTotalDescuento = 0;
+			    }
+			}
+			else {
+				varTotalDescuento = varTotal;
+			}
+			
 			if (!existeProducto(newArray))
 			{
 				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: varCodInmueble, tipo: $('#htipoinmueble').val(), modelo:$('#hmodelo').val(), monto: varMonto });
 	        	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
 	        	$('#txtTotalDecimal').val(varTotal.toFixed(6));
-	        	$('#precioventa').val(varTotal.toFixed(2));
+	        	$('#precioventa').val(varTotalDescuento.toFixed(2));
 
 	        	//$('#nodocumento').val("");
 				$('#monto').val("");
@@ -715,11 +725,38 @@ $(document).on("click", "#gvProductos > tbody > tr > td > .glyphicon-trash", fun
         return true;
     })
     varTotal = parseFloat($('#txtTotalDecimal').val())-parseFloat(varMonto);
+    if($('#montodescuento').val() != 0) {
+		varTotalDescuento = varTotal - parseFloat($('#montodescuento').val());
+		if(varTotalDescuento < 0) {
+	    	varTotalDescuento = 0;
+	    }
+	}
+	else {
+		varTotalDescuento = varTotal;
+	}
     $('#txtTotalDecimal').val(varTotal);
-    $('#precioventa').val(varTotal.toFixed(2));
+    $('#precioventa').val(varTotalDescuento.toFixed(2));
     llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));  
     recalcularMontos();  
     $("#tablainmuebles").val(JSON.stringify(newArray));
+});
+
+$(document).on('change','#montodescuento',function(){
+	if($('#txtTotalDecimal').val() != 0) {
+		varTotal = parseFloat($('#txtTotalDecimal').val())               
+	    if($('#montodescuento').val() != 0) {
+			varTotalDescuento = varTotal - parseFloat($('#montodescuento').val());
+			if(varTotalDescuento < 0) {
+		    	varTotalDescuento = 0;
+		    }
+		}
+		else {
+			varTotalDescuento = varTotal;
+		}
+		$('#txtTotalDecimal').val(varTotal.toFixed(6));
+		$('#precioventa').val(varTotalDescuento.toFixed(2));
+		recalcularMontos();
+	}
 });
 
 function obtenerValorCol(btn, Campo)

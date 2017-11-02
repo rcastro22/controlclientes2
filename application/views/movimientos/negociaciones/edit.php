@@ -389,6 +389,29 @@
 												</div>
 
 												<div class="row">
+													<div class="col-lg-offset-9 col-lg-3">
+														<div class="form-group <?php if(form_error('montodescuento')) echo 'has-error'; ?>">
+															<label class="control-label" for="name"> Monto descuento: </label>
+															<div class="input-group">
+															<span class="input-group-addon">$.</span>
+															<input class="form-control" type="text" name="montodescuento" id="montodescuento" value="<?php echo $datosnegociacion->montodescuento; ?>" maxlength="10">
+															</div>
+															<?php echo form_error('montodescuento','<div class="help-block" >','</div>'); ?>										
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-lg-offset-7 col-lg-5">
+														<div class="form-group <?php if(form_error('descripciondescuento')) echo 'has-error'; ?>">
+															<label class="control-label" for="name"> Descripción descuento: </label>
+															
+															<input class="form-control" type="text" name="descripciondescuento" id="descripciondescuento" value="<?php echo $datosnegociacion->descripciondescuento; ?>" maxlength="60">
+															<?php echo form_error('descripciondescuento','<div class="help-block" >','</div>'); ?>										
+														</div>
+													</div>
+												</div>
+
+												<div class="row">
 													<div class="col-lg-3">
 														<div class="form-group <?php if(form_error('precioventa')) echo 'has-error'; ?>">
 															<label class="control-label" for="name"> Precio venta *: </label>
