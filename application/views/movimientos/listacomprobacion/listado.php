@@ -63,17 +63,19 @@
 					</div>
 					
 					<div class="row" id="lista">
-						
-						
+
 					</div>
 
 					<!--
 					<div class="row">
 						<div class="form-group">
-						    <div class="col-sm-offset-2 col-sm-4">
+							<div class="col-sm-offset-2 col-sm-1 label">
+									<p hidden="hidden" class="text-success" > <br/>ESCANEADO</p>
+							</div>
+						    <div class="col-sm-4">
 						      <div class="checkbox">
 						        <label>
-						          <input type="checkbox"> Documento de reserva COMPLETO y firmado por el vendedor y el cliente
+						          <input type="checkbox"> Documento de reserva COMPLETO y firmado
 						        </label>
 						      </div>
 						    </div>
@@ -85,7 +87,7 @@
 				                    </span>
 				                </div>
 							</div>
-						  </div>
+						</div>
 					</div>
 					-->
 

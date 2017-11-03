@@ -19,10 +19,12 @@ function cargarListado($idnegociacion = 158) {
 			$.each(data,function (i,linea) {
 				var divRow = $(document.createElement('div'));
 				var divForm = $(document.createElement('div'));
+				var divScan = $(document.createElement('div'));
 				var divCol = $(document.createElement('div'));
 				var divCheck = $(document.createElement('div'));
 				var label = $(document.createElement('label'));
 				var input = $(document.createElement('input'));
+				var paragraph = $(document.createElement('p'));
 
 				var divFecha1 = $(document.createElement('div'));
 				var divFecha2 = $(document.createElement('div'));
@@ -32,11 +34,16 @@ function cargarListado($idnegociacion = 158) {
 
 				divRow.addClass("row");
 				divForm.addClass("form-group");
-				divCol.addClass("col-sm-offset-3 col-sm-4");
+				divScan.addClass("col-sm-offset-2 col-sm-1 label")
+				divCol.addClass("col-sm-4");
 				divCheck.addClass("checkbox");
 				
 				input.attr("type", "checkbox");
 				input.attr("id", linea.iddocumento);
+
+				paragraph.addClass("text-success");
+				paragraph.attr("id","paragraph"+linea.iddocumento);
+				paragraph.attr("hidden","hidden");
 
 				divFecha1.addClass("col-sm-2");
 				divFecha2.addClass("input-group");
@@ -52,6 +59,7 @@ function cargarListado($idnegociacion = 158) {
 					input.attr("checked","true");
 					inputFecha.removeAttr("readonly");
 					inputFecha.val(linea.fecha);
+					paragraph.removeAttr("hidden");
 
 					newArray.push({ idnegociacion: $("#idnegociacion").val(), iddocumento: linea.iddocumento, entregadoc: linea.existe, fecentregadoc: linea.fecha});
 				}
@@ -59,12 +67,16 @@ function cargarListado($idnegociacion = 158) {
 
 				label.append(input);
 				label.append(linea.descripcion);
+				paragraph.append("<br/>");
+				paragraph.append("ESCANEADO");
 				divCheck.append(label);
 				divCol.append(divCheck);
 				span1.append(span2);
 				divFecha2.append(inputFecha);
 				divFecha2.append(span1);
 				divFecha1.append(divFecha2);
+				divScan.append(paragraph);
+				divForm.append(divScan);
 				divForm.append(divCol);
 				divForm.append(divFecha1);
 				divRow.append(divForm);
@@ -99,16 +111,19 @@ function habilitarFunciones() {
 
 	$('input[type=checkbox]').on('change',function(){
 		var fechaCheck = $("#fecha"+$(this).prop("id"));
+		var paragraph = $("#paragraph"+$(this).prop("id"));
 		
 		if($(this).prop("checked") == true)
 		{
 			fechaCheck.removeAttr("readonly");
 			fechaCheck.val(moment().format("YYYY-MM-DD"));
+			paragraph.removeAttr("hidden");
 			newArray.push({ idnegociacion: $("#idnegociacion").val(), iddocumento: $(this).prop("id"), entregadoc: 1, fecentregadoc: fechaCheck.val()});		
 		}
 		else {
 			fechaCheck.attr("readonly","true");
 			fechaCheck.val("");
+			paragraph.attr("hidden","hidden");
 			quitarDocumento($(this).prop("id"))
 		}
 	});

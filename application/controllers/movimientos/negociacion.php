@@ -434,8 +434,11 @@ class negociacion extends MY_Controller
 
 							$arreglo = json_decode($this->input->post('tablainmuebles'));
 							//$arreglo = $_POST['arreglo'];
+							// Inserta detalle de inmuebles
 					    	$this->load->model('mdetallenegociacion');
 							$inserto=$this->mdetallenegociacion->grabar($arreglo,$datosnegociacionMax->maximo,$err);
+							// Envia email
+							$this->enviarMailCambios($datosnegociacionMax->maximo,"Creado");
 							//echo $arreglo;
 							//exit();
 							$_SESSION['Idnegociacionnueva'] = "Se ha creado la negociacion No. ".$datosnegociacionMax->maximo;
@@ -691,6 +694,9 @@ class negociacion extends MY_Controller
 
 							// 09-03-2015, Actualiza los datos del cliente
 	                    	
+
+	                    	// Envia email
+							$this->enviarMailCambios($this->input->post('idnegociacion'),"Modificado");
 							
 	                    	redirect('movimientos/negociacion/listado/-1');
 	                    }
@@ -1107,6 +1113,62 @@ class negociacion extends MY_Controller
 		}
 
 		$this->edit($idnegociacion,"Recordatorio enviado con exito!!","alert-success");
+		
+	}
+
+
+	//enviar correo roberto 02-11-2017
+	function enviarMailCambios($idnegociacion,$operacion)
+   	{
+	   	$asunto = "Control de cambios";
+
+		   	$mensaje="
+<html>
+<head>
+  <title>Control de cambios</title>
+</head>
+<body>
+	<table width='100%''>
+		<tr>
+			<th align='left'><IMG SRC='http://sistema.sursur.net/controlclientes/assets/img/logosur.jpg' WIDTH=60 HEIGHT=60 ALT='LogoSur'></th>
+			<th align='right'><h2>Control de cambios</h2></th>
+	    </tr>
+	</table>
+	<hr size=1 />
+	<p>
+		Se ha realizadalo la siguiente operación: <b>".$operacion."</b>
+		<br/><br/>
+		Sobre la negociación numero: <b>".$idnegociacion."</b>
+	</p>
+	<hr size=1 />
+	<p>
+		Este correo electrónico es informativo, favor no responder.
+	</p>
+</body>
+</html>
+";
+			$this->load->library("email");
+
+			//configuracion para gmail
+			$configGmail = array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.gmail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'infosursur@gmail.com',
+			'smtp_pass' => 'desarrolladorasur',
+			'mailtype' => 'html',
+			'charset' => 'utf-8',
+			'newline' => "\r\n"
+			);    
+
+			//cargamos la configuración para enviar con gmail
+			$this->email->initialize($configGmail);
+
+			$this->email->from('infosursur@gmail.com');
+			$this->email->to("");
+			$this->email->subject($asunto);
+			$this->email->message($mensaje);
+			//$this->email->send();
 		
 	}
 

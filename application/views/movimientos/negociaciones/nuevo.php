@@ -35,7 +35,7 @@
 								<div class="col-lg-12">
 									<div class="form-group">
 										<input type="hidden" name="hproyecto" id="hproyecto" value="<?php echo $datosnegociacion->idproyecto; ?>" />
-										<label class="control-label" for="name"> Proyecto: </label>
+										<label class="control-label" for="name"> Proyecto *: </label>
 										<select class="form-control" name="proyectos" id="proyectos"></select>										
 									</div>
 								</div>							
@@ -60,14 +60,14 @@
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('nombre')) echo 'has-error'; ?>">
-														<label class="control-label" for="name">Nombres: </label>
+														<label class="control-label" for="name">Nombres *: </label>
 														<input type="text" class="form-control" name="nombre" id="nombre" value="<?php echo set_value('nombre'); ?>" maxlength="30" >
 														<?php echo form_error('nombre','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('apellido')) echo 'has-error'; ?>">
-														<label class="control-label" for="name">Apellidos: </label>
+														<label class="control-label" for="name">Apellidos *: </label>
 														<input type="text" class="form-control" name="apellido" id="apellido" value="<?php echo set_value('apellido'); ?>" maxlength="30" >
 														<?php echo form_error('apellido','<div class="help-block" >','</div>'); ?>
 													</div>
@@ -77,14 +77,14 @@
 											<div class="row">
 												<div class="col-lg-3">
 													<div class="form-group <?php if(form_error('nit')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Nit: </label>
+														<label class="control-label" for="name"> Nit *: </label>
 														<input type="text" class="form-control" name="nit" id="nit" value="<?php echo set_value('nit'); ?>" maxlength="30" >
 														<?php echo form_error('nit','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('fecnacimiento')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Fecha de nacimiento: </label>
+														<label class="control-label" for="name"> Fecha de nacimiento *: </label>
 														<div class='input-group date' id='dpFecha'>
 															<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="<?php echo set_value('fecnacimiento'); ?>" maxlength="30" >
 															<span class="input-group-addon">
@@ -103,7 +103,7 @@
 												</div>					
 												<div class="col-lg-3">
 													<div class="form-group <?php if(form_error('dpi')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> DPI: </label>
+														<label class="control-label" for="name"> DPI *: </label>
 														<input type="text" class="form-control" name="dpi" id="dpi" value="<?php echo set_value('dpi'); ?>" maxlength="13" />
 														<?php echo form_error('dpi','<div class="help-block" >','</div>'); ?>
 													</div>
@@ -113,21 +113,21 @@
 											<div class="row">
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('estadocivil')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Estado civil: </label>
+														<label class="control-label" for="name"> Estado civil *: </label>
 														<input type="text" class="form-control" name="estadocivil" id="estadocivil" value="<?php echo set_value('estadocivil'); ?>" />
 														<?php echo form_error('estadocivil','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('profesion')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Profesión: </label>
+														<label class="control-label" for="name"> Profesión *: </label>
 														<input type="text" class="form-control" name="profesion" id="profesion" value="<?php echo set_value('profesion'); ?>" />
 														<?php echo form_error('profesion','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>	
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('correo')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Correo Electrónico: </label>
+														<label class="control-label" for="name"> Correo Electrónico *: </label>
 														<input type="text" class="form-control" name="correo" id="correo" value="<?php echo set_value('correo'); ?>" />
 														<?php echo form_error('correo','<div class="help-block" >','</div>'); ?>
 													</div>
@@ -137,21 +137,21 @@
 											<div class="row">
 												<div class="col-lg-2">
 													<div class="form-group <?php if(form_error('telefono')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Teléfono: </label>
+														<label class="control-label" for="name"> Teléfono *: </label>
 														<input type="text" class="form-control" name="telefono" id="telefono" value="<?php echo set_value('telefono'); ?>" maxlength="8">
 														<?php echo form_error('telefono','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>
 												<div class="col-lg-2">
 													<div class="form-group <?php if(form_error('celular')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Celular: </label>
+														<label class="control-label" for="name"> Celular *: </label>
 														<input type="text" class="form-control" name="celular" id="celular" value="<?php echo set_value('celular'); ?>" maxlength="8">
 														<?php echo form_error('celular','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>	
 												<div class="col-lg-8">
 													<div class="form-group <?php if(form_error('direccion')) echo 'has-error'; ?>">
-														<label class="control-label" for="name"> Dirección: </label>
+														<label class="control-label" for="name"> Dirección *: </label>
 														<input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo set_value('direccion'); ?>" />
 														<?php echo form_error('direccion','<div class="help-block" >','</div>'); ?>
 													</div>
@@ -172,14 +172,14 @@
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="form-group <?php if(form_error('empresa')) echo 'has-error'; ?>">
-														<label class="control-label" for="name">Empresa: </label>
+														<label class="control-label" for="name">Empresa *: </label>
 														<input type="text" class="form-control" name="empresa" id="empresa" value="<?php echo set_value('empresa'); ?>" />
 														<?php echo form_error('empresa','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>
 												<div class="col-lg-6">
 													<div class="form-group <?php if(form_error('tiempolabor')) echo 'has-error'; ?>">
-														<label class="control-label" for="name">Tiempo de laborar: </label>
+														<label class="control-label" for="name">Tiempo de laborar *: </label>
 														<input type="text" class="form-control" name="tiempolabor" id="tiempolabor" value="<?php echo set_value('tiempolabor'); ?>" />
 														<?php echo form_error('tiempolabor','<div class="help-block" >','</div>'); ?>
 													</div>
@@ -188,7 +188,7 @@
 											<div class="row">
 												<div class="col-lg-12">
 													<div class="form-group <?php if(form_error('dirtrabajo')) echo 'has-error'; ?>">
-														<label class="control-label" for="name">Dirección de trabajo: </label>
+														<label class="control-label" for="name">Dirección de trabajo *	: </label>
 														<input type="text" class="form-control" name="dirtrabajo" id="dirtrabajo" value="<?php echo set_value('dirtrabajo'); ?>" />
 														<?php echo form_error('dirtrabajo','<div class="help-block" >','</div>'); ?>
 													</div>
@@ -197,7 +197,7 @@
 											<div class="row">
 												<div class="col-lg-4">
 													<div class="form-group <?php if(form_error('puesto')) echo 'has-error'; ?>">
-														<label class="control-label" for="name">Puesto: </label>
+														<label class="control-label" for="name">Puesto *: </label>
 														<input type="text" class="form-control" name="puesto" id="puesto" value="<?php echo set_value('puesto'); ?>" />
 														<?php echo form_error('puesto','<div class="help-block" >','</div>'); ?>
 													</div>

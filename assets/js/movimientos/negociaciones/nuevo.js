@@ -291,10 +291,10 @@ function cargarAsesor()
 		.done(function(data)
 		{
 			var $option ='';
-			/*$option =$('<option>');
+			$option =$('<option>');
 			$option.val(0);
-			$option.html('Seleccione Inmueble');
-			$('#inmueble').append($option);*/
+			$option.html('Seleccione asesor');
+			$('#asesor').append($option);
 			$.each(data,function(i,linea)
 			{
 				if (linea.idasesor == $('#hasesores').val())
