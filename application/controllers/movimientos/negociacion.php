@@ -1165,7 +1165,7 @@ class negociacion extends MY_Controller
 			$this->email->initialize($configGmail);
 
 			$this->email->from('infosursur@gmail.com');
-			$this->email->to("");
+			$this->email->to("erick.sanabria@outlook.com, tonocastrom@gmail.com");
 			$this->email->subject($asunto);
 			$this->email->message($mensaje);
 			//$this->email->send();

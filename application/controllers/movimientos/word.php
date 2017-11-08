@@ -398,6 +398,10 @@ class word extends MY_Controller
 
 			$datosCliente = $this->mword->getContratoReserva($idnegociacion);
 
+			if(!$datosCliente) {
+				$datosCliente = $this->mword->getContratoReservaTemporal($idnegociacion);
+			}
+
 			$datosInmuebles = $this->mword->getDetInmueblesNegociacion($idnegociacion);
 
 			$precioMt2Inmueble = $this->mword->getMontoMt2TipoInmueble($idnegociacion);
@@ -522,51 +526,50 @@ class word extends MY_Controller
 
 			{
 
-				foreach ($datosCliente as $dato) {
 
-					$document->setValue('NombreClienteOtr',utf8_decode($dato->nombre));
+					$document->setValue('NombreClienteOtr',utf8_decode($datosCliente->nombre));
 
-					$document->setValue('ApellidoClienteOtr',utf8_decode($dato->apellido));
+					$document->setValue('ApellidoClienteOtr',utf8_decode($datosCliente->apellido));
 
-					$document->setValue('NitOtr',$dato->nit);
+					$document->setValue('NitOtr',$datosCliente->nit);
 
-					$document->setValue('DiaNacOtr',Date('d',strtotime($dato->fecnacimiento)));
+					$document->setValue('DiaNacOtr',Date('d',strtotime($datosCliente->fecnacimiento)));
 
-					$document->setValue('MesNacOtr',Date('m',strtotime($dato->fecnacimiento)));
+					$document->setValue('MesNacOtr',Date('m',strtotime($datosCliente->fecnacimiento)));
 
-					$document->setValue('AnioNacOtr',Date('Y',strtotime($dato->fecnacimiento)));
+					$document->setValue('AnioNacOtr',Date('Y',strtotime($datosCliente->fecnacimiento)));
 
-					$document->setValue('EdadOtr',$this->edad($dato->fecnacimiento));
+					$document->setValue('EdadOtr',$this->edad($datosCliente->fecnacimiento));
 
-					$document->setValue('EstadoCivilOtr',utf8_decode($dato->estadocivil));
+					$document->setValue('EstadoCivilOtr',utf8_decode($datosCliente->estadocivil));
 
-					$document->setValue('DpiOtr',$dato->dpi);
+					$document->setValue('DpiOtr',$datosCliente->dpi);
 
-					$document->setValue('ProfesionOtr',utf8_decode($dato->profesion));
+					$document->setValue('ProfesionOtr',utf8_decode($datosCliente->profesion));
 
-					$document->setValue('CorreoOtr',utf8_decode($dato->email));
+					$document->setValue('CorreoOtr',utf8_decode($datosCliente->email));
 
-					$document->setValue('CelularOtr',utf8_decode($dato->celular));
+					$document->setValue('CelularOtr',utf8_decode($datosCliente->celular));
 
-					$document->setValue('TelefonoOtr',utf8_decode($dato->telefono));
+					$document->setValue('TelefonoOtr',utf8_decode($datosCliente->telefono));
 
-					$document->setValue('DomicilioOtr',utf8_decode($dato->dirresidencia));
-
+					$document->setValue('DomicilioOtr',utf8_decode($datosCliente->dirresidencia));
 
 
-					$document->setValue('LugarTrabajoOtr',utf8_decode($dato->lugartrabajo));
 
-					$document->setValue('TiempoLaborOtr',utf8_decode($dato->tiempolabor));
+					$document->setValue('LugarTrabajoOtr',utf8_decode($datosCliente->lugartrabajo));
 
-					$document->setValue('DirTrabajoOtr',utf8_decode($dato->dirtrabajo));
+					$document->setValue('TiempoLaborOtr',utf8_decode($datosCliente->tiempolabor));
 
-					$document->setValue('PuestoOtr',utf8_decode($dato->puesto));
+					$document->setValue('DirTrabajoOtr',utf8_decode($datosCliente->dirtrabajo));
 
-					$document->setValue('IngresosOtr',utf8_decode($dato->ingresos));
+					$document->setValue('PuestoOtr',utf8_decode($datosCliente->puesto));
 
-					$document->setValue('OtrosIngresoOtr',utf8_decode($dato->otrosingresos));
+					$document->setValue('IngresosOtr',utf8_decode($datosCliente->ingresos));
 
-				}
+					$document->setValue('OtrosIngresoOtr',utf8_decode($datosCliente->otrosingresos));
+
+				
 
 			}
 
@@ -731,6 +734,10 @@ class word extends MY_Controller
 			$this->load->model('mword');
 
 			$datosCliente = $this->mword->getContratoReserva($idnegociacion);
+
+			if(!$datosCliente) {
+				$datosCliente = $this->mword->getContratoReservaTemporal($idnegociacion);
+			}
 
 			$datosInmuebles = $this->mword->getDetInmueblesNegociacion($idnegociacion);
 
@@ -1248,6 +1255,9 @@ class word extends MY_Controller
 
 			//////////////////  CLIENTES  /////////////////
 			$datosCliente = $this->mword->getContratoReserva($idnegociacion);
+			if(!$datosCliente) {
+				$datosCliente = $this->mword->getContratoReservaTemporal($idnegociacion);
+			}
 			$textoclientes = "";
 			$tipocambioneg = 0;
 			foreach ($datosCliente as $dato) {
@@ -1429,7 +1439,7 @@ class word extends MY_Controller
         if($wdecimal == true){
         	
         	$decimalNumber = floor($separate[0]);
-        	if($decimalNumber != 0) {
+        	if($decimalNumber != 0 && isset($separate[1])) {
         		$Num2Text = $Num2Text." punto ".$this->toText($separate[1]);
         	}
         }
