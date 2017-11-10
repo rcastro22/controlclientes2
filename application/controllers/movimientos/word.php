@@ -523,102 +523,106 @@ class word extends MY_Controller
 			$datosCliente = $this->mword->getContratoReservaOtrCompradores($idnegociacion);
 
 			if($datosCliente)
-
 			{
-
-
 					$document->setValue('NombreClienteOtr',utf8_decode($datosCliente->nombre));
-
 					$document->setValue('ApellidoClienteOtr',utf8_decode($datosCliente->apellido));
-
 					$document->setValue('NitOtr',$datosCliente->nit);
-
 					$document->setValue('DiaNacOtr',Date('d',strtotime($datosCliente->fecnacimiento)));
-
 					$document->setValue('MesNacOtr',Date('m',strtotime($datosCliente->fecnacimiento)));
-
 					$document->setValue('AnioNacOtr',Date('Y',strtotime($datosCliente->fecnacimiento)));
-
 					$document->setValue('EdadOtr',$this->edad($datosCliente->fecnacimiento));
-
 					$document->setValue('EstadoCivilOtr',utf8_decode($datosCliente->estadocivil));
-
 					$document->setValue('DpiOtr',$datosCliente->dpi);
-
 					$document->setValue('ProfesionOtr',utf8_decode($datosCliente->profesion));
-
 					$document->setValue('CorreoOtr',utf8_decode($datosCliente->email));
-
 					$document->setValue('CelularOtr',utf8_decode($datosCliente->celular));
-
 					$document->setValue('TelefonoOtr',utf8_decode($datosCliente->telefono));
-
 					$document->setValue('DomicilioOtr',utf8_decode($datosCliente->dirresidencia));
 
 
-
 					$document->setValue('LugarTrabajoOtr',utf8_decode($datosCliente->lugartrabajo));
-
 					$document->setValue('TiempoLaborOtr',utf8_decode($datosCliente->tiempolabor));
-
 					$document->setValue('DirTrabajoOtr',utf8_decode($datosCliente->dirtrabajo));
-
 					$document->setValue('PuestoOtr',utf8_decode($datosCliente->puesto));
-
 					$document->setValue('IngresosOtr',utf8_decode($datosCliente->ingresos));
-
 					$document->setValue('OtrosIngresoOtr',utf8_decode($datosCliente->otrosingresos));
-
-				
-
 			}
 
 			else
 
 			{
+				$datosCliente = $this->mword->getContratoReservaOtrCompradoresTemp($idnegociacion);
 
-				$document->setValue('NombreClienteOtr','');
-
-				$document->setValue('ApellidoClienteOtr','');
-
-				$document->setValue('NitOtr','');
-
-				$document->setValue('DiaNacOtr','');
-
-				$document->setValue('MesNacOtr','');
-
-				$document->setValue('AnioNacOtr','');
-
-				$document->setValue('EdadOtr','');
-
-				$document->setValue('EstadoCivilOtr','');
-
-				$document->setValue('DpiOtr','');
-
-				$document->setValue('ProfesionOtr','');
-
-				$document->setValue('CorreoOtr','');
-
-				$document->setValue('CelularOtr','');
-
-				$document->setValue('TelefonoOtr','');
-
-				$document->setValue('DomicilioOtr','');
+				if($datosCliente)
+				{
+						$document->setValue('NombreClienteOtr',utf8_decode($datosCliente->nombre));
+						$document->setValue('ApellidoClienteOtr',utf8_decode($datosCliente->apellido));
+						$document->setValue('NitOtr',$datosCliente->nit);
+						$document->setValue('DiaNacOtr',Date('d',strtotime($datosCliente->fecnacimiento)));
+						$document->setValue('MesNacOtr',Date('m',strtotime($datosCliente->fecnacimiento)));
+						$document->setValue('AnioNacOtr',Date('Y',strtotime($datosCliente->fecnacimiento)));
+						$document->setValue('EdadOtr',$this->edad($datosCliente->fecnacimiento));
+						$document->setValue('EstadoCivilOtr',utf8_decode($datosCliente->estadocivil));
+						$document->setValue('DpiOtr',$datosCliente->dpi);
+						$document->setValue('ProfesionOtr',utf8_decode($datosCliente->profesion));
+						$document->setValue('CorreoOtr',utf8_decode($datosCliente->email));
+						$document->setValue('CelularOtr',utf8_decode($datosCliente->celular));
+						$document->setValue('TelefonoOtr',utf8_decode($datosCliente->telefono));
+						$document->setValue('DomicilioOtr',utf8_decode($datosCliente->dirresidencia));
 
 
+						$document->setValue('LugarTrabajoOtr',utf8_decode($datosCliente->lugartrabajo));
+						$document->setValue('TiempoLaborOtr',utf8_decode($datosCliente->tiempolabor));
+						$document->setValue('DirTrabajoOtr',utf8_decode($datosCliente->dirtrabajo));
+						$document->setValue('PuestoOtr',utf8_decode($datosCliente->puesto));
+						$document->setValue('IngresosOtr',utf8_decode($datosCliente->ingresos));
+						$document->setValue('OtrosIngresoOtr',utf8_decode($datosCliente->otrosingresos));
+				}
+				else
+				{
 
-				$document->setValue('LugarTrabajoOtr','');
+					$document->setValue('NombreClienteOtr','');
 
-				$document->setValue('TiempoLaborOtr','');
+					$document->setValue('ApellidoClienteOtr','');
 
-				$document->setValue('DirTrabajoOtr','');
+					$document->setValue('NitOtr','');
 
-				$document->setValue('PuestoOtr','');
+					$document->setValue('DiaNacOtr','');
 
-				$document->setValue('IngresosOtr','');
+					$document->setValue('MesNacOtr','');
 
-				$document->setValue('OtrosIngresoOtr','');
+					$document->setValue('AnioNacOtr','');
 
+					$document->setValue('EdadOtr','');
+
+					$document->setValue('EstadoCivilOtr','');
+
+					$document->setValue('DpiOtr','');
+
+					$document->setValue('ProfesionOtr','');
+
+					$document->setValue('CorreoOtr','');
+
+					$document->setValue('CelularOtr','');
+
+					$document->setValue('TelefonoOtr','');
+
+					$document->setValue('DomicilioOtr','');
+
+
+
+					$document->setValue('LugarTrabajoOtr','');
+
+					$document->setValue('TiempoLaborOtr','');
+
+					$document->setValue('DirTrabajoOtr','');
+
+					$document->setValue('PuestoOtr','');
+
+					$document->setValue('IngresosOtr','');
+
+					$document->setValue('OtrosIngresoOtr','');
+				}
 			}
 
 

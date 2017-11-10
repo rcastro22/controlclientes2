@@ -944,6 +944,8 @@ class negociacion extends MY_Controller
 		$this->view_data['page_title']=  'Otros Dueños';
 		$this->view_data['activo']=  'negociaciones';
 		$this->view_data['idnegociacion']= $idnegociacion;
+		$this->view_data['mensaje2']="";
+	    $this->view_data['tipoAlerta2']="";
 		$this->load_partials();
 		switch ($method) 
 		{
@@ -973,6 +975,169 @@ class negociacion extends MY_Controller
 
 	}
 
+	public function otrosduenostemporal($idnegociacion=-1)
+	{
+    	$method = $this->input->server('REQUEST_METHOD');
+		$this->view_data['page_title']=  'Otros Dueños';
+		$this->view_data['activo']=  'negociaciones';
+		$this->view_data['idnegociacion']= $idnegociacion;
+		$this->view_data['mensaje2']="";
+	    $this->view_data['tipoAlerta2']="";
+		$this->load_partials();
+		switch ($method) 
+		{
+			case 'GET':
+				$this->load->view('movimientos/negociaciones/otrosduenos',$this->view_data);
+				break;
+			case 'POST':
+			    //echo $this->input->post('idnegociacion');
+			    //echo $this->input->post('cliente');
+
+				// Inserta otros dueños
+				$this->form_validation->set_rules('nombre','Nombres','required');
+				$this->form_validation->set_rules('apellido','Apellidos','required');
+				$this->form_validation->set_rules('nit','Nit','required');
+				$this->form_validation->set_rules('fecnacimiento','Fecha de nacimiento','required');
+				$this->form_validation->set_rules('dpi','DPI','required');
+				$this->form_validation->set_rules('estadocivil','Estado civil','required');
+				$this->form_validation->set_rules('profesion','Profesion','required');
+				$this->form_validation->set_rules('correo','Correo','required');
+				
+				$this->form_validation->set_rules('telefono','Telefono','required');
+				$this->form_validation->set_rules('celular','Celular','required');
+				
+				$this->form_validation->set_rules('direccion','Direccion','required');
+
+				$this->form_validation->set_rules('empresa','Empresa','required');
+				$this->form_validation->set_rules('tiempolabor','Tiempo de laborar','required');
+				$this->form_validation->set_rules('dirtrabajo','Dirección de trabajo','required');
+				$this->form_validation->set_rules('puesto','Puesto','required');
+				$this->form_validation->set_rules('ingresos','Ingresos mensuales');
+
+				if($this->form_validation->run()==FALSE) {
+					$datosnegociacion = new stdClass();	
+
+					$datosnegociacion->nombre=$this->input->post('nombre');
+					$datosnegociacion->apellido=$this->input->post('apellido');
+					$datosnegociacion->fecnacimiento=$this->input->post('fecnacimiento');
+					$datosnegociacion->dpi=$this->input->post('dpi');
+					$datosnegociacion->estadocivil=$this->input->post('estadocivil');
+					$datosnegociacion->profesion=$this->input->post('profesion');
+					$datosnegociacion->correo=$this->input->post('correo');
+					$datosnegociacion->telefono=$this->input->post('telefono');
+					$datosnegociacion->celular=$this->input->post('celular');
+					$datosnegociacion->direccion=$this->input->post('direccion');
+					$datosnegociacion->empresa=$this->input->post('empresa');
+					$datosnegociacion->tiempolabor=$this->input->post('tiempolabor');
+					$datosnegociacion->dirtrabajo=$this->input->post('dirtrabajo');
+					$datosnegociacion->puesto=$this->input->post('puesto');
+					$datosnegociacion->ingresos=$this->input->post('ingresos');
+					$datosnegociacion->otrosingresos=$this->input->post('otrosingresos');
+
+					$this->view_data['datosnegociacion']=$datosnegociacion;				
+					$this->view_data['idnegociacion']= $this->input->post('idnegociacion');
+					$this->view_data['mensaje2']="";
+	                $this->view_data['tipoAlerta2']="";
+					$this->load->view('movimientos/negociaciones/otrosduenos',$this->view_data);	
+				}
+				else {
+					$datosnegociacion = new stdClass();	
+
+					$datosnegociacion->nombre=$this->input->post('nombre');
+					$datosnegociacion->apellido=$this->input->post('apellido');
+					$datosnegociacion->fecnacimiento=$this->input->post('fecnacimiento');
+					$datosnegociacion->dpi=$this->input->post('dpi');
+					$datosnegociacion->estadocivil=$this->input->post('estadocivil');
+					$datosnegociacion->profesion=$this->input->post('profesion');
+					$datosnegociacion->correo=$this->input->post('correo');
+					$datosnegociacion->telefono=$this->input->post('telefono');
+					$datosnegociacion->celular=$this->input->post('celular');
+					$datosnegociacion->direccion=$this->input->post('direccion');
+					$datosnegociacion->empresa=$this->input->post('empresa');
+					$datosnegociacion->tiempolabor=$this->input->post('tiempolabor');
+					$datosnegociacion->dirtrabajo=$this->input->post('dirtrabajo');
+					$datosnegociacion->puesto=$this->input->post('puesto');
+					$datosnegociacion->ingresos=$this->input->post('ingresos');
+					$datosnegociacion->otrosingresos=$this->input->post('otrosingresos');
+
+					$err="";
+					if($this->input->post('edad') < 18)	
+					{
+						$err = "La edad del cliente debe ser mayor a 18 años";
+					}
+
+					if($err=="") {
+						$this->load->model('mcliente');							
+						$datosclientenit = $this->mcliente->getClienteIdByNit($this->input->post('nit'));
+
+						if(isset($datosclientenit->nit) && $datosclientenit->nit != "") {
+							$err = "El número de NIT ya existe en un cliente guardado";
+						} 	
+					}
+
+					if($err=="") {
+						$this->load->model('mnegociacion');
+						$datosclienteMax = $this->mnegociacion->getMaxClienteTemp($this->input->post('idnegociacion'));
+						$this->load->model('mcliente');
+						$inserto=$this->mcliente->grabartemp(array(
+								'idnegociacion'=>$this->input->post('idnegociacion'),
+								'nombre'=>$this->input->post('nombre'),
+								'apellido'=>$this->input->post('apellido'),
+								//'idtipoidentificacion'=>$this->input->post('tipoidentificaciones'),
+								'idtipoidentificacion'=>1,
+								'dpi'=>$this->input->post('dpi'),
+								'fecnacimiento'=>date('Y-m-d',strtotime($this->input->post('fecnacimiento'))),
+								'profesion'=>$this->input->post('profesion'),
+								//'nacionalidad'=>$this->input->post('nacionalidad'),
+								'estadocivil'=>$this->input->post('estadocivil'),
+								'dirresidencia'=>$this->input->post('direccion'),
+								'telefono'=>$this->input->post('telefono'),
+								'celular'=>$this->input->post('celular'),
+								'nit'=>$this->input->post('nit'),
+								'email'=>$this->input->post('correo'),
+								'lugartrabajo'=>$this->input->post('empresa'),
+								'dirtrabajo'=>$this->input->post('dirtrabajo'),
+								'tiempolabor'=>$this->input->post('tiempolabor'),
+								'ingresos'=>$this->input->post('ingresos'),
+								'puesto'=>$this->input->post('puesto'),
+								'otrosingresos'=>$this->input->post('otrosingresos'),
+								'orden'=>$datosclienteMax->maximo+1,
+								//'concepto'=>$this->input->post('concepto'),
+								//Auditoria
+								'CreadoPor'=>$this->session->userdata('user_id'),
+								'FechaCreado'=>date("Y-m-d H:i:s"),
+								'ModificadoPor'=>$this->session->userdata('user_id'),
+								'FechaModificado'=>date("Y-m-d H:i:s")
+							),$err);
+						if($inserto) {
+							redirect('movimientos/negociacion/otrosduenos/'.$this->input->post('idnegociacion'));
+						}
+						else
+	                    {
+	                    	$this->view_data['idnegociacion']= $this->input->post('idnegociacion');
+	                    	$this->view_data['mensaje2']="Error: No se pudo insertar el registro: <br>".$err;
+	                    	$this->view_data['tipoAlerta2']="alert-danger";
+	                    	$this->load->view('movimientos/negociaciones/otrosduenos',$this->view_data);
+	                    }
+	                }
+                	else
+                	{
+                			$this->view_data['idnegociacion']= $this->input->post('idnegociacion');
+                			$this->view_data['mensaje2']="Error: No se pudo actualizar el registro <br>".$err;
+	                    	$this->view_data['tipoAlerta2']="alert-danger";
+	                    	$this->load->view('movimientos/negociaciones/otrosduenos',$this->view_data);
+                	}
+
+				}
+
+				//$this->view_data['idnegociacion']= $this->input->post('idnegociacion');;
+				//$this->load->view('movimientos/negociaciones/otrosduenos',$this->view_data);
+				break;
+
+		}
+
+	}
+
 	public function getCompradores($idnegociacion=-1)
 	{
 		
@@ -989,6 +1154,15 @@ class negociacion extends MY_Controller
  		
  		$this->load->model('mnegociacion');
 		$sielimino=$this->mnegociacion->borrarComprador(array('idnegociacion'=>$idnegociacion,'idcliente'=>$idcliente),$err);
+       	redirect('movimientos/negociacion/otrosduenos/'.$idnegociacion);
+  
+	}
+
+	public function borrarCompradorTemporal($idnegociacion=-1,$orden=-1)
+ 	{
+ 		
+ 		$this->load->model('mnegociacion');
+		$sielimino=$this->mnegociacion->borrarCompradorTamporal(array('idnegociacion'=>$idnegociacion,'orden'=>$orden),$err);
        	redirect('movimientos/negociacion/otrosduenos/'.$idnegociacion);
   
 	}

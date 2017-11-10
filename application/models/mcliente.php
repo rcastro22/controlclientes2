@@ -95,9 +95,11 @@ class mcliente extends CI_Model {
 							a.ingresos,
 							a.puesto,
 							a.otrosingresos,
-							a.concepto");
+							a.concepto,
+							a.orden");
 		$this->db->from("clientetemporal a");
 		$this->db->where('a.idnegociacion',$idnegociacion);
+		$this->db->where('a.orden',"1");
 		$this->db->order_by("a.nombre,a.apellido","asc,asc"); 
 		$query=$this->db->get();
 		return $query->row();

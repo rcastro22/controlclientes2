@@ -491,6 +491,8 @@ $(document).ready(function()
 	 	
 	}
 
+	calcularEdad($("#fecnacimiento").val());
+
 });
 
 
@@ -734,5 +736,6 @@ function calcularEdad(fecha) {
         edad--;
     }
 
+    if(edad > 0)
     $("#edad").val(edad);
 }

@@ -630,6 +630,7 @@ $(document).ready(function()
 	 	
 	}
 
+	calcularEdad($("#fecnacimiento").val());
 
 });
 
@@ -850,6 +851,7 @@ $("#dpFecha").on('dp.change', function () {
     calcularEdad($("#dpFecha > input").val());
 });
 
+
 /*$(document).on('change','#fecnacimiento',function(){
 	alert('llego');
 	calcularEdad($("#fecnacimiento").val());
@@ -865,6 +867,7 @@ function calcularEdad(fecha) {
         edad--;
     }
 
+    if(edad > 0)
     $("#edad").val(edad);
 }
 

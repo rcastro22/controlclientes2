@@ -36,7 +36,7 @@ class mnegociacion extends CI_Model {
 							left outer join cliente b
              				on a.idcliente = b.idcliente
 							left outer join clientetemporal c
-							on c.idnegociacion = a.idnegociacion
+							on c.idnegociacion = a.idnegociacion and c.orden = 1
 							where a.status in ($status)
 							and ($idcliente == -1 or a.idcliente = $idcliente)");
 		return $query->result();
@@ -254,10 +254,21 @@ class mnegociacion extends CI_Model {
 
 	public function getCompradores($idnegociacion)
 	{		
-		$query = $this->db->query("select a.idnegociacion,a.idcliente,b.nombre,b.apellido
+		/*$query = $this->db->query("select a.idnegociacion,a.idcliente,b.nombre,b.apellido
 									from compradores a, cliente b
 									where a.idcliente=b.idcliente
 									and idnegociacion=$idnegociacion
+									");*/
+
+		$query = $this->db->query("select '1' tipocliente,a.idnegociacion,a.idcliente,b.nombre,b.apellido
+									from compradores a, cliente b
+									where a.idcliente=b.idcliente
+									and idnegociacion=149
+									union all
+									select '0',t2.idnegociacion,t2.orden,t2.nombre,t2.apellido	
+									from clientetemporal t2
+									where t2.idnegociacion = 149
+									and t2.orden != 1				
 									");
 		return $query->result();
 	}
@@ -287,6 +298,15 @@ class mnegociacion extends CI_Model {
 	}
 
 
+	public function getMaxClienteTemp($idnegociacion)
+	{		
+		$query = $this->db->query("select max(a.orden) maximo
+									from clientetemporal a
+									where a.idnegociacion = $idnegociacion;");
+		return $query->row();
+	}
+
+
 	public function borrarComprador($data,&$err)
 	{
 		
@@ -295,6 +315,31 @@ class mnegociacion extends CI_Model {
         $query= $this->db->query($txtQuery);
 
 		$this->db->delete('compradores',$data);	
+		$data['error'] = $this->db->_error_message();
+		$err=$data['error'];
+		if ($err=="" or $err=="database schema has changed")
+		{
+			//echo "si se borro";
+		    //exit;
+			$err="";
+			return true;
+		} 
+		else
+		{
+			//echo "no se pudo borrar";
+			//exit;
+			$err=" posiblemente ese registro ya esta siendo usado";
+			return false;
+		}
+	}
+	public function borrarCompradorTamporal($data,&$err)
+	{
+		
+
+		$txtQuery="PRAGMA foreign_keys = ON";
+        $query= $this->db->query($txtQuery);
+
+		$this->db->delete('clientetemporal',$data);	
 		$data['error'] = $this->db->_error_message();
 		$err=$data['error'];
 		if ($err=="" or $err=="database schema has changed")

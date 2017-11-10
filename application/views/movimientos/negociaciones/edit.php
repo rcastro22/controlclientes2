@@ -122,12 +122,13 @@
 													<div class="col-lg-4">
 														<div class="form-group <?php if(form_error('fecnacimiento')) echo 'has-error'; ?>">
 															<label class="control-label" for="name"> Fecha de nacimiento *: </label>
-															<div class='input-group date' id='dpFecha'>
+															<input type="text" name="fecnacimiento" id="fecnacimiento" value="<?php echo $datosnegociacion->fecnacimiento; ?>">
+																<!--<div class='input-group date' id='dpFecha'>
 																<input type="text" class="form-control" name="fecnacimiento" id="fecnacimiento" value="<?php echo $datosnegociacion->fecnacimiento; ?>" maxlength="30" >
 																<span class="input-group-addon">
 											                        <span class="glyphicon glyphicon-calendar"></span>
 											                    </span>
-											                </div>
+											                </div>-->
 															<?php echo form_error('fecnacimiento','<div class="help-block" >','</div>'); ?>
 														</div>
 													</div>	
@@ -726,6 +727,7 @@
 
 	<script src="<?php echo base_url().'assets/js/tabla.js';?>"></script>
 	<script src="<?php echo base_url().'assets/js/movimientos/negociaciones/edit.js';?>"></script> 
+	<script src="<?php echo base_url().'assets/js/bootstrap-birthday.js';?>"></script>
 	
 	<?php echo $footer;?>
 	<script>
@@ -733,4 +735,12 @@
 		$('#dpFecha').datetimepicker({'format':'YYYY-MM-DD'});
 		$('#fechaprimerpago').datepicker({'format':'yyyy-mm-dd'});
 		$('#fechareserva').datepicker({'format':'yyyy-mm-dd'});
+
+		$("#fecnacimiento").bootstrapBirthday({
+			dateFormat: "bigEndian",
+			monthFormat: "long", 
+			onChange: function(){ 
+				calcularEdad($("#fecnacimiento").val()); 
+			} 
+		});
 	</script>

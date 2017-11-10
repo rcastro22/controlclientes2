@@ -189,6 +189,53 @@ and n.[idnegociacion] = $idnegociacion");
 		return $query->row();
 	}
 
+	public function getContratoReservaOtrCompradoresTemp($idnegociacion)
+	{		
+		$query = $this->db->query("select
+									    c.[nombre]       
+									    ,c.[apellido]     
+									    ,c.[fecnacimiento]    
+									    ,case 
+									          when c.[estadocivil] = 'C' then 'Casado' 
+									          when c.[estadocivil] = 'S' then 'Soltero'           
+									          else 'Soltero'
+									    end estadocivil
+									    ,c.[profesion]    
+									    ,c.[nacionalidad]    
+									    ,c.[dirresidencia]    
+									    ,c.[dpi]
+									    ,c.[email]
+									    ,c.[nit]
+									    ,c.[celular]
+									    ,c.[telefono]
+									    ,c.[lugartrabajo]
+									    ,c.[tiempolabor]
+									    ,c.[dirtrabajo]
+									    ,c.[puesto]
+									    ,c.[ingresos]
+									    ,c.[otrosingresos]
+									    ,n.[clientejuridico]                      
+							            ,n.[especifiquejuridico]                      
+							            ,n.[nombramientojuridico]
+							            ,n.[fechanombramiento]
+							            ,n.[notarionombramiento]
+							            ,n.[registro]
+							            ,n.[folio]
+							            ,n.[libro]
+							            ,n.[nitjuridico]
+							            ,n.[monedacontrato]            
+				    					,n.[enganche]
+				    					,n.[precioventa]
+				    					,n.[tipocambioneg]
+									from 
+									    clientetemporal c
+									    ,negociacion n    
+									where 
+									    c.[idcliente] = n.[idnegociacion]
+									    and c.[idnegociacion] = $idnegociacion");
+		return $query->row();
+	}
+
 	public function getContratoPromesa1($idnegociacion)
 	{		
 		$query = $this->db->query("select
