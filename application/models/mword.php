@@ -112,7 +112,8 @@ class mword extends CI_Model {
 									    ,negociacion n
 									    ,proyecto p
 									where 
-									    c.[idnegociacion] = n.[idnegociacion]       
+									    c.[idnegociacion] = n.[idnegociacion]    
+									    and c.[orden] = 1   
 									    and n.[idnegociacion] = $idnegociacion
 									    and p.idproyecto = n.idproyecto");
 		return $query->result();
@@ -231,7 +232,8 @@ and n.[idnegociacion] = $idnegociacion");
 									    clientetemporal c
 									    ,negociacion n    
 									where 
-									    c.[idcliente] = n.[idnegociacion]
+									    c.[idnegociacion] = n.[idnegociacion]
+									    and c.[orden] != 1
 									    and c.[idnegociacion] = $idnegociacion");
 		return $query->row();
 	}
@@ -282,6 +284,54 @@ and n.[idnegociacion] = $idnegociacion");
 									    c.[idcliente] = o.[idcliente]      
 									    and n.[idnegociacion] = o.[idnegociacion] 
 									    and o.[idnegociacion] = $idnegociacion");
+		return $query->result();
+	}
+
+	public function getContratoPromesa1Temp($idnegociacion)
+	{		
+		$query = $this->db->query("select
+									    c.[nombre]       
+									    ,c.[apellido]     
+									    ,c.[fecnacimiento]    
+									    ,case 
+									          when c.[estadocivil] = 'C' then 'Casado' 
+									          when c.[estadocivil] = 'S' then 'Soltero'           
+									          else 'Soltero'
+									    end estadocivil
+									    ,c.[profesion]    
+									    ,c.[nacionalidad]    
+									    ,c.[dirresidencia]    
+									    ,c.[dpi]
+									    ,c.[email]
+									    ,c.[nit]
+									    ,c.[celular]
+									    ,c.[telefono]
+									    ,c.[lugartrabajo]
+									    ,c.[tiempolabor]
+									    ,c.[dirtrabajo]
+									    ,c.[puesto]
+									    ,c.[ingresos]
+									    ,c.[otrosingresos]
+									    ,n.[clientejuridico]                      
+							            ,n.[especifiquejuridico]                      
+							            ,n.[nombramientojuridico]
+							            ,n.[fechanombramiento]
+							            ,n.[notarionombramiento]
+							            ,n.[registro]
+							            ,n.[folio]
+							            ,n.[libro]
+							            ,n.[nitjuridico]
+							            ,n.[monedacontrato]            
+				    					,n.[enganche]
+				    					,n.[precioventa]
+				    					,n.[tipocambioneg]
+									from 
+									    clientetemporal c
+									    ,negociacion n    
+									where 
+									    c.[idnegociacion] = n.[idnegociacion]
+									    and c.[orden] != 1
+									    and c.[idnegociacion] = $idnegociacion");
 		return $query->result();
 	}
 

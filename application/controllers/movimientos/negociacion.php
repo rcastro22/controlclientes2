@@ -1036,8 +1036,8 @@ class negociacion extends MY_Controller
 
 					$this->view_data['datosnegociacion']=$datosnegociacion;				
 					$this->view_data['idnegociacion']= $this->input->post('idnegociacion');
-					$this->view_data['mensaje2']="";
-	                $this->view_data['tipoAlerta2']="";
+					$this->view_data['mensaje2']="Favor verificar la información solicitada";
+	                $this->view_data['tipoAlerta2']="alert-warning";
 					$this->load->view('movimientos/negociaciones/otrosduenos',$this->view_data);	
 				}
 				else {

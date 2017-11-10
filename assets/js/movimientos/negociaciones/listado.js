@@ -129,7 +129,7 @@ function llenarTablaLocal(Nombre, data)
     }
  };
 
-$(document).on('click','#gvBuscar>tbody>tr>td>button',function()
+/*$(document).on('click','#gvBuscar>tbody>tr>td>button',function()
 													{
 														var idnegociacion = $(this).parent().siblings(":eq(0)").text();
 														var operacion = $(this).text();
@@ -164,6 +164,37 @@ $(document).on('click','#gvBuscar>tbody>tr>td>button',function()
 															}
 														}
 														//alert("hola"+carrera);
+													});*/
+
+$(document).on('click','#gvBuscar>tbody>tr>td',function()
+													{
+														tipo = $(this).children().attr("class");
+														//alert(tipo);
+														var idnegociacion = $(this).siblings(":eq(0)").text();
+														var estado = $(this).siblings(":eq(8)").text();
+														if(estado == 'RS')
+														{
+															alert('El estado de la negociación no es valido para esta operación')
+														}
+														else
+														{
+															if(tipo != "btn btn-default" && tipo != "glyphicon glyphicon-trash")
+															{
+															
+																window.location=base_url+"movimientos/negociacion/edit/"+idnegociacion;	
+															}	
+															
+															var operacion = $(this).children().text();
+															if (operacion=='Rescindir')
+															{	
+															    negociacionEliminar=idnegociacion;
+																$('#myModal').modal('toggle');
+															}
+															if (operacion=='Pagar')
+															{
+																window.location=base_url+"movimientos/negociacion/pago/"+idnegociacion;	
+															}
+														}
 													});
 
 $(document).on('click','#botonEliminar',function()

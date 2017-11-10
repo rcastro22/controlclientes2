@@ -263,11 +263,11 @@ class mnegociacion extends CI_Model {
 		$query = $this->db->query("select '1' tipocliente,a.idnegociacion,a.idcliente,b.nombre,b.apellido
 									from compradores a, cliente b
 									where a.idcliente=b.idcliente
-									and idnegociacion=149
+									and idnegociacion=$idnegociacion
 									union all
 									select '0',t2.idnegociacion,t2.orden,t2.nombre,t2.apellido	
 									from clientetemporal t2
-									where t2.idnegociacion = 149
+									where t2.idnegociacion = $idnegociacion
 									and t2.orden != 1				
 									");
 		return $query->result();

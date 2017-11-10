@@ -521,7 +521,7 @@ class word extends MY_Controller
 			/// **************** OTROS COMPRADORES ******************
 
 			$datosCliente = $this->mword->getContratoReservaOtrCompradores($idnegociacion);
-
+			//echo json_encode($datosCliente);
 			if($datosCliente)
 			{
 					$document->setValue('NombreClienteOtr',utf8_decode($datosCliente->nombre));
@@ -552,7 +552,7 @@ class word extends MY_Controller
 
 			{
 				$datosCliente = $this->mword->getContratoReservaOtrCompradoresTemp($idnegociacion);
-
+				//echo json_encode($datosCliente);
 				if($datosCliente)
 				{
 						$document->setValue('NombreClienteOtr',utf8_decode($datosCliente->nombre));
@@ -859,72 +859,72 @@ class word extends MY_Controller
 
 			}
 
-
-
+			// Otros clientes
 			$datosCliente = $this->mword->getContratoPromesa1($idnegociacion);
-
 			foreach ($datosCliente as $dato) {
-
-				//$textoclientes = $textoclientes."\n";			 
 
 				$textoclientes = $textoclientes."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='6'/></w:numPr><w:ind w:left='375' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
 
-
-
 				$nombrecompleto = $dato->nombre." ".$dato->apellido;
-
 				/*$nombrefirma = $nombrefirma."</w:t></w:r></w:p>    <w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>".$nombrecompleto;*/
-
 				$nombrefirma = $nombrefirma."</w:t></w:r></w:p>
-
 				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
-
 				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
-
 				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
-
 				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
-
 				<w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'>					
-
 					<w:r>
-
 						<w:rPr>
-
 							<w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/>
-
 							<w:b/>
-
 							<w:sz w:val='21'/>
-
 							<w:szCs w:val='21'/>
-
 						</w:rPr>
-
 					<w:t>".$nombrecompleto;
 
+				$textoclientes = $textoclientes.$nombrecompleto.", de ".strtolower($this->toText($this->edad($dato->fecnacimiento)))." años, ".$dato->estadocivil.", ".$dato->profesion;
+				$textoclientes = $textoclientes.", ".$dato->nacionalidad.", con domicilio en ".$dato->dirresidencia.", y me identifico con el Documento Personal de Identificación con Código Único de Identificación número ";
+				$textoclientes = $textoclientes.$dato->dpi.", extendido por el Registro Nacional de las Personas de la República de Guatemala, y comparezco ";
+				if($dato->clientejuridico == 1) {
+					$textoclientes = $textoclientes."en nombre propio.";					
+				}else if($dato->clientejuridico == 2) {					
+					$textoclientes = $textoclientes."en su calidad de ".$dato->especifiquejuridico." calidad que acredita con ".$dato->nombramientojuridico.".";
+				}
+				$textoclientes = $textoclientes." En el curso del presente contrato se me podrá denominar simplemente como el \"PROMITENTE COMPRADOR\".";				
+			}
+
+			// Otros clientes temporales
+			$datosCliente = $this->mword->getContratoPromesa1Temp($idnegociacion);
+			foreach ($datosCliente as $dato) {
+
+				$textoclientes = $textoclientes."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='6'/></w:numPr><w:ind w:left='375' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+
+				$nombrecompleto = $dato->nombre." ".$dato->apellido;
 				
+				$nombrefirma = $nombrefirma."</w:t></w:r></w:p>
+				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
+				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
+				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
+				<w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'></w:p>
+				<w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'>					
+					<w:r>
+						<w:rPr>
+							<w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/>
+							<w:b/>
+							<w:sz w:val='21'/>
+							<w:szCs w:val='21'/>
+						</w:rPr>
+					<w:t>".$nombrecompleto;
 
 				$textoclientes = $textoclientes.$nombrecompleto.", de ".strtolower($this->toText($this->edad($dato->fecnacimiento)))." años, ".$dato->estadocivil.", ".$dato->profesion;
-
 				$textoclientes = $textoclientes.", ".$dato->nacionalidad.", con domicilio en ".$dato->dirresidencia.", y me identifico con el Documento Personal de Identificación con Código Único de Identificación número ";
-
 				$textoclientes = $textoclientes.$dato->dpi.", extendido por el Registro Nacional de las Personas de la República de Guatemala, y comparezco ";
-
 				if($dato->clientejuridico == 1) {
-
 					$textoclientes = $textoclientes."en nombre propio.";					
-
 				}else if($dato->clientejuridico == 2) {					
-
 					$textoclientes = $textoclientes."en su calidad de ".$dato->especifiquejuridico." calidad que acredita con ".$dato->nombramientojuridico.".";
-
 				}
-
 				$textoclientes = $textoclientes." En el curso del presente contrato se me podrá denominar simplemente como el \"PROMITENTE COMPRADOR\".";				
-
-				
-
 			}
 
 			$document->setValue('NombreFirma',utf8_decode($nombrefirma));

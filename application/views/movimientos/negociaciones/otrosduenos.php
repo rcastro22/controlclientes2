@@ -54,7 +54,7 @@
 									<button id="btnNuevo" type="button" class="btn btn-info" data-toggle="modal" data-target="#newClientModal">Nuevo cliente</button>
 								</div>
 							</div>
-
+							<br>
 							<div class="row">
 								<div class="col-lg-12">
 
@@ -119,11 +119,11 @@
 			      </div>
 			      <div class="modal-body">
 			      	<input class="form-control" readonly type="hidden" name="idnegociacion" id="idnegociacion" value="<?php echo $idnegociacion; ?>" maxlength="30">
-			      	<div class="row" style="display:<?php if (!isset($mensaje2) || $mensaje2=="") echo "none"; ?>">
+			      	<div class="row" style="display:<?php if (!isset($mensaje2) || $mensaje2=="") echo "none"; ?>" >
 						<div class="col-lg-12">
 							<div class="alert <?php echo $tipoAlerta2;?>">
 								<a href="#" class="close" data-dismiss="alert">&times;</a>
-								<?php echo $mensaje2;?>	
+								<p id="alertNew"><?php echo $mensaje2;?></p>	
 							</div>
 						</div>
 					</div>

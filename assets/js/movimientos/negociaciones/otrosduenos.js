@@ -49,7 +49,8 @@ $(document).ready(function()
 
 	calcularEdad($("#fecnacimiento").val());
 
-	//$("#newClientModal").modal("show");
+	if($("#alertNew").text() != "")
+		$("#newClientModal").modal("show");
 
 });
 
