@@ -89,6 +89,8 @@
 	              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="enganche" data-alineacion="derecha" style="text-align:center">ENGANCHE</th>
 	              				<th data-tipo="string" data-campo="banco" data-alineacion="derecha" style="text-align:center">BANCO</th>
 	              				<th data-tipo="string" data-campo="status" data-alineacion="izquierda" style="text-align:center">ESTADO</th>
+	              				<th data-tipo="string" data-campo="CreadoPor" data-alineacion="izquierda" style="text-align:center">CREADO POR</th>
+	              				<th data-tipo="datetime" data-formato="dd/MM/yyyy" data-campo="FechaCreado" data-alineacion="izquierda" style="text-align:center">FECHA CREADO</th>
 	              				<!--<th data-boton="Ver" data-alineacion="centro" style="text-align:center">NEGOCIACIÓN</th>-->	   
 	              				<!--<th data-boton="Modificar" data-alineacion="centro" style="text-align:center"></th>-->
 

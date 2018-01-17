@@ -652,6 +652,14 @@
 								<ul class="pagination pagination-centered" data-tabla="gvBuscar" data-cantidad="10" data-grupo="8"></ul>
 							</div>
 						</div>
+					<div class="row">
+					<div class="col-lg-4 col-lg-offset-4">
+						<div class="alert alert-info">
+							
+							<?php echo 'CREADO POR: '.$datosnegociacion->CreadoPor.'      FECHA: '.date_format(new DateTime($datosnegociacion->FechaCreado),'d/m/Y');?>	
+						</div>
+					</div>
+					</div>
 				</div>
 			</div>
 		</div>

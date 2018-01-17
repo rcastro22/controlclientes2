@@ -31,7 +31,9 @@ class mnegociacion extends CI_Model {
 							a.facturabanco,
 							a.monedacontrato,
 							a.tipocambioneg,
-							a.status
+							a.status,
+							a.CreadoPor,
+							a.FechaCreado
 							from negociacion a
 							left outer join cliente b
              				on a.idcliente = b.idcliente
@@ -68,7 +70,9 @@ class mnegociacion extends CI_Model {
 							a.facturabanco,
 							a.monedacontrato,
 							a.tipocambioneg,
-							a.status
+							a.status,
+							a.CreadoPor,
+							a.FechaCreado
 							from negociacion a
 							--join inmueble b on a.[idinmueble] = b.[idinmueble]
 							--and a.[idproyecto] = b.[idproyecto]
@@ -114,7 +118,9 @@ class mnegociacion extends CI_Model {
 				            a.entidadautorizada,
 				            a.tasainteres,
 				            a.montodescuento,
-				            a.descripciondescuento
+				            a.descripciondescuento,
+				            a.CreadoPor,
+							a.FechaCreado
 							from negociacion a
 							where a.idnegociacion = $idnegociacion");
 		return $query->row();
@@ -226,7 +232,9 @@ class mnegociacion extends CI_Model {
 							a.facturabanco,
 							a.monedacontrato,
 							a.tipocambioneg,
-							a.status
+							a.status,
+							a.CreadoPor,
+							a.FechaCreado
 							from negociacion a
 							--join inmueble b on a.[idinmueble] = b.[idinmueble]
 							--and a.[idproyecto] = b.[idproyecto]
