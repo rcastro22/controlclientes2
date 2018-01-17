@@ -84,11 +84,13 @@ class recordatoriopago extends MY_Controller
 	   	$email = "";
 	   	$hayDatos = false;
 	   	$proyecto = 0;
+	   	$nombreProyecto = "";
 
 	   	foreach ($datosmail as $datos) {
 	   		$hayDatos = true;
 	   		$email = $datos->email;
 	   		$proyecto = $datos->idproyecto;
+	   		$nombreProyecto = $datos->nombre;
 
 	   		switch ($proyecto) {
 		   		case 1:
@@ -102,14 +104,14 @@ class recordatoriopago extends MY_Controller
 		   			break;
 		   	}
 
-	   		$datospago .= $simboloMoneda.number_format(($simboloMoneda=="$" ? $datos->pagocalculado : round($datos->pagocalculado * 7.7,2)),2,".",",")." correspodiente al mes de ".$meses[intval(Date('m',strtotime($datos->fechalimitepago)))-1]." ".Date('Y',strtotime($datos->fechalimitepago)).", ";
+	   		//$datospago .= $simboloMoneda.number_format(($simboloMoneda=="$" ? $datos->pagocalculado : round($datos->pagocalculado * 7.7,2)),2,".",",")." correspodiente al mes de ".$meses[intval(Date('m',strtotime($datos->fechalimitepago)))-1]." ".Date('Y',strtotime($datos->fechalimitepago)).", ";
 
 	   	}
 
-	   	if($hayDatos == false)
-	   	{
-	   		return "No existen pagos pendietes a la fecha";
-	   	}
+	   	//if($hayDatos == false)
+	   	//{
+	   	//	return "No existen pagos pendietes a la fecha";
+	   	//}
 
 	   	if($email == "")
 	   	{
@@ -151,9 +153,13 @@ class recordatoriopago extends MY_Controller
 	</table>
 	<hr size=1 />
 	<p>
-		Estimado Cliente,
+		Estimado cliente, el presente se le envía con el fin de recordarle el pago de su cuota correspondiente al enganche del proyecto ".$nombreProyecto.".
 		<br/><br/>
-		Le recordamos que su pago de enganche de ".$datospago." agradecemos su colaboración para poder emitir el recibo correspondiente.
+		Le rogamos realizar el pago antes de su fecha para que evite recargos.
+		<br/><br/>
+		Si usted ya hizo su pago, favor hacer caso omiso a este correo.
+		<br/><br/>
+		Nuestra satisfacción es nuestro compromiso.  Muchas gracias por la atención al mismo.
 		<br/><br/>
 		Banco Industrial
 		<br/>

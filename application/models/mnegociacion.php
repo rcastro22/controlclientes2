@@ -284,7 +284,7 @@ class mnegociacion extends CI_Model {
 
 	public function getDatosEmail($idnegociacion)
 	{		
-		$query = $this->db->query("select
+		/*$query = $this->db->query("select
 									      c.email
 									      ,dp.fechalimitepago
 									      ,dp.pagocalculado
@@ -301,6 +301,19 @@ class mnegociacion extends CI_Model {
 									     and dp.fechalimitepago <= date('now','+1 month','start of month','-1 day')
 									order by
 									      dp.fechalimitepago asc
+									");*/
+		$query = $this->db->query("select
+									      c.email
+									      ,n.idproyecto
+									      ,p.nombre
+									from
+									    negociacion n
+									    ,cliente c
+									    ,proyecto p
+									where
+									     n.idcliente = c.idcliente
+									     and n.idnegociacion = $idnegociacion
+									     and n.idproyecto = p.idproyecto
 									");
 		return $query->result();
 	}
