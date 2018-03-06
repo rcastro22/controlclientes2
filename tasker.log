@@ -1,0 +1,12 @@
+Status: 302 Moved Temporarily
+X-Powered-By: PHP/5.4.45
+Set-Cookie: ci_session=a%3A5%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%22182024bf9a3a86fe5bceea56cc458694%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A7%3A%220.0.0.0%22%3Bs%3A10%3A%22user_agent%22%3Bb%3A0%3Bs%3A13%3A%22last_activity%22%3Bi%3A1517595089%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3B%7D9bc6df43fb3bc49ff72195300a024d9f; expires=Fri, 02-Feb-2018 20:11:29 GMT; path=/
+Location: http://localhost/sesion
+Content-type: text/html
+
+Status: 302 Moved Temporarily
+X-Powered-By: PHP/5.4.45
+Set-Cookie: ci_session=a%3A5%3A%7Bs%3A10%3A%22session_id%22%3Bs%3A32%3A%228d4bd86b760db319ce3d80d2860341d5%22%3Bs%3A10%3A%22ip_address%22%3Bs%3A7%3A%220.0.0.0%22%3Bs%3A10%3A%22user_agent%22%3Bb%3A0%3Bs%3A13%3A%22last_activity%22%3Bi%3A1517595213%3Bs%3A9%3A%22user_data%22%3Bs%3A0%3A%22%22%3B%7D4986bdeee45875cb503214bdd5b7254b; expires=Fri, 02-Feb-2018 20:13:33 GMT; path=/
+Location: http://localhost/sesion
+Content-type: text/html
+

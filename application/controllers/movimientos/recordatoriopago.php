@@ -155,7 +155,7 @@ class recordatoriopago extends MY_Controller
 	<p>
 		Estimado cliente, el presente se le envía con el fin de recordarle el pago de su cuota correspondiente al enganche del proyecto ".$nombreProyecto.".
 		<br/><br/>
-		Le rogamos realizar el pago antes de su fecha para que evite recargos.
+		Le rogamos realizar el pago antes del 5 de cada mes.
 		<br/><br/>
 		Si usted ya hizo su pago, favor hacer caso omiso a este correo.
 		<br/><br/>

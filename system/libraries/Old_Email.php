@@ -1618,37 +1618,20 @@ class CI_Email {
 		$this->_smtp_connect();
 		$this->_smtp_authenticate();
 
-		//Original
-		//$this->_send_command('from', $this->clean_email($this->_headers['From']));
-		if ( ! $this->_send_command('from', $this->clean_email($this->_headers['From'])))
- 		{
- 			return FALSE;
- 		}
- 		//Fin modificacion
+		$this->_send_command('from', $this->clean_email($this->_headers['From']));
 
 		foreach ($this->_recipients as $val)
 		{
-			//Original
-			//$this->_send_command('to', $val);
-			if ( ! $this->_send_command('to', $val))
- 			{
- 				return FALSE;
- 			}
- 			//Fin modificacion
+			$this->_send_command('to', $val);
 		}
 
 		if (count($this->_cc_array) > 0)
 		{
 			foreach ($this->_cc_array as $val)
 			{
-				//Original
-				//if ($val != "")
-				if ($val !== '' && ! $this->_send_command('to', $val))
+				if ($val != "")
 				{
-					//Original
-					//$this->_send_command('to', $val);
-					return FALSE;
-					//fin modificacion
+					$this->_send_command('to', $val);
 				}
 			}
 		}
@@ -1657,24 +1640,14 @@ class CI_Email {
 		{
 			foreach ($this->_bcc_array as $val)
 			{
-				//Original
-				//if ($val != "")
-				if ($val !== '' && ! $this->_send_command('to', $val))
+				if ($val != "")
 				{
-					//Original
-					//$this->_send_command('to', $val);
-					return FALSE;
-					//fin modificacion
+					$this->_send_command('to', $val);
 				}
 			}
 		}
 
-		//Original
-		//$this->_send_command('data');
-		if ( ! $this->_send_command('data'))
- 		{
- 			return FALSE;
- 		}
+		$this->_send_command('data');
 
 		// perform dot transformation on any lines that begin with a dot
 		$this->_send_data($this->_header_str . preg_replace('/^\./m', '..$1', $this->_finalbody));
