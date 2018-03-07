@@ -162,7 +162,7 @@ class mreporte extends CI_Model
        $txtQuery="select a.fechapago,b.descripcion nomformapago, a.nodocumento,a.monto
                     from pago a,formapago b
                     where a.idformapago=b.idformapago
-                    and a.status='AC'
+                    and a.status in ('AP','CR')
                     and a.idnegociacion='".$idnegociacion."' " 
               ." order by a.idnegociacion,a.fechapago";
 
@@ -245,7 +245,7 @@ class mreporte extends CI_Model
     
         $txtQuery="select max(a.[nocuotas]) maxcuotas 
             from negociacion a
-            where a.[status] = 'AC'
+            where a.[status] in ('AP','CR')
             and a.[idproyecto] = $idproyecto;";
 
         $query= $this->db->query($txtQuery);
@@ -271,7 +271,7 @@ class mreporte extends CI_Model
           from negociacion b  
           left outer join detallepago a on a.[idnegociacion] = b.[idnegociacion]                           
           left outer join cliente c on b.[idcliente] = c.[idcliente]
-          where b.[status] = 'AC'
+          where b.[status] in ('AP','CR')
           and b.[idproyecto] = $idproyecto
           
           order by b.[idnegociacion], a.[fechalimitepago];";
@@ -296,9 +296,9 @@ class mreporte extends CI_Model
                 ,ifnull(a.[monto],0) pagoefectuado
                 ,ifnull(a.[fechapago],Date('1899-12-30')) fecha
           from negociacion b
-          left outer join pago a on a.[idnegociacion] = b.[idnegociacion] and a.[status] = 'AC'                     
+          left outer join pago a on a.[idnegociacion] = b.[idnegociacion] and a.[status] in ('AP','CR')                   
           left outer join cliente c on b.[idcliente] = c.[idcliente]
-          where b.[status] = 'AC'          
+          where b.[status] in ('AP','CR')         
           and b.[idproyecto] = $idproyecto
           
           order by b.[idnegociacion], a.[fechapago]; ";
@@ -318,7 +318,7 @@ class mreporte extends CI_Model
             from negociacion a            
             join detallepago b
             where a.[idnegociacion] = b.[idnegociacion] 
-            and a.[status] = 'AC'            
+            and a.[status] in ('AP','CR')           
             and a.[fechareserva] > Date('1899-12-30')
             and a.[idproyecto] = $idproyecto;";
 
@@ -369,9 +369,9 @@ class mreporte extends CI_Model
                 ,ifnull(round(a.[monto],2),0) pagoefectuado
                 ,ifnull(a.[fechapago],Date('1899-12-30')) fecha
           from negociacion b
-          left outer join pago a on a.[idnegociacion] = b.[idnegociacion] and a.[status] = 'AC'                     
+          left outer join pago a on a.[idnegociacion] = b.[idnegociacion] and a.[status] in ('AP','CR')                   
           left outer join cliente c on b.[idcliente] = c.[idcliente]
-          where b.[status] = 'AC'          
+          where b.[status] in ('AP','CR')         
           and b.[idproyecto] = $idproyecto          
           --and b.[idnegociacion] = 6
           order by b.[idnegociacion], a.[fechapago];");
@@ -398,7 +398,7 @@ class mreporte extends CI_Model
           join cliente c
           where a.[idnegociacion] = b.[idnegociacion]          
           and b.[idcliente] = c.[idcliente]
-          and b.[status] = 'AC'
+          and b.[status] in ('AP','CR')
           and b.[idproyecto] = $idproyecto          
           and a.[pagocalculado] != a.[pagoefectuado]
           --and b.[idnegociacion] = 6
@@ -464,7 +464,7 @@ class mreporte extends CI_Model
        $txtQuery="select a.fechapago,b.descripcion nomformapago, a.nodocumento,a.monto
                     from pagoaporte a,formapago b
                     where a.idformapago=b.idformapago
-                    and a.status='AC'
+                    and a.status in ('AP','CR')
                     and a.idaporte='".$idaporte."' " 
               ." order by a.idaporte,a.fechapago";
 
@@ -483,9 +483,9 @@ class mreporte extends CI_Model
                 ,ifnull(a.[monto],0) pagoefectuado
                 ,ifnull(a.[fechapago],Date('1899-12-30')) fecha
           from aporte b
-          left outer join pagoaporte a on a.[idaporte] = b.[idaporte] and a.[status] = 'AC'                     
+          left outer join pagoaporte a on a.[idaporte] = b.[idaporte] and a.[status] in ('AP','CR')                    
           left outer join inversionista c on b.[idinversionista] = c.[idinversionista]
-          where b.[status] = 'AC'          
+          where b.[status] in ('AP','CR')          
           and b.[idproyecto] = $idproyecto
           order by b.[idaporte], a.[fechapago]; ";
      
@@ -505,7 +505,7 @@ class mreporte extends CI_Model
                                 from aporte a            
                                 join detallepagoinversion b
                                 where a.[idaporte] = b.[idaporte] 
-                                and a.[status] = 'AC'            
+                                and a.[status] in ('AP','CR')            
                                 and a.[idproyecto] = $idproyecto    
                                                               
 
@@ -514,7 +514,7 @@ class mreporte extends CI_Model
                                 from aporte a            
                                 join pagoaporte b
                                 where a.[idaporte] = b.[idaporte] 
-                                and a.[status] = 'AC'            
+                                and a.[status] in ('AP','CR')            
                                 and a.[idproyecto] = $idproyecto 
                                 
                     ) sub1 

@@ -55,6 +55,7 @@ $("#btnConsultar").click(function() {
 		{
 			$.each(data,function(i,linea)
 			{
+				
                 // Elimina los encabezados si hubiera
 				$("#reporte > thead > tr").remove();
 				// Crea el tr del encabezado
@@ -70,6 +71,7 @@ $("#btnConsultar").click(function() {
 				$("#reporte > thead > tr").append(th);
 
 				// Obtiene y descompone en mes y año la fecha minima (fechamin)
+
 				if(linea.fechamin != null)
 				{				
 					var fechatxt = linea.fechamin;
