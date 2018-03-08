@@ -13,7 +13,7 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="<?php echo base_url().'movimientos/negociacion/edit/'.$datosnegociacion->idnegociacion;?>">General</a></li>
 					<li role="presentation"><a href="<?php echo base_url().'movimientos/listacomprobacion/listado/'.$datosnegociacion->idnegociacion;?>">CheckList</a></li>
-					<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/cuota/listado/'.$datosnegociacion->idnegociacion;?>">Cuotas</a></li>
+					<li role="presentation" ><a href="<?php echo base_url().'movimientos/cuota/listado/'.$datosnegociacion->idnegociacion;?>">Cuotas</a></li>
 					<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/pagos/listado/'.$datosnegociacion->idnegociacion;?>">Detlle de pagos</a></li>
 					<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/negociacion/pago/'.$datosnegociacion->idnegociacion;?>">Pagar</a></li>
 					<li role="presentation" class="dropdown">

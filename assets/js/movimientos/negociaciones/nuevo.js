@@ -655,6 +655,9 @@ $(document).on('click','#btnAgregar',function()
 		 $('#divAlerta1').append("No se puede agregar el pago, todos los campos son obligatorios");
 		 $('#divAlerta1').show();
 	}
+	else if(isNaN(parseFloat(varMonto))) {
+		alert("El formato del monto es incorrecto");
+	}
 	else
 	{
 			$('#divAlerta1').hide();
@@ -676,7 +679,7 @@ $(document).on('click','#btnAgregar',function()
 			
 			if (!existeProducto(newArray))
 			{
-				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: varCodInmueble, tipo: $('#htipoinmueble').val(), modelo:$('#hmodelo').val(), monto: varMonto });
+				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: varCodInmueble, tipo: $('#htipoinmueble').val(), modelo:$('#hmodelo').val(), monto: parseFloat(varMonto) });
 	        	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
 	        	$('#txtTotalDecimal').val(varTotal.toFixed(6));
 	        	$('#precioventa').val(varTotalDescuento.toFixed(2));

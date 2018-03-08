@@ -161,6 +161,12 @@ class negociacion extends MY_Controller
 				//Falta validacion para asesor
 				$this->form_validation->set_rules('comision','Comision','required|numeric');
 				$this->form_validation->set_rules('banco','Banco');
+
+				$this->form_validation->set_rules('formapago','formapago');
+				$this->form_validation->set_rules('plazocredito','plazocredito');
+				$this->form_validation->set_rules('tipofinanciamiento','tipofinanciamiento');
+				$this->form_validation->set_rules('entidadautorizada','entidadautorizada');
+				$this->form_validation->set_rules('tasainteres','tasainteres');
 				
 				if($this->form_validation->run()==FALSE)
 				{
@@ -572,6 +578,12 @@ class negociacion extends MY_Controller
 					$datosnegociacion->monedacontrato=$this->input->post('monedacontrato');
 					$datosnegociacion->tipocambioneg=$this->input->post('tipocambioneg');
 
+					$datosnegociacion->formapago=$this->input->post('formapago');
+                    $datosnegociacion->plazocredito=$this->input->post('plazocredito');
+                    $datosnegociacion->tipofinanciamiento=$this->input->post('tipofinanciamiento');
+                    $datosnegociacion->entidadautorizada=$this->input->post('entidadautorizada');
+                    $datosnegociacion->tasainteres=$this->input->post('tasainteres');
+
 					$datosnegociacion->montodescuento=$this->input->post('montodescuento');
 					$datosnegociacion->descripciondescuento=$this->input->post('descripciondescuento');
 
@@ -618,6 +630,12 @@ class negociacion extends MY_Controller
 
 					$datosnegociacion->monedacontrato=$this->input->post('monedacontrato');
 					$datosnegociacion->tipocambioneg=$this->input->post('tipocambioneg');
+
+					$datosnegociacion->formapago=$this->input->post('formapago');
+                    $datosnegociacion->plazocredito=$this->input->post('plazocredito');
+                    $datosnegociacion->tipofinanciamiento=$this->input->post('tipofinanciamiento');
+                    $datosnegociacion->entidadautorizada=$this->input->post('entidadautorizada');
+                    $datosnegociacion->tasainteres=$this->input->post('tasainteres');
 
 					$datosnegociacion->montodescuento=$this->input->post('montodescuento');
 					$datosnegociacion->descripciondescuento=$this->input->post('descripciondescuento');
@@ -675,6 +693,11 @@ class negociacion extends MY_Controller
 								   'facturabanco'=>$this->input->post('banco'),
 								   'monedacontrato'=>$this->input->post('monedacontrato'),
 								   'tipocambioneg'=>$this->input->post('tipocambioneg'),
+								   'formapago'=>$this->input->post('formapago'),
+	                               'plazocredito'=>$this->input->post('plazocredito'),
+	                               'tipofinanciamiento'=>$this->input->post('tipofinanciamiento'),
+	                               'entidadautorizada'=>$this->input->post('entidadautorizada'),
+	                               'tasainteres'=>$this->input->post('tasainteres'),
 								   'montodescuento'=>$this->input->post('montodescuento'),
 								   'descripciondescuento'=>$this->input->post('descripciondescuento'),
 								   // Auditoria

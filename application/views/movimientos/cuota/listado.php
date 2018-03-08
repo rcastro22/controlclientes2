@@ -16,8 +16,8 @@
 				<li role="presentation"><a href="<?php echo base_url().'movimientos/negociacion/edit/'.$idnegociacion;?>">General</a></li>
 				<li role="presentation"><a href="<?php echo base_url().'movimientos/listacomprobacion/listado/'.$idnegociacion;?>">CheckList</a></li>
 				<li role="presentation" class="active"><a href="<?php echo base_url().'movimientos/cuota/listado/'.$idnegociacion;?>">Cuotas</a></li>
-				<li role="presentation"><a href="<?php echo base_url().'movimientos/pagos/listado/'.$idnegociacion;?>">Detlle de pagos</a></li>
-				<li role="presentation"><a href="<?php echo base_url().'movimientos/negociacion/pago/'.$idnegociacion;?>">Pagar</a></li>
+				<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/pagos/listado/'.$idnegociacion;?>">Detlle de pagos</a></li>
+				<li role="presentation" class="<?php if($datosusuario->tipousuario == '2') echo 'hidden' ?>"><a href="<?php echo base_url().'movimientos/negociacion/pago/'.$idnegociacion;?>">Pagar</a></li>
 				
 			</ul>
 			<br/>
