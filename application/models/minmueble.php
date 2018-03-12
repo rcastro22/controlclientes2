@@ -47,7 +47,7 @@ class minmueble extends CI_Model {
 									from inmueble a
 									join proyecto b on a.idproyecto = b.idproyecto
 									join tipoinmueble c on c.idtipoinmueble = a.idtipoinmueble
-									join modelo d on d.idmodelo = a.idmodelo");
+									left outer join modelo d on d.idmodelo = a.idmodelo");
 		//$query=$this->db->get();
 		return $query->result();
 	}
