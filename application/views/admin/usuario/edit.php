@@ -12,7 +12,9 @@
 			<div class="col-lg-6 col-lg-offset-3" >
 				<div class="panel panel-default">
 			  	<!-- Default panel contents -->
-			  		<div class="panel-heading" > <?php echo $page_title;?>  </div>
+			  		<div class="panel-heading" > <?php echo $page_title;?> 
+			  			<!--<button id="resetpass" class="btn btn-warning pull-right" style="padding-top: 0; padding-bottom: 0; vertical-align: middle;">Reiniciar contraseña</button>-->
+			  		</div>
 			  			<div class="panel-body">
 							
 							<form action="<?php echo site_url('admin/usuario/edit'); ?>" method="post">
@@ -66,7 +68,9 @@
 								</div>-->
 								<br/>
 								<div style="text-align:center">
-									<button class="btn btn-lg btn-negro">Modificar</button>
+									<button class="btn btn-lg btn-negro" id="modificar" name="modificar">Modificar</button>
+
+									<button class="btn btn-lg btn-info" id="cambiarclave" name="cambiarclave" >Cambiar contraseña</button>
 								</div>
 							</form>
 

@@ -93,32 +93,67 @@ class usuario extends MY_Controller
 				$this->load->view('admin/usuario/edit',$this->view_data);
 				break;
 			case 'POST':
-				$this->form_validation->set_rules('nombre','nombre','required');
-				$this->form_validation->set_rules('apellido','apellido','required');
-				//$this->form_validation->set_rules('login','login','required');
-				//$this->form_validation->set_rules('clave','clave','required');
-				if($this->form_validation->run()==FALSE)
-				{
-					$datosusuario = new stdClass();
-					$datosusuario->idusuario=$this->input->post('idusuario');
-					$datosusuario->nombre=$this->input->post('nombre');
-					$datosusuario->nombre=$this->input->post('apellido');
-					//$datosusuario->nombre=$this->input->post('login');
-					//$datosusuario->nombre=$this->input->post('clave');
-					$this->view_data['datosusuario']=$datosusuario;
-					$this->load->view('admin/usuario/edit',$this->view_data);
+
+				if(isset($_POST["modificar"])) {
+					$this->form_validation->set_rules('nombre','nombre','required');
+					$this->form_validation->set_rules('apellido','apellido','required');
+					$this->form_validation->set_rules('tusuario','tusuario');
+					//$this->form_validation->set_rules('login','login','required');
+					//$this->form_validation->set_rules('clave','clave','required');
+					if($this->form_validation->run()==FALSE)
+					{
+						$datosusuario = new stdClass();
+						$datosusuario->idusuario=$this->input->post('idusuario');
+						$datosusuario->nombre=$this->input->post('nombre');
+						$datosusuario->apellido=$this->input->post('apellido');
+						$datosusuario->tipousuario=$this->input->post('tusuario');
+						//$datosusuario->nombre=$this->input->post('login');
+						//$datosusuario->nombre=$this->input->post('clave');
+						$this->view_data['datosusuario']=$datosusuario;
+						$this->load->view('admin/usuario/edit',$this->view_data);
+					}
+					else
+					{
+						$this->load->model('musuarioadmin');
+						$err="";
+						$siactualizo=$this->musuarioadmin->modificar($this->input->post('idusuario'),
+							    array(
+								   'nombre'=>$this->input->post('nombre'),
+								   'apellido'=>$this->input->post('apellido'),
+								   'tipousuario'=>$this->input->post('tusuario'),
+								   //'login'=>$this->input->post('login'),
+								   //'clave'=>sha1($this->input->post('clave')),
+								   'ModificadoPor'=>$this->session->userdata('user_id'),
+								   'FechaModificado'=>date("Y-m-d H:i:s")
+							        ),$err);
+	                    
+	                    $datosusuario = new stdClass();
+						$datosusuario->idusuario=$this->input->post('idusuario');
+						$datosusuario->nombre= $this->input->post('nombre');
+						$datosusuario->apellido= $this->input->post('apellido');
+						$datosusuario->tipousuario=$this->input->post('tusuario');
+						//$datosusuario->login= $this->input->post('apellido');
+						//$datosusuario->clave= $this->input->post('clave');
+						$this->view_data['datosusuario']=$datosusuario;
+	                    if ($siactualizo)
+	                    {
+	                    	redirect('admin/usuario/listado');
+	                    }
+	                    else
+	                    {
+	                    	$this->view_data['mensaje']="Error: No se pudo actualizar el registro ".$err;
+	                    	$this->view_data['tipoAlerta']="alert-danger";
+	                    	$this->load->view('admin/usuario/edit',$this->view_data);
+	                    }
+					}
 				}
-				else
-				{
+				if(isset($_POST["cambiarclave"])) {
 					$this->load->model('musuarioadmin');
 					$err="";
+					$datosusuario = $this->musuarioadmin->getUsuarioId($this->input->post('idusuario'));
 					$siactualizo=$this->musuarioadmin->modificar($this->input->post('idusuario'),
 						    array(
-							   'nombre'=>$this->input->post('nombre'),
-							   'apellido'=>$this->input->post('apellido'),
-							   'tipousuario'=>$this->input->post('tusuario'),
-							   //'login'=>$this->input->post('login'),
-							   //'clave'=>sha1($this->input->post('clave')),
+							   'clave'=>sha1($datosusuario->login),
 							   'ModificadoPor'=>$this->session->userdata('user_id'),
 							   'FechaModificado'=>date("Y-m-d H:i:s")
 						        ),$err);
@@ -127,12 +162,15 @@ class usuario extends MY_Controller
 					$datosusuario->idusuario=$this->input->post('idusuario');
 					$datosusuario->nombre= $this->input->post('nombre');
 					$datosusuario->apellido= $this->input->post('apellido');
+					$datosusuario->tipousuario=$this->input->post('tusuario');
 					//$datosusuario->login= $this->input->post('apellido');
 					//$datosusuario->clave= $this->input->post('clave');
 					$this->view_data['datosusuario']=$datosusuario;
                     if ($siactualizo)
                     {
-                    	redirect('admin/usuario/listado');
+                    	$this->view_data['mensaje']="Se actualizo la contraseña, la nueva contraseña es la misma que el nombre de usuario".$err;
+                    	$this->view_data['tipoAlerta']="alert-info";
+                    	$this->load->view('admin/usuario/edit',$this->view_data);
                     }
                     else
                     {
