@@ -720,143 +720,102 @@ class word extends MY_Controller
 
 	public function contratoPromesaCompraventa($idnegociacion)
 	{
-
 		require_once str_replace("\\","/",FCPATH).'application/PHPWord.php';
-
 		// Configuracion zona horaria
-
 		date_default_timezone_set("America/Guatemala");		
-
 		$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");				
 
-
-
 		try {
-
 			// Obtencion de datos
-
 			$this->load->model('mword');
-
 			$datosCliente = $this->mword->getContratoReserva($idnegociacion);
-
 			if(!$datosCliente) {
 				$datosCliente = $this->mword->getContratoReservaTemporal($idnegociacion);
 			}
-
 			$datosInmuebles = $this->mword->getDetInmueblesNegociacion($idnegociacion);
-
 			$precioMt2Inmueble = $this->mword->getMontoMt2TipoInmueble($idnegociacion);
 
 
-
-			
-
-
-
-			
-
 			// Declaracion y uso del documento word
-
 			$PHPWord = new PHPWord();
-
 			$document = $PHPWord->loadTemplate(str_replace("\\","/",FCPATH).'PlantillasWord/ContratoPromesaCompraventa5.docx');
 
-
-
 			// Variables
-
 			$nombrecompleto = "";
-
 			$nombrefirma = "";
-
 			$monedacontrato = 0;
-
 			$tipocambioneg = 0;
-
 			$textoclientes = "";
-
 			$precioventamonto = 0;
-
 			$reservamonto = 0;
-
 			$bancomonto = 0;
 
 
-
-
-
 			// Substitucion de datos
-
 			$document->setValue("FechaInicial",utf8_decode(intval(Date('d'))." de ".strtolower($meses[intval(Date('m'))-1])." del año ".strtolower($this->toText(Date('Y')))));
-
 			//$document->setValue("FechaInicial",utf8_decode(intval(Date('d'))." de ".strtolower($meses[intval(Date('m'))-1])));
-
 			//$document->setValue("FechaDocumento",utf8_decode(intval(Date('d'))." de ".strtolower($meses[intval(Date('m'))-1])." del año ".strtolower($this->toText(Date('Y')))));
-
 			$document->setValue("Dia",utf8_decode(strtolower($this->toText(intval(Date('d'))))));
-
 			$document->setValue("Mes",utf8_decode(strtolower($meses[intval(Date('m'))-1])));
-
 			$document->setValue("Anio",utf8_decode(strtolower($this->toText(Date('Y')))));
 
 
+			/// **************** PROYECTO Y REPRESENTANTE ******************
+			$this->load->model('mproyecto');
+			$datosProyecto = $this->mproyecto->getProyectoPorNegociacion($idnegociacion);
+			$document->setValue('NombreEdificio',utf8_decode($datosProyecto->nombreedificio));
+			$document->setValue("EntidadVendedora",utf8_decode(strtoupper($datosProyecto->entidadvendedora)));
+
+			$document->setValue('NombreRep',utf8_decode($datosProyecto->nombre_rep));
+			$document->setValue('NombreRep2',utf8_decode(strtoupper($datosProyecto->nombre_rep)));
+			$document->setValue('AniosRep',utf8_decode(strtolower($this->toText($this->edad($datosProyecto->fechanac_rep)))));
+			$document->setValue('estadocivilrep',utf8_decode($datosProyecto->estadocivil_rep));
+			$document->setValue('dpiRepLetras',utf8_decode(strtolower($this->toText($datosProyecto->dpi_rep))));
+			$document->setValue('dpiRep',utf8_decode($datosProyecto->dpi_rep));
+			$document->setValue('descRep',utf8_decode(strtoupper($datosProyecto->descripcion_rep)));
+
+			$document->setValue('fechaActaNotarial',utf8_decode(strtolower($this->toText(Date('d',strtotime($datosProyecto->fechaactanotarial))))." de ".strtolower($meses[intval(Date('m',strtotime($datosProyecto->fechaactanotarial)))-1])." del año ".strtolower($this->toText(Date('Y',strtotime($datosProyecto->fechaactanotarial))))));
+			$document->setValue('Notario',utf8_decode($datosProyecto->notario));
+			$document->setValue('registroLetras',utf8_decode(strtolower($this->toText($datosProyecto->registro))));
+			$document->setValue('registroNumero',utf8_decode(number_format($datosProyecto->registro,0,".",",")));
+			$document->setValue('folioLetras',utf8_decode(strtolower($this->toText($datosProyecto->folio_reg))));
+			$document->setValue('folioNumero',utf8_decode(number_format($datosProyecto->folio_reg,0,".",",")));
+			$document->setValue('libroLetras',utf8_decode(strtolower($this->toText($datosProyecto->libro_reg))));
+			$document->setValue('libroNumero',utf8_decode($datosProyecto->libro_reg));
+			$document->setValue('fechaRegistro',utf8_decode(intval(Date('d',$datosProyecto->fecha_reg))." de ".strtolower($meses[intval(Date('m',$datosProyecto->fecha_reg))-1])." del año ".strtolower($this->toText(Date('Y',$datosProyecto->fecha_reg)))));
+			$document->setValue('fincaProy',utf8_decode($datosProyecto->finca));
+			$document->setValue('folioProy',utf8_decode($datosProyecto->folio));
+			$document->setValue('libroProy',utf8_decode($datosProyecto->libro));
+			$document->setValue('areaProy',utf8_decode(number_format($datosProyecto->area,2,".",",")));
+			$document->setValue('direccionProy',utf8_decode($datosProyecto->direccion));
 
 			/// **************** CLIENTES ******************
-
 			foreach ($datosCliente as $dato) {
-
-
-
 				$monedacontrato = $dato->monedacontrato;			
-
 				$tipocambioneg = $dato->tipocambioneg;				 
 
-
-
 				$nombrecompleto = $dato->nombre." ".$dato->apellido;	
-
 				$nombrefirma = $nombrecompleto;						
 
-				
-
 				$textoclientes = $nombrecompleto.", de ".strtolower($this->toText($this->edad($dato->fecnacimiento)))." años, ".$dato->estadocivil.", ".$dato->profesion;
-
 				$textoclientes = $textoclientes.", ".$dato->nacionalidad.", con domicilio en ".$dato->dirresidencia.", y me identifico con el Documento Personal de Identificación con Código Único de Identificación número ";
-
 				$textoclientes = $textoclientes.$dato->dpi.", extendido por el Registro Nacional de las Personas de la República de Guatemala, y comparezco ";
-
 				if($dato->clientejuridico == 1) {
-
 					$textoclientes = $textoclientes."en nombre propio.";					
-
 				}else if($dato->clientejuridico == 2) {					
-
 					$textoclientes = $textoclientes."en su calidad de ".$dato->especifiquejuridico." calidad que acredita con ".$dato->nombramientojuridico.".";
-
 				}
-
 				$textoclientes = $textoclientes." En el curso del presente contrato se me podrá denominar simplemente como el \"PROMITENTE COMPRADOR\".";				
 
-				
-
 				$document->setValue("Direccion2",utf8_decode($dato->dirresidencia));
-
 				$document->setValue('Correo',utf8_decode($dato->email));
-
-				$document->setValue('NombreCliente',$nombrecompleto);
-
-				$document->setValue('DPI',"DPI ".strtolower($this->toText($dato->dpi)));
-
-
+				$document->setValue('NombreCliente',utf8_decode($nombrecompleto));
+				$document->setValue('DPI',utf8_decode(strtolower($this->toText($dato->dpi))." (".$dato->dpi.")"));
 
 				// Asignacion de variables
-
 				$precioventamonto = $dato->precioventa;
-
 				$reservamonto = $dato->reserva;
-
 				$bancomonto = $dato->financiamientobanco;				
-
 			}
 
 			// Otros clientes
@@ -928,117 +887,71 @@ class word extends MY_Controller
 			}
 
 			$document->setValue('NombreFirma',utf8_decode($nombrefirma));
-
 			$document->setValue("Clientes",utf8_decode($textoclientes));
 
 
-
 			///*********************** INMUEBLES *******************
-
 			$inmueblesTxt = '';
-
 			$contador = 0;
 
 			$tipoIn = 0;
 			$Ordinals = array("PRIMER","SEGUNDO","TERCER","CUARTO","QUINTO","SEXTO","SEPTIMO","OCTAVO","NOVENO","DECIMO");
 			foreach ($datosInmuebles as $inmueble) {
-
 				if($tipoIn == 0)
-
 					$tipoIn = $inmueble->idtipoinmueble;
-
 				else {
-
 					if($inmueble->idtipoinmueble != $tipoIn) {						
-
 						$tipoIn = $inmueble->idtipoinmueble;
-
 						$inmueblesTxt = rtrim($inmueblesTxt)."; ";
-
 					}
-
 				}
 
 				preg_match("/^([a-zA-Z])/", $inmueble->idinmueble, $letras); preg_match("/([[:digit:]]+)$/", $inmueble->idinmueble, $numeros);
-
 				$nueLetras = ($letras == null ? "" : $letras[1]);
-
 				$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." número ".$nueLetras." ".strtolower($this->toText($numeros[1]))." ";
-
 				$strNivel = "";
 
 				if($inmueble->sotano > 0) { $strNivel = "nivel"; }
-
 				else if($inmueble->sotano < 0) { $strNivel = "sótano"; }
-
 				else if($inmueble->sotano == "PB") { $strNivel = "Planta Baja"; }
 
 				if($tipoIn == 1) {
-
 					$inmueblesTxt = $inmueblesTxt.str_replace("FABRA", "",strtoupper($inmueble->modelo)) ." ";
-
-					$inmueblesTxt = $inmueblesTxt."(".$inmueble->idinmueble." ".str_replace("FABRA", "",strtoupper($inmueble->modelo)).") del ".strtolower($Ordinals[abs($inmueble->sotano)])." ".$strNivel." (".abs($inmueble->sotano).")";
-
+					$inmueblesTxt = $inmueblesTxt."(".$inmueble->idinmueble." ".str_replace("FABRA", "",strtoupper($inmueble->modelo)).") del ".strtolower($Ordinals[abs($inmueble->sotano)-1])." ".$strNivel." (".abs($inmueble->sotano).")";
 				}
-
 				else {
-
-					$inmueblesTxt = $inmueblesTxt."(".$inmueble->idinmueble.") del ".strtolower($Ordinals[abs($inmueble->sotano)])." ".$strNivel." (".abs($inmueble->sotano)."), ";
-
+					$inmueblesTxt = $inmueblesTxt."(".$inmueble->idinmueble.") del ".strtolower($Ordinals[abs($inmueble->sotano)-1])." ".$strNivel." (".abs($inmueble->sotano)."), ";
 				}
-
 			}
 
 			$document->setValue("Inmuebles",utf8_decode($inmueblesTxt));
-
 			$inmueblesTxt = "";
-
 			$tipoIn = 0;
-
 			foreach ($datosInmuebles as $inmueble) {
-
 				if($tipoIn == 0)
-
 					$tipoIn = $inmueble->idtipoinmueble;
-
 				else {
-
 					if($inmueble->idtipoinmueble != $tipoIn) {						
-
 						$tipoIn = $inmueble->idtipoinmueble;
-
 						$inmueblesTxt = rtrim($inmueblesTxt)."\n";
-
 						$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='2'/></w:numPr><w:ind w:left='1800' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
-
 					}
-
 				}
 
 				preg_match("/^([a-zA-Z])/", $inmueble->idinmueble, $letras); preg_match("/([[:digit:]]+)$/", $inmueble->idinmueble, $numeros);
-
 				$nueLetras = ($letras == null ? "" : $letras[1]);
-
 				$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." No. ".$nueLetras." ".strtolower($this->toText($numeros[1]))." ";
-
 				$strNivel = "";
 
 				if($inmueble->sotano > 0) { $strNivel = "nivel"; }
-
 				else if($inmueble->sotano < 0) { $strNivel = "sótano"; }
-
 				else if($inmueble->sotano == "PB") { $strNivel = "Planta Baja"; }
 
 				if($tipoIn == 1) {
-
 					$inmueblesTxt = $inmueblesTxt.str_replace("FABRA", "",strtoupper($inmueble->modelo)) ." (".$inmueble->idinmueble." ".str_replace("FABRA", "",strtoupper($inmueble->modelo)).") ";					
-
 				}
-
 				else {
-
 					$inmueblesTxt = $inmueblesTxt."(".$inmueble->idinmueble.") ";					
-
 				}
 
 				$inmueblesTxt = $inmueblesTxt."con un área ".($tipoIn == 1 ? "(incluyendo balcones, terrazas, etc.) " : "")."de ".strtolower($this->toText($inmueble->tamano))." punto ".strtolower($this->toText(round(($inmueble->tamano-intval($inmueble->tamano))*100)))." metros cuadrados (".$inmueble->tamano." m2). ";
@@ -1119,9 +1032,9 @@ class word extends MY_Controller
 
 			if($reservamonto != 0) {
 
-				$reservatext = "Previamente se ha recibido la cantidad de ".strtolower($this->toText($reservamonto)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round(($reservamonto-intval($reservamonto))*100)))." centavos ";
+				$reservatext = "El monto de ".strtolower($this->toText($reservamonto)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round(($reservamonto-intval($reservamonto))*100)))." centavos ";
 
-				$reservatext = $reservatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($reservamonto,2,".",",").") que fueron entregados en concepto de reserva.";
+				$reservatext = $reservatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($reservamonto,2,".",",").") realizado en concepto de reserva.";
 
 				$reservatext = $reservatext."\n";
 
@@ -1132,8 +1045,8 @@ class word extends MY_Controller
 			}
 
 
-
-			$primerpago = $this->mword->getContratoPromesa2($idnegociacion);
+			//// Este inciso se elimino del contrato, correo 15-03-2018
+			/*$primerpago = $this->mword->getContratoPromesa2($idnegociacion);
 
 			if($primerpago->pagocalculado != 0) {
 
@@ -1147,7 +1060,7 @@ class word extends MY_Controller
 
 				$reservatext = $reservatext."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='5'/></w:numPr><w:ind w:left='1200' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
 
-			}
+			}*/
 
 
 
@@ -1159,13 +1072,13 @@ class word extends MY_Controller
 
 				$contador++;
 
-				$reservatext = $reservatext.strtolower($this->toText($detpago->cantidad))." pagos de ".($monedacontrato == 2 ? "Q " : "US$ ").number_format($detpago->pagocalculado,2,".",",").", ";
+				$reservatext = $reservatext.strtolower($this->toText($detpago->cantidad))." pagos iguales y consecutivos por la cantidad de ".strtolower($this->toText($detpago->pagocalculado)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round(($detpago->pagocalculado-intval($detpago->pagocalculado))*100)))." centavos (".($monedacontrato == 2 ? "Q " : "US$ ").number_format($detpago->pagocalculado,2,".",",")."), ";
 
 			}
 
 			if($contador > 0) {
 
-				$reservatext = $reservatext."mensuales consecutivos a partir de la firma de la presente promesa, los cuales se deberán cancelar dentro de los primeros cinco días del mes, empezando en el mes de ";
+				$reservatext = $reservatext." empezando en el mes de ";
 
 				$fechaprimerpago = $this->mword->getContratoPromesa4($idnegociacion);
 

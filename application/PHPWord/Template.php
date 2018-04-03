@@ -55,7 +55,10 @@ class PHPWord_Template {
      * @var string
      */
     private $_documentXML;
-    
+    //Custom code Israel López (@learsima)
+    private $_adicional=array(
+    'elementos' =>array()
+    );
     
     /**
      * Create a new Template Object
@@ -72,6 +75,42 @@ class PHPWord_Template {
         $this->_objZip->open($this->_tempFileName);
         
         $this->_documentXML = $this->_objZip->getFromName('word/document.xml');
+        //echo str_replace('<','/<',$this->_objZip->getFromName('word/document.xml'));
+
+        ////////
+        $this->_adicional['elementos'][0]['info']=$this->_documentXML;
+        $this->_adicional['elementos'][0]['nombre']='document.xml';
+
+        $posicion=1;
+        //Custom code Israel López (@learsima)
+        for ($i=0; $i <2 ; $i++) { 
+            //Recorrer todos los posibles encabezado y pies de página
+            //Todos los archivo comienzan con header y footer seguidos de un secuencial
+            $existe=true;
+            $contador=1;
+
+            if($i==0){
+                $nomenc='header';
+            }else{
+                $nomenc='footer';
+            }
+
+            while ($existe) {
+
+                $nombre=$nomenc.$contador.'.xml';
+                $elemento=$this->_objZip->getFromName('word/'.$nombre);
+
+                if($elemento){
+                    $this->_adicional['elementos'][$posicion]['info']=$elemento;
+                    $this->_adicional['elementos'][$posicion]['nombre']=$nombre;
+                    $contador++;
+                    $posicion++;
+                }else{
+                    $existe=false;
+                }
+            } 
+        }
+        /////////
     }
     
     /**
@@ -81,18 +120,41 @@ class PHPWord_Template {
      * @param mixed $replace
      */
     public function setValue($search, $replace) {
-        if(substr($search, 0, 2) !== '{' && substr($search, -1) !== '}') {
-            //$search = '${'.$search.'}';
-            $search = $search.'99';
-        }        
-        
-        if(!is_array($replace)) {
-            $replace = utf8_encode($replace);
-        }
-        //echo str_replace('<','/<',$this->_documentXML);
-        
-        $this->_documentXML = str_replace($search, $replace, $this->_documentXML);
 
+        ////////////////////
+        $pattern = '|\$\{([^\}]+)\}|U'; 
+        $openedTagPattern= '/<[^>]+>/';
+        $closedTagPattern= '/<\/[^>]+>/';
+
+        if(substr($search, 0, 2) !== '{' && substr($search, -1) !== '}') {
+                //$search = '${'.$search.'}';
+                $search = $search.'99';
+            }
+
+        //echo count($this->_adicional)."<br>";
+        for ($i=0; $i <count($this->_adicional['elementos']) ; $i++) {
+
+            preg_match_all($pattern, $this->_adicional['elementos'][$i]['info'], $matches);
+
+            foreach ($matches[0] as $value) {
+                $modificado = preg_replace($openedTagPattern, '', $value);
+                $modificado = preg_replace($closedTagPattern, '', $modificado);
+                $this->_adicional['elementos'][$i]['info'] = str_replace($value, $modificado, $this->_adicional['elementos'][$i]['info']);
+            }
+            ///////////////////
+
+                    
+            
+            if(!is_array($replace)) {
+                $replace = utf8_encode($replace);
+            }
+            //echo str_replace('<','/<',$this->_documentXML);
+            
+            //$this->_documentXML = str_replace($search, $replace, $this->_documentXML);
+            //Custom code Israel López (@learsima)
+            $this->_adicional['elementos'][$i]['info']= str_replace($search, $replace, $this->_adicional['elementos'][$i]['info']);
+
+        }//////
     }
     
     /**
@@ -101,7 +163,30 @@ class PHPWord_Template {
      * @param string $strFilename
      */
     public function save($strFilename) {
+
+
         if(file_exists($strFilename)) {
+            unlink($strFilename);
+        }
+        //Custom code Israel López (@learsima)
+        for ($i=0; $i <count($this->_adicional['elementos']) ; $i++) { 
+
+            $nombre=$this->_adicional['elementos'][$i]['nombre'];
+
+            $this->_objZip->addFromString('word/'.$nombre, $this->_adicional['elementos'][$i]['info']);
+        }
+
+
+        // Close zip file
+        if($this->_objZip->close() === false) {
+            throw new Exception('Could not close zip file.');
+        }
+
+        rename($this->_tempFileName, $strFilename);
+        
+
+
+        /*if(file_exists($strFilename)) {
             unlink($strFilename);
         }
         
@@ -112,7 +197,7 @@ class PHPWord_Template {
             throw new Exception('Could not close zip file.');
         }
         
-        rename($this->_tempFileName, $strFilename);
+        rename($this->_tempFileName, $strFilename);*/
     }
 }
 ?>

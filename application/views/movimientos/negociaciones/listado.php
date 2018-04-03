@@ -66,7 +66,7 @@
 							</div>
 							<div class="col-lg-1 col-xs-4">
 							<label class="checkbox-inline">
-								<input type="checkbox" id="RS" value="3"> Resindidos
+								<input type="checkbox" id="RS" value="3"> Rescindidos
 							</label>
 							</div>
 							'; ?> 

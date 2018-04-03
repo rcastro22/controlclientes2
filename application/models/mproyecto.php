@@ -18,10 +18,71 @@ class MProyecto extends CI_Model {
 	//trae datos del banco recibido pro parametro
 	public function getProyecto($idproyecto)
 	{		
-		$this->db->select('a.idproyecto,a.nombre,a.dialimite,a.porcentajemora,a.valortipocambio,a.finca,a.folio,a.libro');
+		$this->db->select("a.idproyecto
+									,a.nombre
+									,a.dialimite
+									,a.porcentajemora
+									,a.valortipocambio
+									,a.finca
+									,a.folio
+									,a.libro
+									,a.nombre_rep
+									,a.fechanac_rep
+									,case 
+								          when a.estadocivil_rep = 'C' then 'Casado' 
+								          when a.estadocivil_rep = 'S' then 'Soltero'           
+								          else 'Soltero'
+								    end estadocivil_rep
+									,a.dpi_rep
+									,a.descripcion_rep
+									,a.nombreedificio
+									,a.entidadvendedora
+									,a.fechaactanotarial
+									,a.notario
+									,a.registro
+									,a.folio_reg
+									,a.libro_reg
+									,a.fecha_reg
+									,a.area
+									,a.direccion");
 		$this->db->from('proyecto a');
 		$this->db->where('a.idproyecto',$idproyecto);
 		$query=$this->db->get();
+		return $query->row();
+	}
+
+	public function getProyectoPorNegociacion($idnegociacion)
+	{		
+		$query=$this->db->query("select 
+									a.idproyecto
+									,a.nombre
+									,a.dialimite
+									,a.porcentajemora
+									,a.valortipocambio
+									,a.finca,a.folio
+									,a.libro
+									,a.nombre_rep
+									,a.fechanac_rep
+									,case 
+								          when a.estadocivil_rep = 'C' then 'Casado' 
+								          when a.estadocivil_rep = 'S' then 'Soltero'           
+								          else 'Soltero'
+								    end estadocivil_rep
+									,a.dpi_rep
+									,a.descripcion_rep
+									,a.nombreedificio
+									,a.entidadvendedora
+									,a.fechaactanotarial
+									,a.notario
+									,a.registro
+									,a.folio_reg
+									,a.libro_reg
+									,a.fecha_reg
+									,a.area
+									,a.direccion
+								from proyecto a, negociacion b
+								where b.idproyecto = a.idproyecto
+								and b.idnegociacion = $idnegociacion");
 		return $query->row();
 	}
 
