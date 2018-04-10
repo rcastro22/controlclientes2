@@ -88,20 +88,27 @@
 									</div>								
 								</div>
 								<div class="row">
-                  					<div class="col-lg-4 ">
+                  					<div class="col-lg-3 ">
 	                  					<div class="form-group <?php if(form_error('area')) echo 'has-error'; ?>">
 											<label class="control-label" for="name"> Área del edificio (m2): </label>
 											<input class="form-control" type="text" name="area" id="area" value="<?php echo set_value('area'); ?>" maxlength="10">
 											<?php echo form_error('area','<div class="help-block" >','</div>'); ?>
 										</div>
 									</div>		
-									<div class="col-lg-8 ">
+									<div class="col-lg-6 ">
 	                  					<div class="form-group <?php if(form_error('direccion')) echo 'has-error'; ?>">
 											<label class="control-label" for="name"> Dirección del edificio: </label>
 											<input class="form-control" type="text" name="direccion" id="direccion" value="<?php echo set_value('direccion'); ?>" maxlength="110">
 											<?php echo form_error('direccion','<div class="help-block" >','</div>'); ?>
 										</div>
 									</div>	
+									<div class="col-lg-3 ">
+	                  					<div class="form-group <?php if(form_error('fechavencimiento')) echo 'has-error'; ?>">
+											<label class="control-label" for="name"> Fecha vencimiento proyecto: </label>
+											<input class="form-control" type="text" name="fechavencimiento" id="fechavencimiento" value="<?php echo set_value('fechavencimiento'); ?>" maxlength="10">
+											<?php echo form_error('fechavencimiento','<div class="help-block" >','</div>'); ?>
+										</div>
+									</div>
 								</div>
 								<div class="row">
                   					<div class="col-lg-3 ">
@@ -211,6 +218,7 @@
 
 		$('#fechaactanotarial').datepicker({'format':'yyyy-mm-dd'});
 		$('#fecha_reg').datepicker({'format':'yyyy-mm-dd'});
+		$('#fechavencimiento').datepicker({'format':'yyyy-mm-dd'});
 		$("#fechanac_rep").bootstrapBirthday({
 			dateFormat: "bigEndian",
 			monthFormat: "long", 

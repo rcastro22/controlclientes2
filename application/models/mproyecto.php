@@ -44,7 +44,8 @@ class MProyecto extends CI_Model {
 									,a.libro_reg
 									,a.fecha_reg
 									,a.area
-									,a.direccion");
+									,a.direccion
+									,a.fechavencimiento");
 		$this->db->from('proyecto a');
 		$this->db->where('a.idproyecto',$idproyecto);
 		$query=$this->db->get();
@@ -80,6 +81,7 @@ class MProyecto extends CI_Model {
 									,a.fecha_reg
 									,a.area
 									,a.direccion
+									,a.fechavencimiento
 								from proyecto a, negociacion b
 								where b.idproyecto = a.idproyecto
 								and b.idnegociacion = $idnegociacion");
