@@ -688,8 +688,8 @@ class word extends MY_Controller
 			$datosProyecto = $this->mproyecto->getProyectoPorNegociacion($idnegociacion);
 			$document->setValue('NombreEdificio',utf8_decode($datosProyecto->nombreedificio));
 			$document->setValue("EntidadVendedora",utf8_decode(strtoupper($datosProyecto->entidadvendedora)));
-			$document->setValue("EntidadVendedorah",iconv('ISO-8859-1','UTF-8//TRANSLIT','cádéñá cón tíldés'));
-			//$document->setValue("EntidadVendedorah",utf8_decode('Ó'));
+			//$document->setValue("EntidadVendedorah",iconv('ISO-8859-1','UTF-8//TRANSLIT',$datosProyecto->entidadvendedora));
+			$document->setValue("EntidadVendedorah",utf8_decode($datosProyecto->entidadvendedora));
 
 			$document->setValue('NombreRep',utf8_decode($datosProyecto->nombre_rep));
 			$document->setValue('NombreRep2',utf8_decode(strtoupper($datosProyecto->nombre_rep)));
@@ -839,7 +839,7 @@ class word extends MY_Controller
 
 
 			///*********************** INMUEBLES *******************
-			$inmueblesTxt = '';
+			/*$inmueblesTxt = '';
 			$contador = 0;
 
 			$tipoIn = 0;
@@ -872,26 +872,45 @@ class word extends MY_Controller
 				}
 			}
 
-			$document->setValue("Inmuebles",utf8_decode($inmueblesTxt));
+			$document->setValue("Inmuebles",utf8_decode($inmueblesTxt));*/
+
 			$inmueblesTxt = "";
+			$inmueblesPrecioTxt = "";
 			$tipoIn = 0;
+			$cantIn = 0;
+			$sumaCantIn = 0;
 			foreach ($datosInmuebles as $inmueble) {
 				if($tipoIn == 0)
 					$tipoIn = $inmueble->idtipoinmueble;
 				else {
 					if($inmueble->idtipoinmueble != $tipoIn) {						
-						$tipoIn = $inmueble->idtipoinmueble;
+						
 						$inmueblesTxt = rtrim($inmueblesTxt)."\n";
-						$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='2'/></w:numPr><w:ind w:left='1800' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+						$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='2'/></w:numPr><w:ind w:left='1400' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+
+						$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r></w:p><w:p w:rsidR='0029234C' w:rsidRPr='000E57C4' w:rsidRDefault='0029234C' w:rsidP='009015E3'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1500' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t></w:t></w:r></w:p><w:p w:rsidR='0029234C' w:rsidRPr='000E57C4' w:rsidRDefault='0029234C' w:rsidP='009015E3'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1500' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
+
+						if($tipoIn != 1) {
+							$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
+							
+
+							$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "el " : "los ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
+							$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
+
+							$cantIn = 0;
+							$sumaCantIn = 0;
+						}
+						$tipoIn = $inmueble->idtipoinmueble;
 					}
 				}
 
 				preg_match("/^([a-zA-Z])/", $inmueble->idinmueble, $letras); preg_match("/([[:digit:]]+)$/", $inmueble->idinmueble, $numeros);
 				$nueLetras = ($letras == null ? "" : $letras[1]);
-				$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." No. ".$nueLetras." ".strtolower($this->toText($numeros[1]))." ";
+				//$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." No. ".$nueLetras." ".strtolower($this->toText($numeros[1]))." ";
+				
 				$strNivel = "";
 
-				if($inmueble->sotano > 0) { $strNivel = "nivel"; }
+				/*if($inmueble->sotano > 0) { $strNivel = "nivel"; }
 				else if($inmueble->sotano < 0) { $strNivel = "sótano"; }
 				else if($inmueble->sotano == "PB") { $strNivel = "Planta Baja"; }
 
@@ -900,14 +919,34 @@ class word extends MY_Controller
 				}
 				else {
 					$inmueblesTxt = $inmueblesTxt."(".$inmueble->idinmueble.") ";					
-				}
+				}*/
+				if($tipoIn == 1) {
+					$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." ".$numeros[1]." ";
+					$inmueblesTxt = $inmueblesTxt."ubicado en el nivel ".$inmueble->sotano." del edificio ".strtoupper($datosProyecto->nombreedificio).", con área de ".$inmueble->tamano." m2";
 
-				$inmueblesTxt = $inmueblesTxt."con un área ".($tipoIn == 1 ? "(incluyendo balcones, terrazas, etc.) " : "")."de ".strtolower($this->toText($inmueble->tamano))." punto ".strtolower($this->toText(round(($inmueble->tamano-intval($inmueble->tamano))*100)))." metros cuadrados (".$inmueble->tamano." m2). ";
+					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($inmueble->valor)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($inmueble->valor)-intval($inmueble->valor))*100)))." centavos ";
+					$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($inmueble->valor),2,".",",").")";
+				}
+				else {
+					$cantIn++;
+					$sumaCantIn += $inmueble->valor;
+				}
+				/*$inmueblesTxt = $inmueblesTxt."con un área ".($tipoIn == 1 ? "(incluyendo balcones, terrazas, etc.) " : "")."de ".strtolower($this->toText($inmueble->tamano))." punto ".strtolower($this->toText(round(($inmueble->tamano-intval($inmueble->tamano))*100)))." metros cuadrados (".$inmueble->tamano." m2). ";*/
 
 			}
+			if($cantIn > 0) {
+				$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
+				
+				$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "los " : "el ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
+				$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
+
+				$cantIn = 0;
+				$sumaCantIn = 0;
+			}
+
 
 			$document->setValue("DetalleInmueb",utf8_decode($inmueblesTxt));			
-
+			$document->setValue("PInmueb",utf8_decode($inmueblesPrecioTxt));
 
 			$montoApart = $this->conversionMonto($monedacontrato,0.00,$tipocambioneg,0);
 			$montoBodeg = $this->conversionMonto($monedacontrato,0.00,$tipocambioneg,0);
@@ -927,9 +966,9 @@ class word extends MY_Controller
 				$precioventatext = $precioventatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($precioventamonto,2,".",",").")";
 				$document->setValue("PrecioVenta",utf8_decode($precioventatext));
 
-				$pinmueblestext = strtolower($this->toText($precioventamonto*0.7)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.7)-intval($precioventamonto*0.7))*100)))." centavos ";
+				/*$pinmueblestext = strtolower($this->toText($precioventamonto*0.7)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.7)-intval($precioventamonto*0.7))*100)))." centavos ";
 				$pinmueblestext = $pinmueblestext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($precioventamonto*0.7),2,".",",").")";
-				$document->setValue("PInmueb",utf8_decode($pinmueblestext));
+				$document->setValue("PInmueb",utf8_decode($pinmueblestext));*/
 
 				$pacciontext = strtolower($this->toText($precioventamonto*0.3)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.3)-intval($precioventamonto*0.3))*100)))." centavos ";
 				$pacciontext = $pacciontext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($precioventamonto*0.3),2,".",",").")";
