@@ -675,7 +675,7 @@ class word extends MY_Controller
 
 
 			// Substitucion de datos
-			$document->setValue("FechaInicial",utf8_decode(intval(Date('d'))." de ".strtolower($meses[intval(Date('m'))-1])." del año ".strtolower($this->toText(Date('Y')))));
+			$document->setValue("FechaInicial",utf8_decode(strtolower($this->toText(intval(Date('d'))))." de ".strtolower($meses[intval(Date('m'))-1])." del año ".strtolower($this->toText(Date('Y')))));
 			//$document->setValue("FechaInicial",utf8_decode(intval(Date('d'))." de ".strtolower($meses[intval(Date('m'))-1])));
 			//$document->setValue("FechaDocumento",utf8_decode(intval(Date('d'))." de ".strtolower($meses[intval(Date('m'))-1])." del año ".strtolower($this->toText(Date('Y')))));
 			$document->setValue("Dia",utf8_decode(strtolower($this->toText(intval(Date('d'))))));
@@ -688,6 +688,8 @@ class word extends MY_Controller
 			$datosProyecto = $this->mproyecto->getProyectoPorNegociacion($idnegociacion);
 			$document->setValue('NombreEdificio',utf8_decode($datosProyecto->nombreedificio));
 			$document->setValue("EntidadVendedora",utf8_decode(strtoupper($datosProyecto->entidadvendedora)));
+			$document->setValue("EntidadVendedorah",iconv('ISO-8859-1','UTF-8//TRANSLIT','cádéñá cón tíldés'));
+			//$document->setValue("EntidadVendedorah",utf8_decode('Ó'));
 
 			$document->setValue('NombreRep',utf8_decode($datosProyecto->nombre_rep));
 			$document->setValue('NombreRep2',utf8_decode(strtoupper($datosProyecto->nombre_rep)));
@@ -719,7 +721,7 @@ class word extends MY_Controller
 				$document->setValue('libroProy',utf8_decode($datosProyecto->libro));
 			}
 
-			$document->setValue('areaProy',utf8_decode(number_format($datosProyecto->area,2,".",",")));
+			$document->setValue('areaProy',utf8_decode(number_format(floatval(str_replace(",","",$datosProyecto->area)),2,".",",")));
 			$document->setValue('direccionProy',utf8_decode($datosProyecto->direccion));
 
 			/// **************** CLIENTES ******************
