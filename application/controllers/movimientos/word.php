@@ -689,7 +689,7 @@ class word extends MY_Controller
 			$document->setValue('NombreEdificio',utf8_decode($datosProyecto->nombreedificio));
 			$document->setValue("EntidadVendedora",utf8_decode(strtoupper($datosProyecto->entidadvendedora)));
 			//$document->setValue("EntidadVendedorah",iconv('ISO-8859-1','UTF-8//TRANSLIT',$datosProyecto->entidadvendedora));
-			$document->setValue("EntidadVendedorah",utf8_decode($datosProyecto->entidadvendedora));
+			$document->setValue("EntidadVendedorah",utf8_decode($this->quitar_tildes($datosProyecto->entidadvendedora)));
 
 			$document->setValue('NombreRep',utf8_decode($datosProyecto->nombre_rep));
 			$document->setValue('NombreRep2',utf8_decode(strtoupper($datosProyecto->nombre_rep)));
@@ -1176,6 +1176,13 @@ class word extends MY_Controller
 		}
 
 		return $montoRetorno;
+	}
+
+	function quitar_tildes($cadena) {
+		$no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+		$permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
+		$texto = str_replace($no_permitidas, $permitidas ,$cadena);
+		return $texto;
 	}
 
 	public function dpiEnLetras($value) {
