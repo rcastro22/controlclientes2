@@ -920,7 +920,7 @@ class word extends MY_Controller
 				else {
 					$inmueblesTxt = $inmueblesTxt."(".$inmueble->idinmueble.") ";					
 				}*/
-				if($tipoIn == 1) {
+				if($tipoIn == 1 || $tipoIn == 8) {
 					$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." ".$numeros[1]." ";
 					$inmueblesTxt = $inmueblesTxt."ubicado en el nivel ".$inmueble->sotano." del edificio ".strtoupper($datosProyecto->nombreedificio).", con área de ".$inmueble->tamano." m2";
 
@@ -951,7 +951,7 @@ class word extends MY_Controller
 			$montoApart = $this->conversionMonto($monedacontrato,0.00,$tipocambioneg,0);
 			$montoBodeg = $this->conversionMonto($monedacontrato,0.00,$tipocambioneg,0);
 			foreach ($precioMt2Inmueble as $detalleprecio) {
-				if($detalleprecio->tipo == 1) {
+				if($detalleprecio->tipo == 1 || $detalleprecio->tipo == 8) {
 					$montoApart = $this->conversionMonto($monedacontrato,$detalleprecio->suma,$tipocambioneg,0);
 				}
 				if($detalleprecio->tipo == 3) {
