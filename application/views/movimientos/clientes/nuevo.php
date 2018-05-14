@@ -112,6 +112,13 @@
 										</div>
 									</div>
 									<div class="col-lg-2">
+										<div class="form-group <?php if(form_error('depdirres')) echo 'has-error'; ?>">
+											<label class="control-label" for="name"> Departamento de residencia *: </label>
+											<input class="form-control" type="text" name="depdirres" id="depdirres" value="<?php echo set_value('depdirres'); ?>" maxlength="25">
+											<?php echo form_error('depdirres','<div class="help-block" >','</div>'); ?>
+										</div>
+									</div>
+									<div class="col-lg-2">
 										<div class="form-group <?php if(form_error('telefono')) echo 'has-error'; ?>">
 											<label class="control-label" for="name"> Teléfono *: </label>
 											<input class="form-control" type="tel" name="telefono" id="telefono" value="<?php echo set_value('telefono'); ?>" maxlength="30">

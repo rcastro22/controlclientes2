@@ -150,13 +150,20 @@
 														<?php echo form_error('celular','<div class="help-block" >','</div>'); ?>
 													</div>
 												</div>	
-												<div class="col-lg-8">
+												<div class="col-lg-6">
 													<div class="form-group <?php if(form_error('direccion')) echo 'has-error'; ?>">
 														<label class="control-label" for="name"> Dirección *: </label>
 														<input type="text" class="form-control" name="direccion" id="direccion" value="<?php echo set_value('direccion'); ?>" />
 														<?php echo form_error('direccion','<div class="help-block" >','</div>'); ?>
 													</div>
-												</div>					
+												</div>			
+												<div class="col-lg-2">
+													<div class="form-group <?php if(form_error('depdirres')) echo 'has-error'; ?>">
+														<label class="control-label" for="name"> Departamento *: </label>
+														<input type="text" class="form-control" name="depdirres" id="depdirres" value="<?php echo set_value('depdirres'); ?>" maxlength="25" />
+														<?php echo form_error('depdirres','<div class="help-block" >','</div>'); ?>
+													</div>
+												</div>		
 											</div>
 											<br/><br/><br/>
 										</div>

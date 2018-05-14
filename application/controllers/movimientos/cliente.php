@@ -86,6 +86,7 @@ class cliente extends MY_Controller
 				$this->form_validation->set_rules('puesto','Puesto');
 				$this->form_validation->set_rules('otrosingresos','Otros ingresos');
 				$this->form_validation->set_rules('concepto','Concepto');
+				$this->form_validation->set_rules('depdirres','Departamento');
 				if($this->form_validation->run()==FALSE)
 				{
 					$datoscliente = new stdClass();	
@@ -110,6 +111,7 @@ class cliente extends MY_Controller
 					$datoscliente->puesto=$this->input->post('puesto');
 					$datoscliente->otrosingresos=$this->input->post('otrosingresos');
 					$datoscliente->concepto=$this->input->post('concepto');
+					$datoscliente->depdirres=$this->input->post('depdirres');
 
 					$this->view_data['datoscliente']=$datoscliente;
 					$this->load->view('movimientos/clientes/nuevo',$this->view_data);
@@ -138,6 +140,7 @@ class cliente extends MY_Controller
 						   'puesto'=>$this->input->post('puesto'),
 						   'otrosingresos'=>$this->input->post('otrosingresos'),
 						   'concepto'=>$this->input->post('concepto'),
+						   'depdirres'=>$this->input->post('depdirres'),
 						   //Auditoria
 						   'CreadoPor'=>$this->session->userdata('user_id'),
 						   'FechaCreado'=>date("Y-m-d H:i:s"),
@@ -172,6 +175,7 @@ class cliente extends MY_Controller
 						$datoscliente->puesto=$this->input->post('puesto');
 						$datoscliente->otrosingresos=$this->input->post('otrosingresos');
 						$datoscliente->concepto=$this->input->post('concepto');
+						$datoscliente->depdirres=$this->input->post('depdirres');
 						$this->view_data['datoscliente']=$datoscliente;
 
                     	$this->view_data['mensaje']="Error: No se pudo insertar el registro: ".$err;
@@ -221,6 +225,7 @@ class cliente extends MY_Controller
 				$this->form_validation->set_rules('puesto','Puesto');
 				$this->form_validation->set_rules('otrosingresos','Otros ingresos');
 				$this->form_validation->set_rules('concepto','Concepto');
+				$this->form_validation->set_rules('depdirres','Departamento');
 				if($this->form_validation->run()==FALSE)
 				{
 					$datoscliente = new stdClass();					
@@ -245,6 +250,7 @@ class cliente extends MY_Controller
 					$datoscliente->puesto=$this->input->post('puesto');
 					$datoscliente->otrosingresos=$this->input->post('otrosingresos');
 					$datoscliente->concepto=$this->input->post('concepto');
+					$datoscliente->depdirres=$this->input->post('depdirres');
 					$this->view_data['datoscliente']=$datoscliente;
 					$this->load->view('movimientos/clientes/edit',$this->view_data);
 				}
@@ -274,6 +280,7 @@ class cliente extends MY_Controller
 							   'puesto'=>$this->input->post('puesto'),
 							   'otrosingresos'=>$this->input->post('otrosingresos'),
 							   'concepto'=>$this->input->post('concepto'),
+							   'depdirres'=>$this->input->post('depdirres'),
 							   // Auditoria
 							   'ModificadoPor'=>$this->session->userdata('user_id'),
 							   'FechaModificado'=>date("Y-m-d H:i:s")
@@ -300,6 +307,7 @@ class cliente extends MY_Controller
 					$datoscliente->puesto=$this->input->post('puesto');
 					$datoscliente->otrosingresos=$this->input->post('otrosingresos');
 					$datoscliente->concepto=$this->input->post('concepto');
+					$datoscliente->depdirres=$this->input->post('depdirres');
 					$this->view_data['datoscliente']=$datoscliente;
                     if ($siactualizo)
                     {

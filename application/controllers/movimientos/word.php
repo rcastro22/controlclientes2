@@ -687,6 +687,7 @@ class word extends MY_Controller
 			$this->load->model('mproyecto');
 			$datosProyecto = $this->mproyecto->getProyectoPorNegociacion($idnegociacion);
 			$document->setValue('NombreEdificio',utf8_decode($datosProyecto->nombreedificio));
+			$document->setValue('NombreEdificio2',utf8_decode($datosProyecto->nombreedificio));
 			$document->setValue("EntidadVendedora",utf8_decode(strtoupper($datosProyecto->entidadvendedora)));
 			//$document->setValue("EntidadVendedorah",iconv('ISO-8859-1','UTF-8//TRANSLIT',$datosProyecto->entidadvendedora));
 			$document->setValue("EntidadVendedorah",utf8_decode($this->quitar_tildes($datosProyecto->entidadvendedora)));
@@ -708,6 +709,11 @@ class word extends MY_Controller
 			$document->setValue('libroLetras',utf8_decode(strtolower($this->toText($datosProyecto->libro_reg))));
 			$document->setValue('libroNumero',utf8_decode($datosProyecto->libro_reg));
 			$document->setValue('fechaRegistro',utf8_decode(strtolower($this->toText(Date('d',strtotime($datosProyecto->fecha_reg))))." de ".strtolower($meses[intval(Date('m',strtotime($datosProyecto->fecha_reg)))-1])." del año ".strtolower($this->toText(Date('Y',strtotime($datosProyecto->fecha_reg))))));
+			$document->setValue('tipoCambio',utf8_decode(strtoupper($this->toText($datosProyecto->valortipocambio)." Quetzales con ".$this->toText(round((($datosProyecto->valortipocambio)-intval($datosProyecto->valortipocambio))*100))." centavos (Q. ".number_format(($datosProyecto->valortipocambio),2,".",",").")")));
+
+			//inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "el " : "los ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
+			//				$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
+
 
 			if($datosProyecto->idproyecto == 6)
 			{
@@ -733,7 +739,7 @@ class word extends MY_Controller
 				$nombrefirma = $nombrecompleto;						
 
 				$textoclientes = $nombrecompleto.", de ".strtolower($this->toText($this->edad($dato->fecnacimiento)))." años, ".$dato->estadocivil.", ".$dato->profesion;
-				$textoclientes = $textoclientes.", ".$dato->nacionalidad.", con domicilio en ".$dato->dirresidencia.", y me identifico con el Documento Personal de Identificación (DPI) con Código Único de Identificación (CUI) número ";
+				$textoclientes = $textoclientes.", ".$dato->nacionalidad.", con domicilio en el departamento de ".$dato->depdirres.", y me identifico con el Documento Personal de Identificación (DPI) con Código Único de Identificación (CUI) número ";
 				$textoclientes = $textoclientes.strtolower($this->dpiEnLetras($dato->dpi))." (".$this->dpiFormato($dato->dpi)."), extendido por el Registro Nacional de las Personas de la República de Guatemala, y comparezco ";
 				if($dato->clientejuridico == 1) {
 					$textoclientes = $textoclientes."en nombre propio.";					
@@ -756,14 +762,14 @@ class word extends MY_Controller
 				//// pagos calculados y fecha de vencimiento
 				$this->load->model('mdetallepago');
 				$pagosCant = $this->mdetallepago->getCantidadPagos($idnegociacion);
-				if($pagosCant->pagos < 24) {
+				//if($pagosCant->pagos < 24) {
 					$document->setValue('plazoVencimiento',utf8_decode("el ".strtolower($this->toText(Date('d',strtotime($datosProyecto->fechavencimiento))))." de ".strtolower($meses[intval(Date('m',strtotime($datosProyecto->fechavencimiento)))-1])." del año ".strtolower($this->toText(Date('Y',strtotime($datosProyecto->fechavencimiento))))));
-				}	
+				/*}	
 				else
 				{
 					$datoUltimoPago = $this->mdetallepago->getDetalleNoPago($idnegociacion,$pagosCant->pagos);
 					$document->setValue('plazoVencimiento',utf8_decode("el ".strtolower($this->toText(Date('d',strtotime($datoUltimoPago->fechalimitepago))))." de ".strtolower($meses[intval(Date('m',strtotime($datoUltimoPago->fechalimitepago)))-1])." del año ".strtolower($this->toText(Date('Y',strtotime($datoUltimoPago->fechalimitepago))))));
-				}
+				}*/
 			}
 
 			// Otros clientes
@@ -797,7 +803,7 @@ class word extends MY_Controller
 				}else if($dato->clientejuridico == 2) {					
 					$textoclientes = $textoclientes."en su calidad de ".$dato->especifiquejuridico." calidad que acredita con ".$dato->nombramientojuridico.".";
 				}
-				$textoclientes = $textoclientes." En el curso del presente contrato se me podrá denominar simplemente como el \"PROMITENTE COMPRADOR\".";				
+				$textoclientes = $textoclientes." En el curso del presente contrato se me podrá denominar simplemente como \"PROMITENTE COMPRADOR\".";				
 			}
 
 			// Otros clientes temporales
@@ -922,7 +928,7 @@ class word extends MY_Controller
 				}*/
 				if($tipoIn == 1 || $tipoIn == 8) {
 					$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." ".$numeros[1]." ";
-					$inmueblesTxt = $inmueblesTxt."ubicado en el nivel ".$inmueble->sotano." del edificio ".strtoupper($datosProyecto->nombreedificio).", con área de ".$inmueble->tamano." m2";
+					$inmueblesTxt = $inmueblesTxt."ubicado en el nivel ".$inmueble->sotano." del edificio ".strtoupper($datosProyecto->nombreedificio).", con área de ".number_format($inmueble->tamano,2,".",",")." m2";
 
 					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($inmueble->valor)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($inmueble->valor)-intval($inmueble->valor))*100)))." centavos ";
 					$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($inmueble->valor),2,".",",").")";
@@ -943,6 +949,8 @@ class word extends MY_Controller
 				$cantIn = 0;
 				$sumaCantIn = 0;
 			}
+			$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='2'/></w:numPr><w:ind w:left='1400' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+			$inmueblesTxt = $inmueblesTxt."1 título acción de la entidad que se dedicará a brindar el mantenimiento a las áreas comunes del Edificio ".$datosProyecto->nombreedificio;
 
 
 			$document->setValue("DetalleInmueb",utf8_decode($inmueblesTxt));			

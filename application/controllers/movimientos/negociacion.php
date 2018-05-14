@@ -429,6 +429,7 @@ class negociacion extends MY_Controller
 										'ingresos'=>$this->input->post('ingresos'),
 										'puesto'=>$this->input->post('puesto'),
 										'otrosingresos'=>$this->input->post('otrosingresos'),
+										'depdirres'=>$this->input->post('depdirres'),
 										'orden'=>1,
 										//'concepto'=>$this->input->post('concepto'),
 										//Auditoria
@@ -1421,6 +1422,7 @@ class negociacion extends MY_Controller
 						   'puesto'=>$datoscliente->puesto,
 						   'otrosingresos'=>$datoscliente->otrosingresos,
 						   'concepto'=>$datoscliente->concepto,
+						   'depdirres'=>$datoscliente->depdirres,
 						   //Auditoria
 						   'CreadoPor'=>$this->session->userdata('user_id'),
 						   'FechaCreado'=>date("Y-m-d H:i:s"),

@@ -144,7 +144,7 @@
                   					<div class="col-lg-12 ">
 	                  					<div class="form-group <?php if(form_error('descripcion_rep')) echo 'has-error'; ?>">
 											<label class="control-label" for="name"> Descripcion del representante: </label>
-											<input class="form-control" type="text" name="descripcion_rep" id="descripcion_rep" value="<?php echo set_value('descripcion_rep'); ?>" maxlength="40">
+											<input class="form-control" type="text" name="descripcion_rep" id="descripcion_rep" value="<?php echo set_value('descripcion_rep'); ?>" maxlength="110">
 											<?php echo form_error('descripcion_rep','<div class="help-block" >','</div>'); ?>
 										</div>
 									</div>			

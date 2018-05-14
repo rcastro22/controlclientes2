@@ -110,11 +110,18 @@
 								</div>
 
 								<div class="row">
-									<div class="col-lg-10">
+									<div class="col-lg-8">
 										<div class="form-group <?php if(form_error('dirresidencia')) echo 'has-error'; ?>">
 											<label class="control-label" for="name"> Dirección de residencia *: </label>
 											<input class="form-control" type="text" name="dirresidencia" id="dirresidencia" value="<?php echo $datoscliente->dirresidencia; ?>" maxlength="100">
 											<?php echo form_error('dirresidencia','<div class="help-block" >','</div>'); ?>
+										</div>
+									</div>
+									<div class="col-lg-2">
+										<div class="form-group <?php if(form_error('depdirres')) echo 'has-error'; ?>">
+											<label class="control-label" for="name"> Departamento de residencia *: </label>
+											<input class="form-control" type="text" name="depdirres" id="depdirres" value="<?php echo $datoscliente->depdirres; ?>" maxlength="25">
+											<?php echo form_error('depdirres','<div class="help-block" >','</div>'); ?>
 										</div>
 									</div>
 									<div class="col-lg-2">
