@@ -211,6 +211,7 @@ function cargarDatosCliente() {
 				$('#puesto').val(data.puesto);
 				$('#ingresos').val(data.ingresos);
 				$('#otrosingresos').val(data.otrosingresos);
+				$('#depdirres').val(data.depdirres);
 
 				$('#nombre').attr('readonly','true');
 				$('#apellido').attr('readonly','true');
@@ -230,6 +231,7 @@ function cargarDatosCliente() {
 				$('#puesto').attr('readonly','true');
 				$('#ingresos').attr('readonly','true');
 				$('#otrosingresos').attr('readonly','true');
+				$('#depdirres').attr('readonly','true');
 			}
 			else {
 				$('#nombre').val('');
@@ -250,6 +252,7 @@ function cargarDatosCliente() {
 				$('#puesto').val('');
 				$('#ingresos').val('');
 				$('#otrosingresos').val('');
+				$('#depdirres').val('');
 
 				$('#nombre').removeAttr('readonly');
 				$('#apellido').removeAttr('readonly');
@@ -269,6 +272,7 @@ function cargarDatosCliente() {
 				$('#puesto').removeAttr('readonly');
 				$('#ingresos').removeAttr('readonly');
 				$('#otrosingresos').removeAttr('readonly');
+				$('#depdirres').removeAttr('readonly');
 			}
 		})
 		.fail(function(data)

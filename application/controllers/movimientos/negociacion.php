@@ -511,7 +511,8 @@ class negociacion extends MY_Controller
     			$datosnegociacion->dirtrabajo = $datoscliente->dirtrabajo;
     			$datosnegociacion->puesto = $datoscliente->puesto;
     			$datosnegociacion->ingresos = $datoscliente->ingresos;
-    			$datosnegociacion->otrosingresos = $datoscliente->otrosingresos;
+				$datosnegociacion->otrosingresos = $datoscliente->otrosingresos;
+				$datosnegociacion->depdirres = $datoscliente->depdirres;
 
         		$this->view_data['datosnegociacion']=$datosnegociacion; 	
         		if($msgError != "") {

@@ -899,7 +899,7 @@ class word extends MY_Controller
 						if($tipoIn != 1) {
 							$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
 							
-
+							$sumaCantIn = $sumaCantIn*0.7;
 							$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "el " : "los ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
 							$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
 
@@ -930,8 +930,8 @@ class word extends MY_Controller
 					$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." ".$numeros[1]." ";
 					$inmueblesTxt = $inmueblesTxt."ubicado en el nivel ".$inmueble->sotano." del edificio ".strtoupper($datosProyecto->nombreedificio).", con área de ".number_format($inmueble->tamano,2,".",",")." m2";
 
-					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($inmueble->valor)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($inmueble->valor)-intval($inmueble->valor))*100)))." centavos ";
-					$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($inmueble->valor),2,".",",").")";
+					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($inmueble->valor*0.7)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($inmueble->valor*0.7)-intval($inmueble->valor*0.7))*100)))." centavos ";
+					$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($inmueble->valor*0.7),2,".",",").")";
 				}
 				else {
 					$cantIn++;
@@ -943,6 +943,7 @@ class word extends MY_Controller
 			if($cantIn > 0) {
 				$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
 				
+				$sumaCantIn = $sumaCantIn*0.7;
 				$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "los " : "el ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
 				$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
 
@@ -970,8 +971,8 @@ class word extends MY_Controller
 			$document->setValue("BodegMt2",$montoBodeg);
 
 			if($precioventamonto != 0) {
-				$precioventatext = strtolower($this->toText($precioventamonto)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round(($precioventamonto-intval($precioventamonto))*100)))." centavos ";
-				$precioventatext = $precioventatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($precioventamonto,2,".",",").")";
+				$precioventatext = strtolower($this->toText($precioventamonto*0.7)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.7)-intval($precioventamonto*0.7))*100)))." centavos ";
+				$precioventatext = $precioventatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($precioventamonto*0.7,2,".",",").")";
 				$document->setValue("PrecioVenta",utf8_decode($precioventatext));
 
 				/*$pinmueblestext = strtolower($this->toText($precioventamonto*0.7)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.7)-intval($precioventamonto*0.7))*100)))." centavos ";

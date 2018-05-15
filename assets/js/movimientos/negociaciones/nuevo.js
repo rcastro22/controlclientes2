@@ -255,6 +255,7 @@ function cargarDatosCliente() {
 				$('#puesto').val(data.puesto);
 				$('#ingresos').val(data.ingresos);
 				$('#otrosingresos').val(data.otrosingresos);
+				$('#depdirres').val(data.depdirres);
 
 				$('#nombre').attr('readonly','true');
 				$('#apellido').attr('readonly','true');
@@ -274,6 +275,7 @@ function cargarDatosCliente() {
 				$('#puesto').attr('readonly','true');
 				$('#ingresos').attr('readonly','true');
 				$('#otrosingresos').attr('readonly','true');
+				$('#depdirres').attr('readonly','true');
 			}
 		})
 		.fail(function(data)
@@ -428,7 +430,8 @@ $("#cboCliente").on("change",function(){
         $('#dirtrabajo').removeAttr('readonly');
         $('#puesto').removeAttr('readonly');
         $('#ingresos').removeAttr('readonly');
-        $('#otrosingresos').removeAttr('readonly');
+		$('#otrosingresos').removeAttr('readonly');
+		$('#depdirres').removeAttr('readonly');
     }
 });
 
