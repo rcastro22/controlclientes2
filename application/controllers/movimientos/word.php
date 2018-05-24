@@ -891,10 +891,11 @@ class word extends MY_Controller
 				else {
 					if($inmueble->idtipoinmueble != $tipoIn) {						
 						
+						if(!($tipoIn == 1 || $tipoIn == 8)) {
 						$inmueblesTxt = rtrim($inmueblesTxt)."\n";
-						$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='2'/></w:numPr><w:ind w:left='1400' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+						$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='00F90BEB' w:rsidRDefault='001333A8' w:rsidP='00227771'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='2'/><w:numId w:val='2'/></w:numPr><w:tabs><w:tab w:val='left' w:pos='851'/></w:tabs><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r w:rsidRPr='00F90BEB'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 
-						$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r></w:p><w:p w:rsidR='0029234C' w:rsidRPr='000E57C4' w:rsidRDefault='0029234C' w:rsidP='009015E3'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1500' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t></w:t></w:r></w:p><w:p w:rsidR='0029234C' w:rsidRPr='000E57C4' w:rsidRDefault='0029234C' w:rsidP='009015E3'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1500' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
+						$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r><w:r w:rsidR='002507D8'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>.</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='002507D8' w:rsidRDefault='00E01270' w:rsidP='00BF49FB'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1080'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 
 						if($tipoIn != 1) {
 							$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
@@ -905,6 +906,7 @@ class word extends MY_Controller
 
 							$cantIn = 0;
 							$sumaCantIn = 0;
+						}
 						}
 						$tipoIn = $inmueble->idtipoinmueble;
 					}
@@ -941,8 +943,11 @@ class word extends MY_Controller
 
 			}
 			if($cantIn > 0) {
+				$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='00F90BEB' w:rsidRDefault='001333A8' w:rsidP='00227771'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='2'/><w:numId w:val='2'/></w:numPr><w:tabs><w:tab w:val='left' w:pos='851'/></w:tabs><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r w:rsidRPr='00F90BEB'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
+
 				$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
 				
+				$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r><w:r w:rsidR='002507D8'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>.</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='002507D8' w:rsidRDefault='00E01270' w:rsidP='00BF49FB'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1080'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 				$sumaCantIn = $sumaCantIn*0.7;
 				$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "los " : "el ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
 				$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
@@ -950,7 +955,7 @@ class word extends MY_Controller
 				$cantIn = 0;
 				$sumaCantIn = 0;
 			}
-			$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='2'/></w:numPr><w:ind w:left='1400' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+			$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='00F90BEB' w:rsidRDefault='001333A8' w:rsidP='00227771'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='2'/><w:numId w:val='2'/></w:numPr><w:tabs><w:tab w:val='left' w:pos='851'/></w:tabs><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r w:rsidRPr='00F90BEB'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 			$inmueblesTxt = $inmueblesTxt."1 título acción de la entidad que se dedicará a brindar el mantenimiento a las áreas comunes del Edificio ".$datosProyecto->nombreedificio;
 
 
@@ -971,8 +976,8 @@ class word extends MY_Controller
 			$document->setValue("BodegMt2",$montoBodeg);
 
 			if($precioventamonto != 0) {
-				$precioventatext = strtolower($this->toText($precioventamonto*0.7)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.7)-intval($precioventamonto*0.7))*100)))." centavos ";
-				$precioventatext = $precioventatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($precioventamonto*0.7,2,".",",").")";
+				$precioventatext = strtolower($this->toText($precioventamonto)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto)-intval($precioventamonto))*100)))." centavos ";
+				$precioventatext = $precioventatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($precioventamonto,2,".",",").")";
 				$document->setValue("PrecioVenta",utf8_decode($precioventatext));
 
 				/*$pinmueblestext = strtolower($this->toText($precioventamonto*0.7)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.7)-intval($precioventamonto*0.7))*100)))." centavos ";
@@ -996,7 +1001,7 @@ class word extends MY_Controller
 				$reservatext = $reservatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($reservamonto,2,".",",").") realizado en concepto de reserva.";
 				$reservatext = $reservatext."\n";
 
-				$reservatext = $reservatext."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='5'/></w:numPr><w:ind w:left='1200' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+				$reservatext = $reservatext."</w:t></w:r></w:p><w:p w:rsidR='00A3647A' w:rsidRPr='00022E66' w:rsidRDefault='007505C5'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='5'/></w:numPr><w:tabs><w:tab w:val='left' w:pos='851'/><w:tab w:val='left' w:pos='1200'/></w:tabs><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r w:rsidRPr='00022E66'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 			}
 
 			//// Este inciso se elimino del contrato, correo 15-03-2018
@@ -1023,7 +1028,7 @@ class word extends MY_Controller
 				$reservatext = $reservatext.strtolower($meses[intval(Date('m',strtotime($fechaprimerpago->fechalimitepago)))-1])." ".Date('Y',strtotime($fechaprimerpago->fechalimitepago));
 				$reservatext = $reservatext."\n";
 
-				$reservatext = $reservatext."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='5'/></w:numPr><w:ind w:left='1200' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
+				$reservatext = $reservatext."</w:t></w:r></w:p><w:p w:rsidR='00A3647A' w:rsidRPr='00022E66' w:rsidRDefault='007505C5'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='5'/></w:numPr><w:tabs><w:tab w:val='left' w:pos='851'/><w:tab w:val='left' w:pos='1200'/></w:tabs><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r w:rsidRPr='00022E66'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 			}
 
 			//$reservatext = $reservatext."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='00FB4413'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='720'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:eastAsia='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='8'/></w:numPr><w:ind w:left='840' w:hanging='480'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:b/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";

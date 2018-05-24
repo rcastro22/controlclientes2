@@ -413,7 +413,7 @@ where
 								join negociacion e on a.[idnegociacion] = e.[idnegociacion]			
 							where b.[idproyecto] = e.[idproyecto] 
 								and a.idnegociacion = $idnegociacion
-							order by b.[idtipoinmueble]");
+								order by c.[Nombre] ");
 		return $query->result();
 	}
 
