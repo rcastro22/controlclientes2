@@ -61,7 +61,7 @@
 				</div>
 				<div style="text-align:center">
 					<div class="pagination">
-						<ul class="pagination pagination-centered" data-tabla="gvBuscar" data-cantidad="10" data-grupo="8"></ul>
+						<ul class="pagination pagination-centered hidden" data-tabla="gvBuscar" data-cantidad="100000" data-grupo="8"></ul>
 						</div>
 					</div>
 				</div>

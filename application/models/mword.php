@@ -399,6 +399,8 @@ where
 					            c.[nombre] tipo,
 					            d.[nombre] modelo,          
 								a.[valor],
+								a.[preciobase],
+								a.[gastoslegales],
 								b.[preciometro2],
 								b.[sotano],
 								b.[idtipoinmueble],

@@ -885,6 +885,9 @@ class word extends MY_Controller
 			$tipoIn = 0;
 			$cantIn = 0;
 			$sumaCantIn = 0;
+			$montosetenta = 0;
+			$montotreinta = 0;
+			$preciomt2 = 0;
 			foreach ($datosInmuebles as $inmueble) {
 				if($tipoIn == 0)
 					$tipoIn = $inmueble->idtipoinmueble;
@@ -895,14 +898,13 @@ class word extends MY_Controller
 						$inmueblesTxt = rtrim($inmueblesTxt)."\n";
 						$inmueblesTxt = $inmueblesTxt."</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='00F90BEB' w:rsidRDefault='001333A8' w:rsidP='00227771'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='2'/><w:numId w:val='2'/></w:numPr><w:tabs><w:tab w:val='left' w:pos='851'/></w:tabs><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r w:rsidRPr='00F90BEB'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 
-						$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r><w:r w:rsidR='002507D8'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>.</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='002507D8' w:rsidRDefault='00E01270' w:rsidP='00BF49FB'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1080'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
+						
 
 						if($tipoIn != 1) {
 							$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
 							
 							$sumaCantIn = $sumaCantIn*0.7;
-							$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "el " : "los ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
-							$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
+							
 
 							$cantIn = 0;
 							$sumaCantIn = 0;
@@ -932,13 +934,23 @@ class word extends MY_Controller
 					$inmueblesTxt = $inmueblesTxt.$inmueble->tipo." ".$numeros[1]." ";
 					$inmueblesTxt = $inmueblesTxt."ubicado en el nivel ".$inmueble->sotano." del edificio ".strtoupper($datosProyecto->nombreedificio).", con área de ".number_format($inmueble->tamano,2,".",",")." m2";
 
-					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($inmueble->valor*0.7)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($inmueble->valor*0.7)-intval($inmueble->valor*0.7))*100)))." centavos ";
-					$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($inmueble->valor*0.7),2,".",",").")";
+					if($inmueble->preciometro2 > $preciomt2) {
+						$preciomt2 = $inmueble->preciometro2;
+					}
 				}
 				else {
 					$cantIn++;
 					$sumaCantIn += $inmueble->valor;
+
 				}
+
+				$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r><w:r w:rsidR='002507D8'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>.</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='002507D8' w:rsidRDefault='00E01270' w:rsidP='00BF49FB'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1080'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
+
+				$montosetenta = round(($inmueble->preciobase+$inmueble->gastoslegales) * 0.7 * 1.12,2);
+				$montotreinta = $montotreinta + round(($inmueble->preciobase+$inmueble->gastoslegales) * 0.3 * 1.03,2);
+
+					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($montosetenta)).strtoupper(($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($montosetenta)-intval($montosetenta))*100)))." centavos ";
+					$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($montosetenta),2,".",",").")";
 				/*$inmueblesTxt = $inmueblesTxt."con un área ".($tipoIn == 1 ? "(incluyendo balcones, terrazas, etc.) " : "")."de ".strtolower($this->toText($inmueble->tamano))." punto ".strtolower($this->toText(round(($inmueble->tamano-intval($inmueble->tamano))*100)))." metros cuadrados (".$inmueble->tamano." m2). ";*/
 
 			}
@@ -947,10 +959,7 @@ class word extends MY_Controller
 
 				$inmueblesTxt = $inmueblesTxt.$cantIn." ".$inmueble->tipo." '".$inmueble->modelo."'";
 				
-				$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r><w:r w:rsidR='002507D8'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>.</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='002507D8' w:rsidRDefault='00E01270' w:rsidP='00BF49FB'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1080'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
-				$sumaCantIn = $sumaCantIn*0.7;
-				$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por ".($cantIn > 1 ? "los " : "el ").$inmueble->tipo." es de ".strtoupper($this->toText($sumaCantIn)).strtoupper(($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($sumaCantIn)-intval($sumaCantIn))*100)))." centavos ";
-				$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($sumaCantIn),2,".",",").")";
+				
 
 				$cantIn = 0;
 				$sumaCantIn = 0;
@@ -976,7 +985,7 @@ class word extends MY_Controller
 			$document->setValue("BodegMt2",$montoBodeg);
 
 			if($precioventamonto != 0) {
-				$precioventatext = strtolower($this->toText($precioventamonto)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto)-intval($precioventamonto))*100)))." centavos ";
+				$precioventatext = strtolower($this->toText($precioventamonto)).($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto)-intval($precioventamonto))*100)))." centavos ";
 				$precioventatext = $precioventatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($precioventamonto,2,".",",").")";
 				$document->setValue("PrecioVenta",utf8_decode($precioventatext));
 
@@ -984,15 +993,19 @@ class word extends MY_Controller
 				$pinmueblestext = $pinmueblestext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($precioventamonto*0.7),2,".",",").")";
 				$document->setValue("PInmueb",utf8_decode($pinmueblestext));*/
 
-				$pacciontext = strtolower($this->toText($precioventamonto*0.3)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.3)-intval($precioventamonto*0.3))*100)))." centavos ";
-				$pacciontext = $pacciontext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($precioventamonto*0.3),2,".",",").")";
+				$pacciontext = strtolower($this->toText($montotreinta)).($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($montotreinta)-intval($montotreinta))*100)))." centavos ";
+				$pacciontext = $pacciontext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($montotreinta),2,".",",").")";
 				$document->setValue("PAccion",utf8_decode($pacciontext));
 
-				$parrastext = strtolower($this->toText($precioventamonto*0.1)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.1)-intval($precioventamonto*0.1))*100)))." centavos ";
+				$parrastext = strtolower($this->toText($precioventamonto*0.1)).($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto*0.1)-intval($precioventamonto*0.1))*100)))." centavos ";
 				$parrastext = $parrastext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($precioventamonto*0.1),2,".",",").")";
 				$document->setValue("PArras",utf8_decode($parrastext));
 
 			}
+
+			$preciomt2txt = ($monedacontrato == 2 ? "Q " : "US$ ").number_format(($preciomt2),2,".",",");
+			$document->setValue("PrecioMt2",utf8_decode($preciomt2txt));			
+			
 			////////////************************* PAGOS ***********************
 
 			$reservatext = "";

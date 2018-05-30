@@ -644,6 +644,10 @@ $(document).on('click','#btnAgregar',function()
 	//var varDescripcionFormapago=$('#formapago option:selected').text();
 	//var varNodocumento=$('#nodocumento').val();
 	var varMonto=$('#monto').val();
+	var varPrecioBase=$('#preciobase').val();
+	var varGastosLegales=$('#gastoslegales').val();
+
+	var varObservaciones=$('#observacionapto').val();
 	//var varObservaciones=$('#observaciones').val();
 	//var varfechapago = new Date();
 	var varfechapago = "2014-11-29";
@@ -652,14 +656,14 @@ $(document).on('click','#btnAgregar',function()
 	var varTipoPeso=$('input:radio[name=rTipoMedida]:checked').val();
 	var varGrOz=varTipoPeso==1?"Gramos":"Onzas"
 	var varConversion=0;
-	if(varCodInmueble=="" || varCodInmueble==null || varMonto =="")
+	if(varCodInmueble=="" || varCodInmueble==null || varMonto =="" || varPrecioBase=="" || varGastosLegales=="")
 	{
 		 $('#divAlerta1').empty();
 		 $('#divAlerta1').append("No se puede agregar el pago, todos los campos son obligatorios");
 		 $('#divAlerta1').show();
 	}
-	else if(isNaN(parseFloat(varMonto))) {
-		alert("El formato del monto es incorrecto");
+	else if(isNaN(parseFloat(varMonto)) || isNaN(parseFloat(varPrecioBase)) || isNaN(parseFloat(varGastosLegales))) {
+		alert("El formato de los montos es incorrecto");
 	}
 	else
 	{
@@ -682,13 +686,16 @@ $(document).on('click','#btnAgregar',function()
 			
 			if (!existeProducto(newArray))
 			{
-				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: varCodInmueble, tipo: $('#htipoinmueble').val(), modelo:$('#hmodelo').val(), monto: parseFloat(varMonto) });
+				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: varCodInmueble, tipo: $('#htipoinmueble').val(), modelo:$('#hmodelo').val(), monto: parseFloat(varMonto), preciobase: parseFloat(varPrecioBase), gastoslegales: parseFloat(varGastosLegales), observacionapto: varObservaciones });
 	        	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
 	        	$('#txtTotalDecimal').val(varTotal.toFixed(6));
 	        	$('#precioventa').val(varTotalDescuento.toFixed(2));
 
 	        	//$('#nodocumento').val("");
 				$('#monto').val("");
+				$('#preciobase').val("");
+				$('#gastoslegales').val("");
+				$('#observacionapto').val("");
 				recalcularMontos();
 				$("#tablainmuebles").val(JSON.stringify(newArray));
 				//$('#observaciones').val("");

@@ -9,7 +9,10 @@ class mdetallenegociacion extends CI_Model {
 							a.idinmueble,    
 				              c.[nombre] tipo,
 				              d.[nombre] modelo,          
-							a.valor
+							a.valor,
+							a.preciobase,
+							a.gastoslegales,
+							a.observacionapto
 							from detallenegociacion a	
 				              join inmueble b on b.[idinmueble] = a.[idinmueble] 
 				              join tipoinmueble c on b.[idtipoinmueble] = c.[idtipoinmueble]
@@ -28,6 +31,9 @@ class mdetallenegociacion extends CI_Model {
 					   'idnegociacion'=>$idnegociacion,
 					   'idinmueble'=>$equipo->idinmueble,
 					   'valor'=>$equipo->monto,
+					   'preciobase'=>$equipo->preciobase,
+					   'gastoslegales'=>$equipo->gastoslegales,
+					   'observacionesapto'=>$equipo->observacionesapto,
 					   //'idinmueble'=>$equipo['idinmueble'],
 					   //'valor'=>$equipo['monto'],
 					   // Auditoria

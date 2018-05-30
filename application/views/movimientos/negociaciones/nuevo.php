@@ -298,7 +298,7 @@
 											<div class="row">
 												<div class="col-lg-11">
 													<div class="row">
-														<div class="col-lg-6">
+														<div class="col-lg-3">
 															<div class="form-group">
 																<input type="hidden" name="hinmueble" id="hinmueble" value="<?php echo $datosnegociacion->idinmueble; ?>" />
 																<label class="control-label" for="name"> Inmueble: </label>
@@ -306,13 +306,43 @@
 																<input type="hidden" name="cboInmueble" id="cboInmueble">
 															</div>
 														</div>
-														<div class="col-lg-6">
+														<div class="col-lg-3">
 															<div class="form-group <?php if(form_error('monto')) echo 'has-error'; ?>">
 																<label class="control-label" for="name"> Valor inmueble: </label>
 																<div class="input-group">
 																	<span id="spanmonto" name="spanmonto" class="input-group-addon">$.</span>
 																	<strong><input class="form-control" type="text" name="monto" id="monto" value="<?php echo set_value('monto'); ?>" maxlength="10"></strong>
 																	<?php echo form_error('monto','<div class="help-block" >','</div>'); ?>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-3">
+															<div class="form-group <?php if(form_error('preciobase')) echo 'has-error'; ?>">
+																<label class="control-label" for="name"> Precio Base: </label>
+																<div class="input-group">
+																	<span id="spanpreciobase" name="spanpreciobase" class="input-group-addon">$.</span>
+																	<strong><input class="form-control" type="text" name="preciobase" id="preciobase" value="<?php echo set_value('preciobase'); ?>" maxlength="10"></strong>
+																	<?php echo form_error('preciobase','<div class="help-block" >','</div>'); ?>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-3">
+															<div class="form-group <?php if(form_error('gastoslegales')) echo 'has-error'; ?>">
+																<label class="control-label" for="name"> Gastos Legales: </label>
+																<div class="input-group">
+																	<span id="spangastoslegales" name="spangastoslegales" class="input-group-addon">$.</span>
+																	<strong><input class="form-control" type="text" name="gastoslegales" id="gastoslegales" value="<?php echo set_value('gastoslegales'); ?>" maxlength="10"></strong>
+																	<?php echo form_error('gastoslegales','<div class="help-block" >','</div>'); ?>
+																</div>
+															</div>
+														</div>
+														<div class="col-lg-12">
+															<div class="form-group <?php if(form_error('observacionapto')) echo 'has-error'; ?>">
+																<label class="control-label" for="name"> Observaciones: </label>
+																<div class="input-group">
+																	<span id="spanobservacionapto" name="spanobservacionapto" class="input-group-addon">$.</span>
+																	<strong><input class="form-control" type="text" name="observacionapto" id="observacionapto" value="<?php echo set_value('observacionapto'); ?>" maxlength="150"></strong>
+																	<?php echo form_error('observacionapto','<div class="help-block" >','</div>'); ?>
 																</div>
 															</div>
 														</div>
@@ -346,6 +376,9 @@
 								                                    <th data-tipo="string" data-campo="tipo" data-alineacion="centro" style="text-align: center">Tipo inmueble</th>
 								                                    <th data-tipo="string" data-campo="modelo" data-alineacion="centro" style="text-align: center">Modelo</th>
 								                                    <th data-tipo="decimal" data-formato="#,###,###.##" data-campo="monto" data-alineacion="centro" style="text-align: center">Monto</th>
+								                                    <th data-tipo="decimal" data-formato="#,###,###.##" data-campo="preciobase" data-alineacion="centro" style="text-align: center">Precio Base</th>
+								                                    <th data-tipo="decimal" data-formato="#,###,###.##" data-campo="gastoslegales" data-alineacion="centro" style="text-align: center">Gastos Legales</th>
+								                                    <th data-tipo="string" data-campo="observacionapto" data-alineacion="centro" style="text-align: center">Observaciones</th>
 								                                    <!--<th data-tipo="string" data-campo="observaciones" data-alineacion="centro" style="text-align: center">Observaciones</th>-->				                                    
 								                                    <th data-boton="borrar" data-alineacion="centro" style="text-align: center">Eliminar</th>
 								                                </tr>                            
