@@ -32,6 +32,7 @@ class mnegociacion extends CI_Model {
 							a.monedacontrato,
 							a.tipocambioneg,
 							a.status,
+							a.observaciones,
 							a.CreadoPor,
 							a.FechaCreado
 							from negociacion a
@@ -71,6 +72,7 @@ class mnegociacion extends CI_Model {
 							a.monedacontrato,
 							a.tipocambioneg,
 							a.status,
+							a.observaciones,
 							a.CreadoPor,
 							a.FechaCreado
 							from negociacion a
@@ -118,7 +120,8 @@ class mnegociacion extends CI_Model {
 				            a.entidadautorizada,
 				            a.tasainteres,
 				            a.montodescuento,
-				            a.descripciondescuento,
+							a.descripciondescuento,
+							a.observaciones,
 				            a.CreadoPor,
 							a.FechaCreado
 							from negociacion a
@@ -233,6 +236,7 @@ class mnegociacion extends CI_Model {
 							a.monedacontrato,
 							a.tipocambioneg,
 							a.status,
+							a.observaciones,
 							a.CreadoPor,
 							a.FechaCreado
 							from negociacion a

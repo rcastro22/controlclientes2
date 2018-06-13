@@ -106,6 +106,7 @@ class negociacion extends MY_Controller
 				$datosnegociacion->tablaotros=str_replace(array("\""), "'", $this->input->post('tablaotros'));
 				$datosnegociacion->total_tablai=$this->input->post('txtTotalDecimal');
 
+				$datosnegociacion->observaciones=$this->input->post('observaciones');
 
 				$datosnegociacion->otrosclientes=$this->input->post('otrosclientes');
 				$this->load->view('movimientos/negociaciones/nuevo',$this->view_data);	
@@ -167,6 +168,8 @@ class negociacion extends MY_Controller
 				$this->form_validation->set_rules('tipofinanciamiento','tipofinanciamiento');
 				$this->form_validation->set_rules('entidadautorizada','entidadautorizada');
 				$this->form_validation->set_rules('tasainteres','tasainteres');
+
+				$this->form_validation->set_rules('observaciones','observaciones');
 				
 				if($this->form_validation->run()==FALSE)
 				{
@@ -230,6 +233,7 @@ class negociacion extends MY_Controller
                     $datosnegociacion->montodescuento=$this->input->post('montodescuento');
                     $datosnegociacion->descripciondescuento=$this->input->post('descripciondescuento');
 
+					$datosnegociacion->observaciones=$this->input->post('observaciones');
 										
 					$datosnegociacion->tablai=str_replace(array("\""), "'", $this->input->post('tablainmuebles'));
 					$datosnegociacion->tablaotros=str_replace(array("\""), "'", $this->input->post('tablaotros'));
@@ -300,6 +304,7 @@ class negociacion extends MY_Controller
                     $datosnegociacion->montodescuento=$this->input->post('montodescuento');
                     $datosnegociacion->descripciondescuento=$this->input->post('descripciondescuento');
 
+					$datosnegociacion->observaciones=$this->input->post('observaciones');
 
 					$datosnegociacion->tablai=str_replace(array("\""), "'", $this->input->post('tablainmuebles'));
 					$datosnegociacion->tablaotros=str_replace(array("\""), "'", $this->input->post('tablaotros'));
@@ -369,7 +374,8 @@ class negociacion extends MY_Controller
                                'entidadautorizada'=>$this->input->post('entidadautorizada'),
                                'tasainteres'=>$this->input->post('tasainteres'),
                                'montodescuento'=>$this->input->post('montodescuento'),
-                               'descripciondescuento'=>$this->input->post('descripciondescuento'),
+							   'descripciondescuento'=>$this->input->post('descripciondescuento'),
+							   'observaciones'=>$this->input->post('observaciones'),
 							   //Auditoria
 							   'CreadoPor'=>$this->session->userdata('user_id'),
 							   'FechaCreado'=>date("Y-m-d H:i:s"),
@@ -546,6 +552,7 @@ class negociacion extends MY_Controller
 				//Falta validacion para asesor
 				$this->form_validation->set_rules('comision','Comision','required|numeric');
 				$this->form_validation->set_rules('banco','Banco');
+				$this->form_validation->set_rules('observaciones','observaciones');
 				if($this->form_validation->run()==FALSE)
 				{
 					$datosnegociacion = new stdClass();					
@@ -588,6 +595,8 @@ class negociacion extends MY_Controller
 
 					$datosnegociacion->montodescuento=$this->input->post('montodescuento');
 					$datosnegociacion->descripciondescuento=$this->input->post('descripciondescuento');
+
+					$datosnegociacion->observaciones=$this->input->post('observaciones');
 
 					$datosnegociacion->status=$this->input->post('status');
 
@@ -641,6 +650,8 @@ class negociacion extends MY_Controller
 
 					$datosnegociacion->montodescuento=$this->input->post('montodescuento');
 					$datosnegociacion->descripciondescuento=$this->input->post('descripciondescuento');
+
+					$datosnegociacion->observaciones=$this->input->post('observaciones');
 
 					$datosnegociacion->status=$this->input->post('status');
 
@@ -702,6 +713,7 @@ class negociacion extends MY_Controller
 	                               'tasainteres'=>$this->input->post('tasainteres'),
 								   'montodescuento'=>$this->input->post('montodescuento'),
 								   'descripciondescuento'=>$this->input->post('descripciondescuento'),
+								   'observaciones'=>$this->input->post('observaciones'),
 								   // Auditoria
 								   'ModificadoPor'=>$this->session->userdata('user_id'),
 								   'FechaModificado'=>date("Y-m-d H:i:s")

@@ -354,7 +354,7 @@
 																	</div>
 																</div>
 															</div>
-															<div class="col-lg-12">
+															<!--<div class="col-lg-12">
 																<div class="form-group <?php if(form_error('observacionapto')) echo 'has-error'; ?>">
 																	<label class="control-label" for="name"> Observaciones: </label>
 																	<div class="input-group">
@@ -363,7 +363,7 @@
 																		<?php echo form_error('observacionapto','<div class="help-block" >','</div>'); ?>
 																	</div>
 																</div>
-															</div>
+															</div>-->	
 														</div>
 													</div>
 
@@ -396,7 +396,7 @@
 									                                    <th data-tipo="decimal" data-formato="#,###,###.##" data-campo="monto" data-alineacion="centro" style="text-align: center">Monto</th>
 									                                    <th data-tipo="decimal" data-formato="#,###,###.##" data-campo="preciobase" data-alineacion="centro" style="text-align: center">Precio Base</th>
 									                                    <th data-tipo="decimal" data-formato="#,###,###.##" data-campo="gastoslegales" data-alineacion="centro" style="text-align: center">Gastos Legales</th>
-									                                    <th data-tipo="string" data-campo="observacionapto" data-alineacion="centro" style="text-align: center">Observaciones</th>
+									                                    <!--<th data-tipo="string" data-campo="observacionapto" data-alineacion="centro" style="text-align: center">Observaciones</th>-->	
 									                                    <!--<th data-tipo="string" data-campo="observaciones" data-alineacion="centro" style="text-align: center">Observaciones</th>-->				                                    
 									                                    <th data-boton="borrar" data-alineacion="centro" style="text-align: center">Eliminar</th>
 									                                </tr>                            
@@ -648,6 +648,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
+												<div class="row">
+													<div class="col-lg-12">
+														<div class="form-group <?php if(form_error('observaciones')) echo 'has-error'; ?>">
+															<label for="observaciones" class="control-label">Observaciones</label>
+															<input type="text" class="form-control" name="observaciones" id="observaciones" value="<?php echo $datosnegociacion->observaciones; ?>" maxlength="150">
+															<?php echo form_error('observaciones','<div class="help-block" >','</div>'); ?>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
