@@ -77,7 +77,8 @@ class mcliente extends CI_Model {
 	public function getClienteTemporal($idnegociacion)
 	{		
 
-		$this->db->select("a.nombre,
+		$this->db->select("a.idclientetemp,
+							a.nombre,
 							a.apellido,
 							a.idtipoidentificacion,
 							a.dpi,
@@ -158,6 +159,22 @@ class mcliente extends CI_Model {
 		{
 			return false;
 		}	
+	}
+
+	public function modificartemp($idclientetemp,$data,&$err)
+	{
+		$this->db->where('idclientetemp', $idclientetemp);
+		$this->db->update("clientetemporal",$data);
+		$data['error'] = $this->db->_error_message();
+		$err=$data['error'];
+		if ($err=="")
+		{
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
 	}
 
 	public function borrar($data,&$err)

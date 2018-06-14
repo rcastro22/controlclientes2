@@ -731,7 +731,70 @@ class negociacion extends MY_Controller
 								$inserto=$this->mdetallenegociacion->grabar($arreglo,$this->input->post('idnegociacion'),$err);
 
 							// 09-03-2015, Actualiza los datos del cliente
-	                    	
+	                    	if($this->input->post('cliente') == '0') {
+								$this->load->model('mcliente');
+								$datoscliente2 = $this->mcliente->getClienteTemporal($this->input->post('idnegociacion'));
+								$inserto2=$this->mcliente->modificartemp($datoscliente2->idclientetemp,
+										array(
+										'nombre'=>$this->input->post('nombre'),
+										'apellido'=>$this->input->post('apellido'),
+										//'idtipoidentificacion'=>$this->input->post('tipoidentificaciones'),
+										'dpi'=>$this->input->post('dpi'),
+										'fecnacimiento'=>date('Y-m-d',strtotime($this->input->post('fecnacimiento'))),
+										'profesion'=>$this->input->post('profesion'),
+										//'nacionalidad'=>$this->input->post('nacionalidad'),
+										'estadocivil'=>$this->input->post('estadocivil'),
+										'dirresidencia'=>$this->input->post('direccion'),
+										'telefono'=>$this->input->post('telefono'),
+										'celular'=>$this->input->post('celular'),
+										'nit'=>$this->input->post('nit'),
+										'email'=>$this->input->post('correo'),
+										'lugartrabajo'=>$this->input->post('empresa'),
+										'dirtrabajo'=>$this->input->post('dirtrabajo'),
+										'tiempolabor'=>$this->input->post('tiempolabor'),
+										'ingresos'=>$this->input->post('ingresos'),
+										'puesto'=>$this->input->post('puesto'),
+										'otrosingresos'=>$this->input->post('otrosingresos'),
+										'depdirres'=>$this->input->post('depdirres'),
+										//'concepto'=>$this->input->post('concepto'),
+										//Auditoria
+										'ModificadoPor'=>$this->session->userdata('user_id'),
+										'FechaModificado'=>date("Y-m-d H:i:s")
+								),$err);
+							}
+							else
+							{
+								$this->load->model('mcliente');
+								$inserto2=$this->mcliente->modificar($this->input->post('cliente'),
+										array(
+										'nombre'=>$this->input->post('nombre'),
+										'apellido'=>$this->input->post('apellido'),
+										//'idtipoidentificacion'=>$this->input->post('tipoidentificaciones'),
+										'dpi'=>$this->input->post('dpi'),
+										'fecnacimiento'=>date('Y-m-d',strtotime($this->input->post('fecnacimiento'))),
+										'profesion'=>$this->input->post('profesion'),
+										//'nacionalidad'=>$this->input->post('nacionalidad'),
+										'estadocivil'=>$this->input->post('estadocivil'),
+										'dirresidencia'=>$this->input->post('direccion'),
+										'telefono'=>$this->input->post('telefono'),
+										'celular'=>$this->input->post('celular'),
+										'nit'=>$this->input->post('nit'),
+										'email'=>$this->input->post('correo'),
+										'lugartrabajo'=>$this->input->post('empresa'),
+										'dirtrabajo'=>$this->input->post('dirtrabajo'),
+										'tiempolabor'=>$this->input->post('tiempolabor'),
+										'ingresos'=>$this->input->post('ingresos'),
+										'puesto'=>$this->input->post('puesto'),
+										'otrosingresos'=>$this->input->post('otrosingresos'),
+										'depdirres'=>$this->input->post('depdirres'),
+										//'concepto'=>$this->input->post('concepto'),
+										//Auditoria
+										'CreadoPor'=>$this->session->userdata('user_id'),
+										'FechaCreado'=>date("Y-m-d H:i:s"),
+										'ModificadoPor'=>$this->session->userdata('user_id'),
+										'FechaModificado'=>date("Y-m-d H:i:s")
+								),$err);
+							}
 
 	                    	// Envia email
 							$this->enviarMailCambios($this->input->post('idnegociacion'),"Modificado");

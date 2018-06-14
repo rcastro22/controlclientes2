@@ -37,7 +37,7 @@
               <i class="glyphicon glyphicon-home"></i>
               <span>Inicio</span></a>
             </li>
-            <li class="<?php echo $activo=='clientes'?'active':''; ?>"><a href="<?php echo base_url().'movimientos/cliente/listado';?>" style="<?php if($datosusuario->tipousuario != '1' && $datosusuario->tipousuario != '0') echo 'display:none'; ?>">Clientes</a></li>
+            <li class="<?php echo $activo=='clientes'?'active':''; ?>"><a href="<?php echo base_url().'movimientos/cliente/listado';?>" >Clientes</a></li>
             <li class="<?php echo $activo=='negociaciones'?'active':''; ?>"><a href="<?php echo base_url().'movimientos/negociacion/listado';?>">Negociaciones</a></li>
             <li class="<?php echo $activo=='asesores'?'active':''; ?>"><a href="<?php echo base_url().'movimientos/asesor/listado';?>" style="<?php if($datosusuario->tipousuario != '1' && $datosusuario->tipousuario != '0') echo 'display:none'; ?>">Asesores</a></li>
             <li class="<?php echo $activo=='aporte'?'active':''; ?>"><a href="<?php echo base_url().'movimientos/aporte/listado';?>" style="<?php if($datosusuario->tipousuario != '1' && $datosusuario->tipousuario != '0') echo 'display:none'; ?>">Inversionistas</a></li>

@@ -227,7 +227,7 @@ function cargarDatosCliente() {
 				$('#otrosingresos').val(data.otrosingresos);
 				$('#depdirres').val(data.depdirres);
 
-				$('#nombre').attr('readonly','true');
+				/*$('#nombre').attr('readonly','true');
 				$('#apellido').attr('readonly','true');
 				$('#nit').attr('readonly','true');
 				$('#fecnacimiento').attr('readonly','true');
@@ -245,7 +245,7 @@ function cargarDatosCliente() {
 				$('#puesto').attr('readonly','true');
 				$('#ingresos').attr('readonly','true');
 				$('#otrosingresos').attr('readonly','true');
-				$('#depdirres').attr('readonly','true');
+				$('#depdirres').attr('readonly','true');*/
 			}
 			else {
 				$('#nombre').val('');
