@@ -511,6 +511,11 @@
 												</div>
 											</div>
 
+											<div class="alert alert-warning alert-dismissible" role="alert">
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+												<strong>Warning!</strong> <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">ver detalle de cuotas</a>
+											</div>
+
 											<div class="row">
 												<div class="col-lg-3">
 													<div class="form-group <?php if(form_error('fechaprimerpago')) echo 'has-error'; ?>">
@@ -695,6 +700,56 @@
 			    </div><!-- /.modal-content -->
 		  	</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+	</div>
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-lg-11">
+							<div>
+								<div class="form-search pull-right" data-tabla="gvCuotas" style="padding: 10px;display:none;" >
+									<input type="text" class="search-query form-control" placeholder="Buscar" />
+								</div>
+								<table class="table table-bordered table-condensed table-hover table-striped" id="gvCuotas" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="false">
+									<thead>
+										<tr>
+											<!--<th class="hide" data-tipo="string" data-campo="idnegociacion" data-alineacion="centro" style="text-align: center">Código negociacion</th>-->
+											<th data-tipo="string" data-campo="idinmueble" data-alineacion="centro" style="text-align: center">No. pago</th>
+											<th data-tipo="string" data-campo="tipo" data-alineacion="centro" style="text-align: center">Fecha limite de pago</th>
+											<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="monto" data-alineacion="centro" style="text-align: center">Pago calculado</th>                                   
+											<th data-boton="borrar" data-alineacion="centro" style="text-align: center">Eliminar</th>
+										</tr>                            
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<div class="text-center" style="display:none;">
+									<div class="pagination">
+										<ul class="pagination" data-tabla="gvCuotas" data-cantidad="10" data-grupo="8"></ul>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-7">
+										<strong><input style="display:none;" class="form-control form-control input-lg" type="text" name="txtTotalDecimal" id="txtTotalDecimal" style="text-align:right" readonly="true" value="<?php echo $datosnegociacion->total_tablai; ?>"></strong>
+									</div>
+									<div class="col-md-5">
+										<div id="circulo"></div>
+									</div>
+								</div>					                        
+							</div> 
+						</div>									
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<script src="<?php echo base_url().'assets/js/tabla.js';?>"></script> 
 	<script src="<?php echo base_url().'assets/js/movimientos/negociaciones/nuevo.js';?>"></script> 

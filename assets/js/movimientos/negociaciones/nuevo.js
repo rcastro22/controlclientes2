@@ -817,6 +817,54 @@ function llenarTablaLocal(Nombre, data)
 
 
 
+
+$(document).on('click','#btnAgregarCuota',function()
+{
+	var varCodInmueble=$('#fechalimite').val();
+	var varMonto=$('#monto').val();
+
+	var varCostoGalon=$('#txtCostoGalon').val();
+	var varTipoPeso=$('input:radio[name=rTipoMedida]:checked').val();
+	var varGrOz=varTipoPeso==1?"Gramos":"Onzas"
+	var varConversion=0;
+	if(varCodInmueble=="" || varCodInmueble==null || varMonto =="")
+	{
+		 $('#divAlerta1').empty();
+		 $('#divAlerta1').append("No se puede agregar el pago, todos los campos son obligatorios");
+		 $('#divAlerta1').show();
+	}
+	else if(isNaN(parseFloat(varMonto)) ) {
+		alert("El formato de los montos es incorrecto");
+	}
+	else
+	{
+			$('#divAlerta1').hide();
+			$nopago = $nopago+1;
+			
+			if (!existeProducto(newArray))
+			{
+				newArray.push({ nopago: $nopago, fechalimite: varFechalimite, monto: parseFloat(varMonto) });
+	        	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
+	        	$('#txtTotalDecimal').val(varTotal.toFixed(6));
+	        	$('#precioventa').val(varTotalDescuento.toFixed(2));
+
+	        	//$('#nodocumento').val("");
+				$('#monto').val("");
+				$('#preciobase').val("");
+				$('#gastoslegales').val("");
+				$('#observacionapto').val("");
+				recalcularMontos();
+				$("#tablainmuebles").val(JSON.stringify(newArray));
+				//$('#observaciones').val("");
+        	}
+	}
+	//txtTotal.focus();
+
+	$("#cboInmueble").focus();
+});
+
+
+
 $(document).on('click','#clientejuridico',function()
 {
 	
