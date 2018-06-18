@@ -295,31 +295,51 @@ class mdetallepago extends CI_Model {
 
 
 	public function grabar($data,&$err)
-
 	{
-
 		$this->db->insert("detallepago",$data);	
-
 		$data['error'] = $this->db->_error_message();
-
 		$err=$data['error'];
-
 		if ($err=="")
-
 		{
-
 			return true;
-
 		} 
-
 		else
-
 		{
-
 			return false;
-
 		}
+	}
 
+
+	public function grabar2($data,$idnegociacion,&$err)
+	{
+		foreach($data as $cuota)
+	 		{
+	 			$this->db->insert("detallepago",array(
+	 				   'idnegociacion'=>$idnegociacion,
+					   'nopago'=>$cuota->nopago,
+					   'fechalimitepago'=>$cuota->fechalimite,
+					   'pagocalculado'=>$cuota->pagocalculado,
+					   // Auditoria
+					   'creadopor'=>$this->session->userdata('user_id'),
+					   'fechacreado'=>date("Y-m-d H:i:s"),
+					   'modificadopor'=>$this->session->userdata('user_id'),
+					   'fechamodificado'=>date("Y-m-d H:i:s")));
+
+	 			//aqui va cada insert del detalle.
+ 				//echo $cuota['Producto'];
+		 	}
+
+		//$this->db->insert("pago",$data);	
+		$data['error'] = $this->db->_error_message();
+		$err=$data['error'];
+		if ($err=="")
+		{
+			return true;
+		} 
+		else
+		{
+			return false;
+		}
 	}
 
 

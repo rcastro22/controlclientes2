@@ -1,5 +1,7 @@
 var base_url;
 var newArray = [];
+var arrayCuotas = [];
+var cantCuotas = 0;
 
 function cargarProyecto()
 {
@@ -337,6 +339,13 @@ function cargarDetalleNegociacion2()
 	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
 }
 
+function cargarcuotas()
+{
+	$("#tablacuotas").val($('#tablacuotas').val().replace(/'/g,"\"")); // cambia la comilla simple (') por comilla doble (")
+	arrayCuotas = $.parseJSON($('#tablacuotas').val());
+	llenarTablaLocal("gvCuotas", $.parseJSON(JSON.stringify(arrayCuotas)));
+}
+
 $(document).on('change','#proyectos',function(){
 	/*var sel = document.getElementById("inmueble");
 	for(i=(sel.length-1); i>=0; i--)
@@ -509,6 +518,32 @@ function recalcularMontos()
 	}
 }
 
+function llenarTablaCuotasTemp() {
+	if($('#nocuotas').val() > 0) {
+		if($('#cuotamensual').val() > 0) {
+			arrayCuotas = [];
+			cantCuotas = $('#nocuotas').val();
+			var fechaprimerpago = new Date($('#fechaprimerpago').val());
+			var sumamontos = 0;
+			for (var i = 1; i <= cantCuotas; i++) {
+				
+				//arrayCuotas.push({ nopago: i, fechalimite: new Date(fechaprimerpago), pagocalculado: $('#cuotamensual').val() });
+
+	        	if(i == cantCuotas) {
+	        		arrayCuotas.push({ nopago: i, fechalimite: new Date(fechaprimerpago), pagocalculado: parseFloat($('#enganche').val()) - sumamontos });
+	        	}
+	        	else {
+	        		arrayCuotas.push({ nopago: i, fechalimite: new Date(fechaprimerpago), pagocalculado: $('#cuotamensual').val() });
+	        		sumamontos = parseFloat(sumamontos) + parseFloat($('#cuotamensual').val());
+	        	}
+	        	fechaprimerpago.setMonth(fechaprimerpago.getMonth() + 1);
+			}
+			fechaprimerpago = "";
+			llenarTablaLocal("gvCuotas", $.parseJSON(JSON.stringify(arrayCuotas)));
+		}
+	}
+}
+
 $(document).on('change','#reserva',function(){
 	recalcularMontos();
 });
@@ -519,6 +554,7 @@ $(document).on('change','#enganche',function(){
 
 $(document).on('change','#nocuotas',function(){
 	recalcularMontos();
+	llenarTablaCuotasTemp();
 });
 
 $(document).on('click','#botonRedirigir',function()
@@ -595,14 +631,17 @@ $(document).ready(function()
 
 	//traerTipoCambio();
 
-	if($('#hcliente').val().length > 0)
-		cargarDatosCliente(); 
-
-
+	if($('#cliente').length > 0)
+	{
+		cargarClientes();
+		if($('#hcliente').val() != 0 && $('#hcliente').val() != '') {
+			$("#cboCliente").val($('#hcliente').val());
+			cargarDatosCliente();
+		}
+		
+	}
 	if($('#proyectos').length > 0)
 		cargarProyecto();
-	if($('#cliente').length > 0)
-		cargarClientes();
 	if($('#otrosclientes').length > 0)
 		cargarOtrosClientes();
 	if($('#tiposinmueble').length > 0)
@@ -616,6 +655,9 @@ $(document).ready(function()
 
 	if($('#tablainmuebles').val() != "")
 		cargarDetalleNegociacion2();
+
+	if($('#tablacuotas').val() != "")
+		cargarcuotas();
 
 
 	if($('input:radio[name=clientejuridico]:checked').val()=="2") //es individual
@@ -810,6 +852,7 @@ function llenarTablaLocal(Nombre, data)
  $(document).on('click','#guardar',function()
 {
 	$("#tablainmuebles").val(JSON.stringify(newArray));
+	$("#tablacuotas").val(JSON.stringify(arrayCuotas));
 	//alert(JSON.stringify(newArray));
 	//$('#myModal').modal('toggle');
 	//grabarNuevoPago();
@@ -820,17 +863,17 @@ function llenarTablaLocal(Nombre, data)
 
 $(document).on('click','#btnAgregarCuota',function()
 {
-	var varCodInmueble=$('#fechalimite').val();
-	var varMonto=$('#monto').val();
+	var varFechalimite=$('#fechalimite').val();
+	var varMonto=$('#pagocalculado').val();
 
 	var varCostoGalon=$('#txtCostoGalon').val();
 	var varTipoPeso=$('input:radio[name=rTipoMedida]:checked').val();
 	var varGrOz=varTipoPeso==1?"Gramos":"Onzas"
 	var varConversion=0;
-	if(varCodInmueble=="" || varCodInmueble==null || varMonto =="")
+	if(varFechalimite=="" || varFechalimite==null || varMonto =="")
 	{
 		 $('#divAlerta1').empty();
-		 $('#divAlerta1').append("No se puede agregar el pago, todos los campos son obligatorios");
+		 $('#divAlerta1').append("No se puede agregar la cuota, todos los campos son obligatorios");
 		 $('#divAlerta1').show();
 	}
 	else if(isNaN(parseFloat(varMonto)) ) {
@@ -839,28 +882,59 @@ $(document).on('click','#btnAgregarCuota',function()
 	else
 	{
 			$('#divAlerta1').hide();
-			$nopago = $nopago+1;
+			cantCuotas++;
 			
-			if (!existeProducto(newArray))
-			{
-				newArray.push({ nopago: $nopago, fechalimite: varFechalimite, monto: parseFloat(varMonto) });
-	        	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
-	        	$('#txtTotalDecimal').val(varTotal.toFixed(6));
-	        	$('#precioventa').val(varTotalDescuento.toFixed(2));
+			//if (!existeProducto(arrayCuotas))
+			//{
+				arrayCuotas.push({ nopago: cantCuotas, fechalimite: varFechalimite, pagocalculado: parseFloat(varMonto) });
+	        	llenarTablaLocal("gvCuotas", $.parseJSON(JSON.stringify(arrayCuotas)));
+	        	$('#nocuotas').val(cantCuotas)
 
-	        	//$('#nodocumento').val("");
-				$('#monto').val("");
-				$('#preciobase').val("");
-				$('#gastoslegales').val("");
-				$('#observacionapto').val("");
-				recalcularMontos();
-				$("#tablainmuebles").val(JSON.stringify(newArray));
-				//$('#observaciones').val("");
-        	}
+	        	$('#fechalimite').val("");
+	        	$('#pagocalculado').val("");
+
+	        	$("#tablacuotas").val(JSON.stringify(arrayCuotas));
+        	//}
 	}
-	//txtTotal.focus();
+});
 
-	$("#cboInmueble").focus();
+$(document).on("click", "#gvCuotas > tbody > tr > td > .glyphicon-trash", function (event)
+{	
+	//var varidnegociacion = obtenerValorCol(this, "idnegociacion");
+    
+    
+});
+
+$(document).on('click','#btnEliminarCuota',function()
+{
+
+	var varNoPago = cantCuotas;
+	//alert('entro');
+    //var varDescripcionFormapago= obtenerValorCol(this, "formapago");
+	//var varNodocumento= obtenerValorCol(this, "nodocumento");
+    var varMontoCuota = obtenerValorCol(this,"pagocalculado");
+    varMontoCuota = varMontoCuota.replace(',','');
+    //var varObservaciones= obtenerValorCol(this, "observaciones");
+    arrayCuotas = $.grep(arrayCuotas, function (obj)
+    {
+        if (obj.nopago == varNoPago) //&& obj.idformapago == varCodFormaPago)
+        {
+        	varMontoCuota = obj.pagocalculado;
+            return false;
+        }
+        return true;
+    })
+    
+
+    llenarTablaLocal("gvCuotas", $.parseJSON(JSON.stringify(arrayCuotas)));  
+
+    cantCuotas--;
+    if(cantCuotas < 0)
+    	cantCuotas = 0;
+
+    $('#nocuotas').val(cantCuotas)
+
+    $("#tablacuotas").val(JSON.stringify(arrayCuotas));
 });
 
 

@@ -30,6 +30,7 @@
 						
 							<input type="hidden" name="tablainmuebles" id="tablainmuebles" value="<?php echo $datosnegociacion->tablai; ?>" />
 							<input type="hidden" name="tablaotros" id="tablaotros" value="<?php echo $datosnegociacion->tablaotros; ?>" />
+							<input type="hidden" name="tablacuotas" id="tablacuotas" value="<?php echo $datosnegociacion->tablacuotas; ?>" />
 
 							<div class="row">
 								<div class="col-lg-12">
@@ -52,7 +53,7 @@
 											<div class="row">
 												<div class="col-lg-4">
 													<div class="form-group">
-														<input type="hidden" name="hcliente" id="hcliente" value="<?php echo ($idcliente != -1 ? $idcliente : $datosnegociacion->idcliente); ?>" />
+														<input type="text" name="hcliente" id="hcliente" value="<?php echo ($idcliente != -1 ? $idcliente : $datosnegociacion->idcliente); ?>" />
 														<label class="control-label" for="name"> Cliente: </label>
 														<select class="form-control hidden" name="cliente" id="cliente"></select>									
 														<input type="hidden" name="cboCliente" id="cboCliente" >
@@ -511,9 +512,9 @@
 												</div>
 											</div>
 
-											<div class="alert alert-warning alert-dismissible" role="alert">
+											<div class="alert alert-warning alert-dismissible text-center" role="alert">
 												<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-												<strong>Warning!</strong> <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">ver detalle de cuotas</a>
+												<strong></strong> <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">ver detalle de cuotas</a>
 											</div>
 
 											<div class="row">
@@ -712,6 +713,32 @@
 					<div class="row">
 						<div class="col-lg-11">
 							<div>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label for="fechalimite" class="control-label">Fecha limite </label>
+											<input type="text" class="form-control" name="fechalimite" id="fechalimite" maxlength="10">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label for="pagocalculado" class="control-label">Pago calculado </label>
+											<input type="text" class="form-control" name="pagocalculado" id="pagocalculado" maxlength="10">
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<label for="btnAgregarCuota" class="control-label"></label>
+											<button type="button" class="btn btn-success form-control" id="btnAgregarCuota">Agregar cuota</button>
+										</div>
+									</div>
+								</div>
+								<div class="row text-right">
+									<div class="col-lg-12">
+										<button type="button" class="btn text-right" id="btnEliminarCuota">Eliminar cuota</button>
+									</div>
+									
+								</div>
 								<div class="form-search pull-right" data-tabla="gvCuotas" style="padding: 10px;display:none;" >
 									<input type="text" class="search-query form-control" placeholder="Buscar" />
 								</div>
@@ -719,10 +746,10 @@
 									<thead>
 										<tr>
 											<!--<th class="hide" data-tipo="string" data-campo="idnegociacion" data-alineacion="centro" style="text-align: center">Código negociacion</th>-->
-											<th data-tipo="string" data-campo="idinmueble" data-alineacion="centro" style="text-align: center">No. pago</th>
-											<th data-tipo="string" data-campo="tipo" data-alineacion="centro" style="text-align: center">Fecha limite de pago</th>
-											<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="monto" data-alineacion="centro" style="text-align: center">Pago calculado</th>                                   
-											<th data-boton="borrar" data-alineacion="centro" style="text-align: center">Eliminar</th>
+											<th data-tipo="string" data-campo="nopago" data-alineacion="centro" style="text-align: center">No. pago</th>
+											<th data-tipo="string" data-formato="dd/MM/yyyy" data-campo="fechalimite" data-alineacion="centro" style="text-align: center">Fecha limite de pago</th>
+											<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="pagocalculado" data-alineacion="centro" style="text-align: center">Pago calculado</th>                                   
+											<!--<th data-boton="borrar" data-alineacion="centro" style="text-align: center">Eliminar</th>-->
 										</tr>                            
 									</thead>
 									<tbody>
@@ -730,7 +757,7 @@
 								</table>
 								<div class="text-center" style="display:none;">
 									<div class="pagination">
-										<ul class="pagination" data-tabla="gvCuotas" data-cantidad="10" data-grupo="8"></ul>
+										<ul class="pagination" data-tabla="gvCuotas" data-cantidad="100000000" data-grupo="8"></ul>
 									</div>
 								</div>
 								<div class="row">
@@ -761,6 +788,7 @@
 		$('#dpFecha').datetimepicker({'format':'YYYY-MM-DD'});
 		$('#fechaprimerpago').datepicker({'format':'yyyy-mm-dd'});
 		$('#fechareserva').datepicker({'format':'yyyy-mm-dd'});
+		$('#fechalimite').datepicker({'format':'yyyy-mm-dd'});
 
 		$("#fecnacimiento").bootstrapBirthday({
 			dateFormat: "bigEndian",
