@@ -107,7 +107,8 @@ class mword extends CI_Model {
                       					,n.[financiamientobanco]
                       					,n.[nocuotas]
                       					,n.[idformapago]
-                      					,p.[nombre] proyecto
+										,p.[nombre] proyecto
+										,c.[depdirres]
 									from 
 									    clientetemporal c
 									    ,negociacion n

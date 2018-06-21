@@ -109,6 +109,8 @@ class negociacion extends MY_Controller
 
 				$datosnegociacion->observaciones=$this->input->post('observaciones');
 
+				$datosnegociacion->tipocalculo=$this->input->post('tipocalculo');
+
 				$datosnegociacion->otrosclientes=$this->input->post('otrosclientes');
 				$this->load->view('movimientos/negociaciones/nuevo',$this->view_data);	
 				break;
@@ -244,6 +246,8 @@ class negociacion extends MY_Controller
 					$datosnegociacion->total_tablai=$this->input->post('txtTotalDecimal');
 					$datosnegociacion->tablacuotas=str_replace(array("\""), "'", $this->input->post('tablacuotas'));
 
+					$datosnegociacion->tipocalculo=$this->input->post('tipocalculo');
+
 					$datosnegociacion->otrosclientes=$this->input->post('otrosclientes');
 
 					$this->view_data['datosnegociacion']=$datosnegociacion;			
@@ -317,6 +321,8 @@ class negociacion extends MY_Controller
 					$datosnegociacion->total_tablai=$this->input->post('txtTotalDecimal');
 					$datosnegociacion->tablacuotas=str_replace(array("\""), "'", $this->input->post('tablacuotas'));
 
+					$datosnegociacion->tipocalculo=$this->input->post('tipocalculo');
+
 					$datosnegociacion->otrosclientes=$this->input->post('otrosclientes');
 
 					$this->view_data['datosnegociacion']=$datosnegociacion;				
@@ -383,6 +389,7 @@ class negociacion extends MY_Controller
                                'montodescuento'=>$this->input->post('montodescuento'),
 							   'descripciondescuento'=>$this->input->post('descripciondescuento'),
 							   'observaciones'=>$this->input->post('observaciones'),
+							   'tipocalculo'=>$this->input->post('tipocalculo'),
 							   //Auditoria
 							   'CreadoPor'=>$this->session->userdata('user_id'),
 							   'FechaCreado'=>date("Y-m-d H:i:s"),
@@ -611,6 +618,8 @@ class negociacion extends MY_Controller
 
 					$datosnegociacion->observaciones=$this->input->post('observaciones');
 
+					$datosnegociacion->tipocalculo=$this->input->post('tipocalculo');
+
 					$datosnegociacion->status=$this->input->post('status');
 
 					$datosnegociacion->tablai=str_replace(array("\""), "'", $this->input->post('tablainmuebles'));
@@ -665,6 +674,8 @@ class negociacion extends MY_Controller
 					$datosnegociacion->descripciondescuento=$this->input->post('descripciondescuento');
 
 					$datosnegociacion->observaciones=$this->input->post('observaciones');
+
+					$datosnegociacion->tipocalculo=$this->input->post('tipocalculo');
 
 					$datosnegociacion->status=$this->input->post('status');
 
@@ -727,6 +738,7 @@ class negociacion extends MY_Controller
 								   'montodescuento'=>$this->input->post('montodescuento'),
 								   'descripciondescuento'=>$this->input->post('descripciondescuento'),
 								   'observaciones'=>$this->input->post('observaciones'),
+								   'tipocalculo'=>$this->input->post('tipocalculo'),
 								   // Auditoria
 								   'ModificadoPor'=>$this->session->userdata('user_id'),
 								   'FechaModificado'=>date("Y-m-d H:i:s")

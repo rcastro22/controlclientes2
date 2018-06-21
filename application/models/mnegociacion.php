@@ -123,7 +123,8 @@ class mnegociacion extends CI_Model {
 							a.descripciondescuento,
 							a.observaciones,
 				            a.CreadoPor,
-							a.FechaCreado
+							a.FechaCreado,
+							a.tipocalculo
 							from negociacion a
 							where a.idnegociacion = $idnegociacion");
 		return $query->row();

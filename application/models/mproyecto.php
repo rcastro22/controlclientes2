@@ -82,6 +82,7 @@ class MProyecto extends CI_Model {
 									,a.area
 									,a.direccion
 									,a.fechavencimiento
+									,b.tipocalculo
 								from proyecto a, negociacion b
 								where b.idproyecto = a.idproyecto
 								and b.idnegociacion = $idnegociacion");
