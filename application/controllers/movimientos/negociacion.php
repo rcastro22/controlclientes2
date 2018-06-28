@@ -122,7 +122,7 @@ class negociacion extends MY_Controller
 				$this->form_validation->set_rules('cliente','cliente');
 				$this->form_validation->set_rules('hcliente','hcliente');
 
-				if($this->input->post('cliente') == '0') {
+				if($this->input->post('hcliente') == '0' || $this->input->post('hcliente') == '') {
 					$this->form_validation->set_rules('nombre','Nombres','required');
 					$this->form_validation->set_rules('apellido','Apellidos','required');
 					$this->form_validation->set_rules('nit','Nit','required');
@@ -198,8 +198,8 @@ class negociacion extends MY_Controller
 					$datosnegociacion->otrosingresos=$this->input->post('otrosingresos');
 
 					$datosnegociacion->idproyecto=$this->input->post('proyectos');
-					$datosnegociacion->idcliente=$this->input->post('cliente');
-					$idcliente=$this->input->post('cliente');
+					$datosnegociacion->idcliente=$this->input->post('hcliente');
+					$idcliente=$this->input->post('hcliente');
 
 					$datosnegociacion->clientejuridico=$this->input->post('clientejuridico');
 					$datosnegociacion->especifiquejuridico=$this->input->post('especifiquejuridico');
