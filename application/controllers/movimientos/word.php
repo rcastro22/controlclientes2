@@ -886,7 +886,7 @@ class word extends MY_Controller
 			$cantIn = 0;
 			$sumaCantIn = 0;
 			$montosetenta = 0;
-			$montotreinta = 0;
+			$montotreinta = $precioventamonto;
 			$preciomt2 = 0;
 			foreach ($datosInmuebles as $inmueble) {
 				if($tipoIn == 0)
@@ -947,7 +947,8 @@ class word extends MY_Controller
 				$inmueblesPrecioTxt = $inmueblesPrecioTxt."</w:t></w:r><w:r w:rsidR='002507D8'><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>.</w:t></w:r></w:p><w:p w:rsidR='00836A8B' w:rsidRPr='002507D8' w:rsidRDefault='00E01270' w:rsidP='00BF49FB'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:ind w:left='1080'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='18'/><w:szCs w:val='18'/></w:rPr><w:t>";
 
 				$montosetenta = round(($inmueble->preciobase+$inmueble->gastoslegales) * 0.7 * 1.12,2);
-				$montotreinta = $montotreinta + round(($inmueble->preciobase+$inmueble->gastoslegales) * 0.3 * 1.03,2);
+				//$montotreinta = $montotreinta + round(($inmueble->preciobase+$inmueble->gastoslegales) * 0.3 * 1.03,2);
+				$montotreinta = round($montotreinta - $montosetenta,2);
 
 				if($datosProyecto->tipocalculo == "1"){
 					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($montosetenta)).strtoupper(($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($montosetenta)-intval($montosetenta))*100))).strtoupper(" centavos ").strtoupper(($monedacontrato == 2 ? "" : "de dólar "));
