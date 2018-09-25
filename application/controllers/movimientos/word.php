@@ -703,7 +703,7 @@ class word extends MY_Controller
 			$document->setValue('fechaActaNotarial',utf8_decode(strtolower($this->toText(Date('d',strtotime($datosProyecto->fechaactanotarial))))." de ".strtolower($meses[intval(Date('m',strtotime($datosProyecto->fechaactanotarial)))-1])." del año ".strtolower($this->toText(Date('Y',strtotime($datosProyecto->fechaactanotarial))))));
 			$document->setValue('Notario',utf8_decode($datosProyecto->notario));
 			$document->setValue('registroLetras',utf8_decode(strtolower($this->toText($datosProyecto->registro))));
-			$document->setValue('registroNumero',utf8_decode(number_format($datosProyecto->registro,0,".",",")));
+			$document->setValue('registroNumero',utf8_decode(number_format(str_replace(",","",$datosProyecto->registro),0,".",",")));
 			$document->setValue('folioLetras',utf8_decode(strtolower($this->toText($datosProyecto->folio_reg))));
 			$document->setValue('folioNumero',utf8_decode(number_format($datosProyecto->folio_reg,0,".",",")));
 			$document->setValue('libroLetras',utf8_decode(strtolower($this->toText($datosProyecto->libro_reg))));
@@ -950,6 +950,9 @@ class word extends MY_Controller
 				//$montotreinta = $montotreinta + round(($inmueble->preciobase+$inmueble->gastoslegales) * 0.3 * 1.03,2);
 				$montotreinta = round($montotreinta - $montosetenta,2);
 
+				// convierte montosetenta a quetzales si la moneda es Q
+				$montosetenta = round(($monedacontrato == 2 ? $montosetenta*$datosProyecto->valortipocambio : $montosetenta),2);
+
 				if($datosProyecto->tipocalculo == "1"){
 					$inmueblesPrecioTxt = $inmueblesPrecioTxt."El precio por el ".$inmueble->tipo." número ".$numeros[1]." es de ".strtoupper($this->toText($montosetenta)).strtoupper(($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ")).strtoupper($this->toText(round((($montosetenta)-intval($montosetenta))*100))).strtoupper(" centavos ").strtoupper(($monedacontrato == 2 ? "" : "de dólar "));
 					$inmueblesPrecioTxt = $inmueblesPrecioTxt."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($montosetenta),2,".",",").")";
@@ -993,6 +996,7 @@ class word extends MY_Controller
 			$document->setValue("BodegMt2",$montoBodeg);
 
 			if($precioventamonto != 0) {
+				$precioventamonto = round(($monedacontrato == 2 ? $precioventamonto*$datosProyecto->valortipocambio : $precioventamonto),2);
 				$precioventatext = strtolower($this->toText($precioventamonto)).($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($precioventamonto)-intval($precioventamonto))*100)))." centavos ".($monedacontrato == 2 ? "" : "de dólar ");
 				$precioventatext = $precioventatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($precioventamonto,2,".",",").")";
 				$document->setValue("PrecioVenta",utf8_decode($precioventatext));
@@ -1001,6 +1005,7 @@ class word extends MY_Controller
 				$pinmueblestext = $pinmueblestext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($precioventamonto*0.7),2,".",",").")";
 				$document->setValue("PInmueb",utf8_decode($pinmueblestext));*/
 				if($datosProyecto->tipocalculo == "1"){
+					$montotreinta = round(($monedacontrato == 2 ? $montotreinta*$datosProyecto->valortipocambio : $montotreinta),2);
 					$pacciontext = strtolower($this->toText($montotreinta)).($monedacontrato == 2 ? " quetzales con " : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((($montotreinta)-intval($montotreinta))*100)))." centavos ".($monedacontrato == 2 ? "" : "de dólar ");
 					$pacciontext = $pacciontext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format(($montotreinta),2,".",",").")";
 				}
@@ -1023,6 +1028,7 @@ class word extends MY_Controller
 
 			$reservatext = "";
 			if($reservamonto != 0) {
+				$reservamonto = round(($monedacontrato == 2 ? $reservamonto*$datosProyecto->valortipocambio : $reservamonto),2);
 				$reservatext = "El monto de ".strtolower($this->toText($reservamonto)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round(($reservamonto-intval($reservamonto))*100)))." centavos ".($monedacontrato == 2 ? "" : "de dólar ");
 				$reservatext = $reservatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($reservamonto,2,".",",").") realizado en concepto de reserva.";
 				$reservatext = $reservatext."\n";
@@ -1045,7 +1051,7 @@ class word extends MY_Controller
 
 			foreach ($detallepagos as $detpago) {
 				$contador++;
-				$reservatext = $reservatext.strtolower($this->toText($detpago->cantidad))." pagos iguales y consecutivos por la cantidad de ".strtolower($this->toText($detpago->pagocalculado)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round(($detpago->pagocalculado-intval($detpago->pagocalculado))*100)))." centavos ".($monedacontrato == 2 ? "" : "de dólar ")." (".($monedacontrato == 2 ? "Q " : "US$ ").number_format($detpago->pagocalculado,2,".",",")."), ";
+				$reservatext = $reservatext.strtolower($this->toText($detpago->cantidad))." pagos iguales y consecutivos por la cantidad de ".strtolower($this->toText(round(($monedacontrato == 2 ? $detpago->pagocalculado*$datosProyecto->valortipocambio : $detpago->pagocalculado),2))).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round((round(($monedacontrato == 2 ? $detpago->pagocalculado*$datosProyecto->valortipocambio : $detpago->pagocalculado),2)-intval(round(($monedacontrato == 2 ? $detpago->pagocalculado*$datosProyecto->valortipocambio : $detpago->pagocalculado),2)))*100)))." centavos ".($monedacontrato == 2 ? "" : "de dólar ")." (".($monedacontrato == 2 ? "Q " : "US$ ").number_format(round(($monedacontrato == 2 ? $detpago->pagocalculado*$datosProyecto->valortipocambio : $detpago->pagocalculado),2),2,".",",")."), ";
 			}
 
 			if($contador > 0) {
@@ -1062,6 +1068,7 @@ class word extends MY_Controller
 			//$reservatext = $reservatext."</w:t></w:r></w:p><w:p w:rsidR='00FB4413' w:rsidRDefault='001C2841'><w:pPr><w:pStyle w:val='Cuerpo'/><w:widowControl w:val='0'/><w:numPr><w:ilvl w:val='0'/><w:numId w:val='6'/></w:numPr><w:ind w:left='1200' w:hanging='349'/><w:jc w:val='both'/><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr></w:pPr><w:r><w:rPr><w:rFonts w:ascii='Arial Narrow' w:hAnsi='Arial Narrow' w:cs='Arial Narrow'/><w:sz w:val='21'/><w:szCs w:val='21'/></w:rPr><w:t>";
 
 			if($bancomonto != 0) {
+				$bancomonto = round(($monedacontrato == 2 ? $bancomonto*$datosProyecto->valortipocambio : $bancomonto),2);
 				$reservatext = $reservatext."Al momento de firmar la compra venta definitiva ".strtolower($this->toText($bancomonto)).($monedacontrato == 2 ? " quetzales con" : " dólares de los Estados Unidos de América con ").strtolower($this->toText(round(($bancomonto-intval($bancomonto))*100)))." centavos ".($monedacontrato == 2 ? "" : "de dólar ");
 				$reservatext = $reservatext."(".($monedacontrato == 2 ? "Q " : "US$ ").number_format($bancomonto,2,".",",").")";
 				$reservatext = $reservatext."\n";
