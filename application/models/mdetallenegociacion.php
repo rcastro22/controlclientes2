@@ -33,6 +33,7 @@ class mdetallenegociacion extends CI_Model {
 					   'valor'=>$equipo->monto,
 					   'preciobase'=>$equipo->preciobase,
 					   'gastoslegales'=>$equipo->gastoslegales,
+					   'idproyecto'=>$equipo->idproyecto,
 					   //'observacionesapto'=>$equipo->observacionesapto,
 					   //'idinmueble'=>$equipo['idinmueble'],
 					   //'valor'=>$equipo['monto'],

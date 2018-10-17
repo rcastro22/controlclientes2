@@ -181,7 +181,7 @@ class minmueble extends CI_Model {
 						from negociacion b, detallenegociacion c
 						where b.status in ('CR','AP')
             			and b.[idnegociacion] = c.[idnegociacion]
-						and c.[idinmueble] =".$idinmueble." and b.[idproyecto] =".$idproyecto);
+						and c.[idinmueble] ='".$idinmueble."' and b.[idproyecto] =".$idproyecto);
 		return $query->row();
 	}
 }

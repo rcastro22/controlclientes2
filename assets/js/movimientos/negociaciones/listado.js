@@ -242,3 +242,10 @@ function filtrartabla() {
 
 	$("#gvBuscar").tabla(base_url+"movimientos/negociacion/getNegociacion/"+$idcliente+"/"+opciones);
 } 
+
+$(document).on('click','#btnExportar',function(e)
+	                                   {
+	                                        //window.open('data:application/vnd.ms-excel,' + $('#tabla1').html());
+	                                        window.open('data:application/vnd.ms-excel,' + encodeURIComponent($('#divexp').html()));
+   											e.preventDefault();
+	                                   });

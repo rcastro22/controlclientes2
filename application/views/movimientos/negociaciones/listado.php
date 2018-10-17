@@ -72,48 +72,57 @@
 							'; ?> 
 					</div>
 					<br/>
+					<div class="row">
+						<div class="col-lg-12">
+							<img src="<?php echo base_url() . 'assets/img/excel.png'; ?>" style="height: 25px;" class="img-responsive img-rounded" id="btnExportar">
+						</div>
+					</div>
+					<br>
 					<div class="form-search pull-right input-group" data-tabla="gvBuscar">
 						<span class="input-group-addon">Buscar</span>
                 		<input type="text" class="search-query form-control" placeholder="Ingrese su búsqueda" />
         			</div>	
-					<table class="table table-striped table-bordered table-hover tabla" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="true" id="gvBuscar">
-						<thead>
-		    				<tr>
-	              				<th data-tipo="string" data-campo="idnegociacion" data-alineacion="izquierda" style="text-align:center">NEGOCIACIÓN</th>
-	              				<th data-tipo="string" data-campo="cliente" data-alineacion="izquierda" style="text-align:center">CLIENTE</th>
-	              				<th class="hidden" data-tipo="string" data-campo="nombreinmueble" data-alineacion="izquierda" style="text-align:center">TIPO</th>
-	              				<th class="hidden" data-tipo="string" data-campo="idinmueble" data-alineacion="izquierda" style="text-align:center">INMUEBLE</th>
-	              				<th data-tipo="datetime" data-formato="dd/MM/yyyy" data-campo="fecha" data-alineacion="izquierda" style="text-align:center">FECHA</th>
-	              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="precioventa" data-alineacion="derecha" style="text-align:center">PRECIO</th>
-	              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="reserva" data-alineacion="derecha" style="text-align:center">RESERVA</th>
-	              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="enganche" data-alineacion="derecha" style="text-align:center">ENGANCHE</th>
-	              				<th data-tipo="string" data-campo="banco" data-alineacion="derecha" style="text-align:center">BANCO</th>
-	              				<th data-tipo="string" data-campo="status" data-alineacion="izquierda" style="text-align:center">ESTADO</th>
-	              				<th data-tipo="string" data-campo="CreadoPor" data-alineacion="izquierda" style="text-align:center">CREADO POR</th>
-	              				<th data-tipo="datetime" data-formato="dd/MM/yyyy" data-campo="FechaCreado" data-alineacion="izquierda" style="text-align:center">FECHA CREADO</th>
-	              				<!--<th data-boton="Ver" data-alineacion="centro" style="text-align:center">NEGOCIACIÓN</th>-->	   
-	              				<!--<th data-boton="Modificar" data-alineacion="centro" style="text-align:center"></th>-->
+        			<div id="divexp" name="divexp">
+						<table class="table table-striped table-bordered table-hover tabla" data-orden="true" data-filtro="true" data-fuente="dtLlenar" data-seleccion="true" id="gvBuscar">
+							<thead>
+			    				<tr>
+		              				<th data-tipo="string" data-campo="idnegociacion" data-alineacion="izquierda" style="text-align:center">NEGOCIACIÓN</th>
+		              				<th data-tipo="string" data-campo="proyecto" data-alineacion="izquierda" style="text-align:center">PROYECTO</th>
+		              				<th data-tipo="string" data-campo="cliente" data-alineacion="izquierda" style="text-align:center">CLIENTE</th>
+		              				<th class="hidden" data-tipo="string" data-campo="nombreinmueble" data-alineacion="izquierda" style="text-align:center">TIPO</th>
+		              				<th class="hidden" data-tipo="string" data-campo="idinmueble" data-alineacion="izquierda" style="text-align:center">INMUEBLE</th>
+		              				<th data-tipo="datetime" data-formato="dd/MM/yyyy" data-campo="fecha" data-alineacion="izquierda" style="text-align:center">FECHA</th>
+		              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="precioventa" data-alineacion="derecha" style="text-align:center">PRECIO</th>
+		              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="reserva" data-alineacion="derecha" style="text-align:center">RESERVA</th>
+		              				<th data-tipo="decimal" data-formato="#,###,###.##" data-campo="enganche" data-alineacion="derecha" style="text-align:center">ENGANCHE</th>
+		              				<th data-tipo="string" data-campo="banco" data-alineacion="derecha" style="text-align:center">BANCO</th>
+		              				<th data-tipo="string" data-campo="status" data-alineacion="izquierda" style="text-align:center">ESTADO</th>
+		              				<th data-tipo="string" data-campo="CreadoPor" data-alineacion="izquierda" style="text-align:center">CREADO POR</th>
+		              				<th data-tipo="datetime" data-formato="dd/MM/yyyy" data-campo="FechaCreado" data-alineacion="izquierda" style="text-align:center">FECHA CREADO</th>
+		              				<!--<th data-boton="Ver" data-alineacion="centro" style="text-align:center">NEGOCIACIÓN</th>-->	   
+		              				<!--<th data-boton="Modificar" data-alineacion="centro" style="text-align:center"></th>-->
 
-	              				<?php if($datosusuario->tipousuario != '2') echo '
-	              				<th data-boton="Pagar" class-boton="btn-primary" data-alineacion="centro" style="text-align:center"></th>
-	              				<th data-boton="Rescindir" data-alineacion="centro" style="text-align:center"></th>
-								'; ?>  
-								<!--<?php if($datosusuario->tipousuario != '2') echo '
-	              				<th data-boton="Cuotas" data-alineacion="centro" style="text-align:center"></th>
-	              				<th data-boton="Pagar" class-boton="btn-primary" data-alineacion="centro" style="text-align:center"></th>
-	              				<th data-boton="Rescindir" data-alineacion="centro" style="text-align:center"></th>
-	              				<th data-boton="Detalle pagos" data-alineacion="centro" style="text-align:center"></th>
-								'; ?>  -->
-	              				
-	         				</tr>
-		 				</thead>
-	    				<tbody>
-	    				</tbody>
-					</table>
+		              				<?php if($datosusuario->tipousuario != '2') echo '
+		              				<th data-boton="Pagar" class-boton="btn-primary" data-alineacion="centro" style="text-align:center"></th>
+		              				<th data-boton="Rescindir" data-alineacion="centro" style="text-align:center"></th>
+									'; ?>  
+									<!--<?php if($datosusuario->tipousuario != '2') echo '
+		              				<th data-boton="Cuotas" data-alineacion="centro" style="text-align:center"></th>
+		              				<th data-boton="Pagar" class-boton="btn-primary" data-alineacion="centro" style="text-align:center"></th>
+		              				<th data-boton="Rescindir" data-alineacion="centro" style="text-align:center"></th>
+		              				<th data-boton="Detalle pagos" data-alineacion="centro" style="text-align:center"></th>
+									'; ?>  -->
+		              				
+		         				</tr>
+			 				</thead>
+		    				<tbody>
+		    				</tbody>
+						</table>
+					</div>
 				</div>
 				<div style="text-align:center">
 					<div class="pagination">
-						<ul class="pagination pagination-centered" data-tabla="gvBuscar" data-cantidad="10" data-grupo="8"></ul>
+						<ul class="pagination pagination-centered" data-tabla="gvBuscar" data-cantidad="50" data-grupo="8"></ul>
 					</div>
 				</div>
 			</div>

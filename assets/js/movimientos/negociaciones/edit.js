@@ -352,7 +352,7 @@ function cargarDetalleNegociacion()
 				else {
 					varTotalDescuento = varTotal;
 				}
-				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: linea.idinmueble, tipo: linea.tipo, modelo:linea.modelo, monto: linea.valor, preciobase: linea.preciobase, gastoslegales: linea.gastoslegales, observacionapto: linea.observacionapto });
+				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: linea.idinmueble, tipo: linea.tipo, modelo:linea.modelo, monto: linea.valor, preciobase: linea.preciobase, gastoslegales: linea.gastoslegales, observacionapto: linea.observacionapto, idproyecto:$('#hproyecto').val() });
 	        	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
 	        	$('#txtTotalDecimal').val(varTotal.toFixed(6));
 	        	$('#precioventa').val(varTotalDescuento.toFixed(2));
@@ -586,7 +586,7 @@ $(document).on('click','#btnAgregar',function()
 
 			if (!existeProducto(newArray))
 			{
-				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: varCodInmueble, tipo: $('#htipoinmueble').val(), modelo:$('#hmodelo').val(), monto: parseFloat(varMonto), preciobase: parseFloat(varPrecioBase), gastoslegales: parseFloat(varGastosLegales), observacionapto: varObservaciones });
+				newArray.push({ idnegociacion: $("#idnegociacion").val(), idinmueble: varCodInmueble, tipo: $('#htipoinmueble').val(), modelo:$('#hmodelo').val(), monto: parseFloat(varMonto), preciobase: parseFloat(varPrecioBase), gastoslegales: parseFloat(varGastosLegales), observacionapto: varObservaciones, idproyecto:$('#hproyecto').val() });
 	        	llenarTablaLocal("gvProductos", $.parseJSON(JSON.stringify(newArray)));
 	        	$('#txtTotalDecimal').val(varTotal.toFixed(6));
 	        	$('#precioventa').val(varTotalDescuento.toFixed(2));
