@@ -127,7 +127,7 @@
 									</div>	
 									<div class="col-lg-3">
 	                  					<div class="form-group">
-											<input type="hidden" name="hestadocivil_rep" id="hestadocivil_rep" value="<?php echo $datosproyecto->estadocivil_rep; ?>" />
+											<input type="hidden" name="hestadocivil_rep" id="hestadocivil_rep" value="<?php echo set_value('estadocivil_rep'); ?>" />
 											<label class="control-label" for="name"> Estado civil: </label>
 											<select class="form-control" name="estadocivil_rep" id="estadocivil_rep"></select>										
 										</div>
@@ -196,6 +196,16 @@
 										</div>
 									</div>	
 								</div>
+								<hr>
+								<div class="row">
+									<div class="col-lg-12">
+										<label class="control-label" for="name"> Texto para email de recordatorio de pago: </label>
+									</div>
+									<div class="col-lg-12">
+											<textarea id="textocorreo" name="textocorreo" type="text" class="textarea form-control block" rows="12" maxlength="500"></textarea>
+											<br>
+									</div>
+								</div>
 
 								<div style="text-align:center">
 									<button class="btn btn-lg btn-negro">Guardar</button>
@@ -214,6 +224,15 @@
 	
 	<?php echo $footer;?>
 	<script>
+		//$('.textarea').val("<?php echo set_value('textocorreo'); ?>");
+		$('.textarea').wysihtml5({
+			"link": false,
+			"image": false,
+			"color": false,
+			"html": false
+		});
+		
+
 		$('input[name=nombre]').focus();
 
 		$('#fechaactanotarial').datepicker({'format':'yyyy-mm-dd'});

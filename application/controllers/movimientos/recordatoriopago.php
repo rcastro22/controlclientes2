@@ -84,13 +84,15 @@ class recordatoriopago extends MY_Controller
 	   	$email = "";
 	   	$hayDatos = false;
 	   	$proyecto = 0;
-	   	$nombreProyecto = "";
+		$nombreProyecto = "";
+		$textocorreo = "";   
 
 	   	foreach ($datosmail as $datos) {
 	   		$hayDatos = true;
 	   		$email = $datos->email;
 	   		$proyecto = $datos->idproyecto;
-	   		$nombreProyecto = $datos->nombre;
+			$nombreProyecto = $datos->nombre;
+			$textocorreo = $datos->textocorreo;
 
 	   		switch ($proyecto) {
 		   		case 1:
@@ -153,21 +155,7 @@ class recordatoriopago extends MY_Controller
 	</table>
 	<hr size=1 />
 	<p>
-		Estimado cliente, el presente se le envía con el fin de recordarle el pago de su cuota correspondiente al enganche del proyecto ".$nombreProyecto.".
-		<br/><br/>
-		Le rogamos realizar el pago antes del 5 de cada mes.
-		<br/><br/>
-		Si usted ya hizo su pago, favor hacer caso omiso a este correo.
-		<br/><br/>
-		Nuestra satisfacción es nuestro compromiso.  Muchas gracias por la atención al mismo.
-		<br/><br/>
-		Banco Industrial
-		<br/>
-		Cuenta ".$cuentaDeposito."
-	</p>
-	<hr size=1 />
-	<p>
-		Si usted ya realizó este pago, favor hacer caso omiso de este correo.
+		".$textocorreo."
 	</p>
 </body>
 </html>

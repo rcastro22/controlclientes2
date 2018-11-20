@@ -206,6 +206,16 @@
 										</div>
 									</div>	
 								</div>
+								<hr>
+								<div class="row">
+									<div class="col-lg-12">
+										<label class="control-label" for="name"> Texto para email de recordatorio de pago: </label>
+									</div>
+									<div class="col-lg-12">
+											<textarea id="textocorreo" name="textocorreo" type="text" class="textarea form-control block" rows="12" maxlength="500"></textarea>
+											<br>
+									</div>
+								</div>
 
 								<div style="text-align:center">
 									<button class="btn btn-lg btn-negro">Modificar</button>
@@ -224,6 +234,17 @@
 	
 	<?php echo $footer;?>
 	<script>
+		$('.textarea').wysihtml5({
+			"link": false,
+			"image": false,
+			"color": false,
+			"html": false
+		});
+
+		$('.textarea').val("<?php echo $datosproyecto->textocorreo; ?>");
+
+		
+		
 		$('input[name=nombre]').focus();
 
 		$('#fechaactanotarial').datepicker({'format':'yyyy-mm-dd'});
@@ -255,6 +276,7 @@
 			$option.html('Casado');
 			$('#estadocivil_rep').append($option);
 		}
-
+		
+		
 		
 	</script>

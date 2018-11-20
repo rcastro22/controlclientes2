@@ -313,7 +313,8 @@ class mnegociacion extends CI_Model {
 		$query = $this->db->query("select
 									      c.email
 									      ,n.idproyecto
-									      ,p.nombre
+										  ,p.nombre
+										  ,p.textocorreo
 									from
 									    negociacion n
 									    ,cliente c

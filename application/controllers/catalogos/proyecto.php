@@ -77,6 +77,7 @@ class proyecto extends MY_Controller
 				$this->form_validation->set_rules('direccion','Direccion','required');
 				$this->form_validation->set_rules('fechaactanotarial','Fecha del acta notarial','required');
 				$this->form_validation->set_rules('fechavencimiento','Fecha vencimiento proyecto','required');
+				$this->form_validation->set_rules('textocorreo','Texto de correo');
 	
 				if($this->form_validation->run()==FALSE)
 				{
@@ -128,6 +129,7 @@ class proyecto extends MY_Controller
 						   'direccion'=>$this->input->post('direccion'),
 						   'fechaactanotarial'=>$this->input->post('fechaactanotarial'),
 						   'fechavencimiento'=>$this->input->post('fechavencimiento'),
+						   'textocorreo'=>$this->input->post('textocorreo'),
 
 						   'CreadoPor'=>$this->session->userdata('user_id'),
 						   'FechaCreado'=>date("Y-m-d H:i:s"),
@@ -176,6 +178,9 @@ class proyecto extends MY_Controller
 				$this->load->view('catalogos/proyectos/edit',$this->view_data);
 				break;
 			case 'POST':  //aqui entra cuando le clic al boton
+				//echo($this->input->post('textocorreo'));
+				//echo("hola");
+				//exit;
 				//pongo mis reglas de validación.
 			    //$bancoid=$this->input->post('BancoId');
 			    $bancoid=$this->input->post('idproyecto');
@@ -235,6 +240,7 @@ class proyecto extends MY_Controller
 					$datosproyecto->direccion= $this->input->post('direccion');
 					$datosproyecto->fechaactanotarial= $this->input->post('fechaactanotarial');
 					$datosproyecto->fechavencimiento= $this->input->post('fechavencimiento');
+					$datosproyecto->textocorreo= $this->input->post('textocorreo');
 				
 				
 					$this->view_data['datosproyecto']=$datosproyecto;
@@ -273,6 +279,7 @@ class proyecto extends MY_Controller
 						   'direccion'=>$this->input->post('direccion'),
 						   'fechaactanotarial'=>$this->input->post('fechaactanotarial'),
 						   'fechavencimiento'=>$this->input->post('fechavencimiento'),
+						   'textocorreo'=>$this->input->post('textocorreo'),
 
 						   'ModificadoPor'=>$this->session->userdata('user_id'),
 						   'FechaModificado'=>date("Y-m-d H:i:s")
@@ -304,6 +311,7 @@ class proyecto extends MY_Controller
 					$datosproyecto->direccion= $this->input->post('direccion');
 					$datosproyecto->fechaactanotarial= $this->input->post('fechaactanotarial');
 					$datosproyecto->fechavencimiento= $this->input->post('fechavencimiento');
+					$datosproyecto->textocorreo= $this->input->post('textocorreo');
 
 					$this->view_data['datosproyecto']=$datosproyecto;
 

@@ -45,7 +45,8 @@ class MProyecto extends CI_Model {
 									,a.fecha_reg
 									,a.area
 									,a.direccion
-									,a.fechavencimiento");
+									,a.fechavencimiento
+									,a.textocorreo");
 		$this->db->from('proyecto a');
 		$this->db->where('a.idproyecto',$idproyecto);
 		$query=$this->db->get();
