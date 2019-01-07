@@ -661,7 +661,7 @@ class word extends MY_Controller
 
 			// Declaracion y uso del documento word
 			$PHPWord = new PHPWord();
-			$document = $PHPWord->loadTemplate(str_replace("\\","/",FCPATH).'PlantillasWord/ContratoPromesaCompraventa5.docx');
+			$document = $PHPWord->loadTemplate(str_replace("\\","/",FCPATH).'PlantillasWord/ContratoPromesaCompraventa6.docx');
 
 			// Variables
 			$nombrecompleto = "";
