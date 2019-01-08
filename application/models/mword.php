@@ -357,8 +357,8 @@ and n.[idnegociacion] = $idnegociacion");
 									from 
 									    detallepago a
 									where 
-									    a.[nopago] > 1
-									    and a.[idnegociacion] = $idnegociacion      
+									    --a.[nopago] > 1
+									    a.[idnegociacion] = $idnegociacion      
 									group by
 									    a.[pagocalculado]      
 									order by

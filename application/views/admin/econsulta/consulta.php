@@ -12,7 +12,7 @@
 			<div class="col-lg-10 col-lg-offset-1" >
 				<div class="panel panel-default">
 			  	<!-- Default panel contents -->
-			  		<div class="panel-heading" > <?php echo $page_title;?>  </div>
+			  		<div class="panel-heading" > <?php echo $page_title;?> </div>
 			  			<div class="panel-body">
 							
 							<form action="<?php echo site_url('admin/econsulta/consulta'); ?>" method="post">
@@ -33,16 +33,9 @@
 								</div>
 
 								<input class="form-control" type="hidden" name="tusuario" id="tusuario" value="<?php echo set_value('tipousuario'); ?>" maxlength="30">
-
-								<!--<div class="checkbox">
-								    <label>
-										
-										<input id="tipousuario" type="checkbox"> Usuario Administrador
-								    </label>
-								</div>-->
 								
 								<div style="text-align:center">
-									<button class="btn btn-lg btn-negro">Guardar</button>
+									<button class="btn btn-lg btn-negro">EJECUTAR</button>
 								</div>
 							</form>
 
